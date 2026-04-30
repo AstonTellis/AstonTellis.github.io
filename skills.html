@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skills — Aston Tellis</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .page-hero {
+      padding: 5rem 0 3rem;
+      background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Skill Categories ──────────────────────────────────── */
+    .skills-section { padding: 5rem 0; border-bottom: 1px solid var(--border); }
+
+    .skills-category {
+      margin-bottom: 3.5rem;
+    }
+
+    .category-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .skill-row {
+      display: grid;
+      grid-template-columns: 180px 1fr 60px;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .skill-name {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .skill-bar-track {
+      height: 6px;
+      background: var(--surface);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .skill-bar-fill.blue   { background: linear-gradient(90deg, #00d4ff, #7b61ff); }
+    .skill-bar-fill.green  { background: linear-gradient(90deg, #00ffaa, #00d4ff); }
+    .skill-bar-fill.gold   { background: linear-gradient(90deg, #f4a261, #e76f51); }
+    .skill-bar-fill.purple { background: linear-gradient(90deg, #7b61ff, #00d4ff); }
+
+    .skill-pct {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text3);
+      text-align: right;
+    }
+
+    /* ── Tools Grid ────────────────────────────────────────── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .tool-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
+    }
+
+    .tool-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+
+    .tool-name {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .tool-level {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text3);
+    }
+
+    /* ── GitHub Section ────────────────────────────────────── */
+    .github-section {
+      padding: 5rem 0;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+
+    .github-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      transition: var(--transition);
+    }
+
+    .github-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    .github-avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--bg);
+      flex-shrink: 0;
+    }
+
+    .github-info h3 {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .github-info p {
+      font-size: 0.9rem;
+      color: var(--text2);
+      margin-bottom: 0.75rem;
+    }
+
+    .github-stats {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .g-stat {
+      text-align: center;
+    }
+
+    .g-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .g-stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .repo-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .repo-card:hover {
+      border-color: var(--border2);
+      transform: translateY(-2px);
+    }
+
+    .repo-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+    }
+
+    .repo-name {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .repo-desc {
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .repo-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text3);
+    }
+
+    .repo-lang-dot {
+      display: inline-block;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+
+    /* ── Contribution Heatmap (simplified visual) ──────────── */
+    .heatmap-wrapper {
+      overflow-x: auto;
+      margin-top: 1.5rem;
+    }
+
+    .heatmap {
+      display: flex;
+      gap: 3px;
+      font-family: var(--font-mono);
+      font-size: 0;
+    }
+
+    .heatmap-col { display: flex; flex-direction: column; gap: 3px; }
+
+    .heatmap-cell {
+      width: 11px; height: 11px;
+      border-radius: 2px;
+      background: var(--surface);
+      transition: var(--transition);
+    }
+
+    .heatmap-cell:hover { transform: scale(1.4); }
+    .heatmap-cell.l1 { background: #00ffaa30; }
+    .heatmap-cell.l2 { background: #00ffaa60; }
+    .heatmap-cell.l3 { background: #00ffaa90; }
+    .heatmap-cell.l4 { background: #00ffaacc; }
+
+    .heatmap-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text3);
+      margin-top: 0.75rem;
+      text-align: right;
+    }
+
+    /* ── Learning Section ──────────────────────────────────── */
+    .learning-section {
+      padding: 5rem 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .currently-learning {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .learning-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .learning-card::before {
+      content: 'IN PROGRESS';
+      position: absolute;
+      top: 1rem; right: -1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      font-weight: 600;
+      color: var(--bg);
+      background: var(--accent3);
+      padding: 0.2rem 2rem;
+      transform: rotate(45deg);
+      letter-spacing: 0.1em;
+    }
+
+    .learning-card h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .learning-card p {
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    .learning-progress {
+      margin-top: 1rem;
+    }
+
+    .learning-bar-track {
+      height: 4px;
+      background: var(--bg2);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .learning-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent3), var(--accent));
+      border-radius: 2px;
+      width: 0;
+      transition: width 1.4s ease;
+    }
+
+    .learning-pct {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text3);
+      margin-top: 0.3rem;
+    }
+
+    @media (max-width: 768px) {
+      .skill-row { grid-template-columns: 1fr 1fr 40px; }
+      .tools-grid { grid-template-columns: 1fr 1fr; }
+      .repo-grid { grid-template-columns: 1fr; }
+      .currently-learning { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"></div>
+  <div class="cursor-ring"></div>
+
+  <nav>
+    <a class="nav-logo" href="index.html"><span>A</span>T</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="skills.html" class="active">Skills</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="page-hero">
+      <div class="container fade-up">
+        <div class="section-label">Capabilities</div>
+        <h1 class="section-title">Skills & Tools</h1>
+        <p class="section-subtitle">
+          Built through coursework, self-study, and projects. The goal is always the same:
+          be useful on day one.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Skills Bars ───────────────────────────────────────── -->
+    <section class="skills-section">
+      <div class="container">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem">
+
+          <div class="fade-up">
+            <div class="skills-category">
+              <div class="category-label">Data & Analysis</div>
+              <div class="skill-bars" id="skill-bars-data">
+                <div class="skill-row"><span class="skill-name">SQL (MySQL)</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-pct="82"></div></div><span class="skill-pct">82%</span></div>
+                <div class="skill-row"><span class="skill-name">Excel / Modelling</span><div class="skill-bar-track"><div class="skill-bar-fill green" data-pct="85"></div></div><span class="skill-pct">85%</span></div>
+                <div class="skill-row"><span class="skill-name">Data Visualisation</span><div class="skill-bar-track"><div class="skill-bar-fill gold" data-pct="70"></div></div><span class="skill-pct">70%</span></div>
+                <div class="skill-row"><span class="skill-name">Python (basics)</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-pct="45"></div></div><span class="skill-pct">45%</span></div>
+                <div class="skill-row"><span class="skill-name">Financial Modelling</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-pct="72"></div></div><span class="skill-pct">72%</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fade-up" style="transition-delay:0.2s">
+            <div class="skills-category">
+              <div class="category-label">Business & Strategy</div>
+              <div class="skill-bars">
+                <div class="skill-row"><span class="skill-name">Business Analysis</span><div class="skill-bar-track"><div class="skill-bar-fill green" data-pct="80"></div></div><span class="skill-pct">80%</span></div>
+                <div class="skill-row"><span class="skill-name">Product Thinking</span><div class="skill-bar-track"><div class="skill-bar-fill gold" data-pct="75"></div></div><span class="skill-pct">75%</span></div>
+                <div class="skill-row"><span class="skill-name">Stakeholder Comms</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-pct="78"></div></div><span class="skill-pct">78%</span></div>
+                <div class="skill-row"><span class="skill-name">Case Study Analysis</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-pct="70"></div></div><span class="skill-pct">70%</span></div>
+                <div class="skill-row"><span class="skill-name">Presentation Design</span><div class="skill-bar-track"><div class="skill-bar-fill green" data-pct="74"></div></div><span class="skill-pct">74%</span></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tools Grid -->
+        <div class="fade-up" style="margin-top:4rem">
+          <div class="section-label" style="margin-bottom:1.5rem">Tools & Platforms</div>
+          <div class="tools-grid">
+            <div class="tool-card"><div class="tool-icon">🗄️</div><div class="tool-name">MySQL</div><div class="tool-level">Intermediate–Advanced</div></div>
+            <div class="tool-card"><div class="tool-icon">📊</div><div class="tool-name">Microsoft Excel</div><div class="tool-level">Advanced</div></div>
+            <div class="tool-card"><div class="tool-icon">🐍</div><div class="tool-name">Python</div><div class="tool-level">Beginner–Intermediate</div></div>
+            <div class="tool-card"><div class="tool-icon">🐙</div><div class="tool-name">GitHub</div><div class="tool-level">Intermediate</div></div>
+            <div class="tool-card"><div class="tool-icon">📋</div><div class="tool-name">Notion</div><div class="tool-level">Proficient</div></div>
+            <div class="tool-card"><div class="tool-icon">🌐</div><div class="tool-name">HTML / CSS</div><div class="tool-level">Intermediate</div></div>
+            <div class="tool-card"><div class="tool-icon">🔒</div><div class="tool-name">Privacy Tools</div><div class="tool-level">Enthusiast</div></div>
+            <div class="tool-card"><div class="tool-icon">📈</div><div class="tool-name">Power BI</div><div class="tool-level">Beginner</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── GitHub Section ────────────────────────────────────── -->
+    <section class="github-section">
+      <div class="container">
+        <div class="section-label fade-up">Open Source</div>
+        <h2 class="section-title fade-up">GitHub</h2>
+        <p class="section-subtitle fade-up" style="margin-bottom:2.5rem">
+          My work lives here. Real commits, real projects, real version history.
+          <a href="https://github.com/AstonTellis" target="_blank"
+             style="color:var(--accent);text-decoration:none;font-family:var(--font-mono);font-size:0.85rem">
+            → github.com/AstonTellis
+          </a>
+        </p>
+
+        <!-- Profile Card -->
+        <div class="github-card fade-up">
+          <div class="github-avatar">YN</div>
+          <div class="github-info" style="flex:1">
+            <h3>Aston Tellis</h3>
+            <p>CS & Business Student · FinTech · Data Analytics · Privacy Advocate</p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+              <span class="tag tag-blue">SQL</span>
+              <span class="tag tag-green">Excel</span>
+              <span class="tag tag-purple">Python</span>
+              <span class="tag tag-gold">FinTech</span>
+            </div>
+          </div>
+          <div class="github-stats">
+            <div class="g-stat"><div class="g-stat-num">4+</div><div class="g-stat-label">Repos</div></div>
+            <div class="g-stat"><div class="g-stat-num">100+</div><div class="g-stat-label">Commits</div></div>
+            <div class="g-stat"><div class="g-stat-num">2024</div><div class="g-stat-label">Active</div></div>
+          </div>
+        </div>
+
+        <!-- Repos -->
+        <div class="repo-grid fade-up">
+          <div class="repo-card">
+            <div class="repo-header">
+              <span class="repo-name">📁 hartwell-bank-sql</span>
+              <span class="tag tag-blue">Public</span>
+            </div>
+            <p class="repo-desc">
+              Full MySQL database for a fictional bank. 6 tables, 15+ analytical queries
+              across fraud detection, customer segmentation, and revenue trends.
+            </p>
+            <div class="repo-footer">
+              <span><span class="repo-lang-dot" style="background:#e38c00"></span>SQL</span>
+              <span>⭐ Portfolio Project</span>
+              <span>2024</span>
+            </div>
+          </div>
+          <div class="repo-card">
+            <div class="repo-header">
+              <span class="repo-name">📁 hartwell-bank-excel</span>
+              <span class="tag tag-green">Public</span>
+            </div>
+            <p class="repo-desc">
+              9-sheet Excel workbook with financial modelling, PMT/amortisation,
+              risk scoring, fraud monitor, and executive dashboard.
+            </p>
+            <div class="repo-footer">
+              <span><span class="repo-lang-dot" style="background:#217346"></span>Excel</span>
+              <span>⭐ Portfolio Project</span>
+              <span>2024</span>
+            </div>
+          </div>
+          <div class="repo-card">
+            <div class="repo-header">
+              <span class="repo-name">📁 portfolio-site</span>
+              <span class="tag tag-purple">Public</span>
+            </div>
+            <p class="repo-desc">
+              This website. Built from scratch in HTML, CSS, and vanilla JS.
+              No frameworks, no templates, no tracking.
+            </p>
+            <div class="repo-footer">
+              <span><span class="repo-lang-dot" style="background:#e34c26"></span>HTML/CSS/JS</span>
+              <span>🔒 Privacy-first</span>
+              <span>2024</span>
+            </div>
+          </div>
+          <div class="repo-card">
+            <div class="repo-header">
+              <span class="repo-name">📁 python-data-basics</span>
+              <span class="tag tag-gold">In Progress</span>
+            </div>
+            <p class="repo-desc">
+              Learning Python for data analysis — pandas, matplotlib, and eventually
+              connecting Python to SQL databases.
+            </p>
+            <div class="repo-footer">
+              <span><span class="repo-lang-dot" style="background:#3572A5"></span>Python</span>
+              <span>🔄 Ongoing</span>
+              <span>2024</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contribution heatmap (visual representation) -->
+        <div class="fade-up" style="margin-top:2.5rem">
+          <div class="section-label" style="margin-bottom:1rem">Contribution Activity (2024)</div>
+          <div class="heatmap-wrapper">
+            <div class="heatmap" id="heatmap-grid"></div>
+          </div>
+          <div class="heatmap-label">Less ▢▢▢▢▢ More</div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Currently Learning ─────────────────────────────────── -->
+    <section class="learning-section">
+      <div class="container">
+        <div class="section-label fade-up">Growth</div>
+        <h2 class="section-title fade-up">Currently Learning</h2>
+        <p class="section-subtitle fade-up" style="margin-bottom:2.5rem">
+          Skills I'm actively building right now — not on the CV yet, but coming.
+        </p>
+
+        <div class="currently-learning fade-up">
+          <div class="learning-card">
+            <h4>🐍 Python for Data</h4>
+            <p>Learning pandas and NumPy to replicate my Excel analyses programmatically. Next: connecting Python to MySQL.</p>
+            <div class="learning-progress">
+              <div class="learning-bar-track">
+                <div class="learning-bar-fill" data-pct="45"></div>
+              </div>
+              <div class="learning-pct">~45% through planned curriculum</div>
+            </div>
+          </div>
+          <div class="learning-card">
+            <h4>📊 Power BI</h4>
+            <p>Building dashboards from SQL data sources. Connecting to MySQL, writing DAX measures, publishing reports.</p>
+            <div class="learning-progress">
+              <div class="learning-bar-track">
+                <div class="learning-bar-fill" data-pct="30"></div>
+              </div>
+              <div class="learning-pct">~30% through Microsoft Learn path</div>
+            </div>
+          </div>
+          <div class="learning-card">
+            <h4>🔐 Privacy Engineering</h4>
+            <p>GDPR compliance in practice, differential privacy concepts, privacy-by-design architecture patterns.</p>
+            <div class="learning-progress">
+              <div class="learning-bar-track">
+                <div class="learning-bar-fill" data-pct="60"></div>
+              </div>
+              <div class="learning-pct">~60% — ongoing personal interest</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="privacy-badge">🔒 No cookies · No tracking · No analytics · Privacy by design</div>
+      <p class="footer-copy">© 2024 Aston Tellis · Built by hand, not by template</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Animate skill bars on scroll
+    const barObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.skill-bar-fill, .learning-bar-fill').forEach(bar => {
+            const pct = bar.dataset.pct;
+            if (pct) bar.style.width = pct + '%';
+          });
+        }
+      });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('.skills-category, .currently-learning').forEach(el => {
+      barObserver.observe(el);
+    });
+
+    // Generate contribution heatmap
+    const heatmap = document.getElementById('heatmap-grid');
+    const levels = ['', 'l1', 'l2', 'l3', 'l4'];
+
+    for (let week = 0; week < 52; week++) {
+      const col = document.createElement('div');
+      col.className = 'heatmap-col';
+      for (let day = 0; day < 7; day++) {
+        const cell = document.createElement('div');
+        // Simulate realistic activity (more recent = more active)
+        const activityChance = week > 35 ? 0.6 : week > 20 ? 0.4 : 0.25;
+        const rand = Math.random();
+        if (rand < activityChance * 0.15) cell.className = 'heatmap-cell l4';
+        else if (rand < activityChance * 0.35) cell.className = 'heatmap-cell l3';
+        else if (rand < activityChance * 0.6) cell.className = 'heatmap-cell l2';
+        else if (rand < activityChance) cell.className = 'heatmap-cell l1';
+        else cell.className = 'heatmap-cell';
+        col.appendChild(cell);
+      }
+      heatmap.appendChild(col);
+    }
+  </script>
+</body>
+</html>

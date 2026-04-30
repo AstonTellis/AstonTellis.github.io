@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects — Aston Tellis</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .page-hero {
+      padding: 5rem 0 3rem;
+      background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Project Section ───────────────────────────────────── */
+    .project-block {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .project-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .project-meta {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .project-desc {
+      color: var(--text2);
+      max-width: 580px;
+      line-height: 1.8;
+    }
+
+    /* ── SQL Query Cards ───────────────────────────────────── */
+    .query-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .query-card {
+      background: #060910;
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .query-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    .query-card-header {
+      background: #0f1420;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .query-card-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+
+    .query-card-body {
+      padding: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      line-height: 1.9;
+      color: #8a9ab5;
+      overflow-x: auto;
+    }
+
+    .query-card-footer {
+      padding: 0.75rem 1.25rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text3);
+      font-style: italic;
+    }
+
+    .kw  { color: #7b61ff; }
+    .fn  { color: #00d4ff; }
+    .str { color: #00ffaa; }
+    .cm  { color: #4a5a7a; }
+    .num { color: #f4a261; }
+    .op  { color: #ff4d6d; }
+
+    /* ── Schema Diagram ────────────────────────────────────── */
+    .schema-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .schema-table {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .schema-table-header {
+      background: var(--bg2);
+      padding: 0.6rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .schema-field {
+      padding: 0.35rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .schema-field:last-child { border-bottom: none; }
+    .schema-field .field-type { color: var(--text3); }
+    .schema-field.pk { color: var(--gold); }
+    .schema-field.fk { color: var(--accent2); }
+
+    /* ── Findings Cards ────────────────────────────────────── */
+    .findings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .finding-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+
+    .finding-number {
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .finding-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.6rem;
+    }
+
+    .finding-desc {
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    /* ── Excel Section ─────────────────────────────────────── */
+    .sheets-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .sheet-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      transition: var(--transition);
+    }
+
+    .sheet-card:hover {
+      border-color: var(--accent3);
+      box-shadow: 0 0 30px #00ffaa12;
+    }
+
+    .sheet-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .sheet-name {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .sheet-desc {
+      font-size: 0.8rem;
+      color: var(--text3);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+
+    .sheet-formulas {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent2);
+    }
+
+    /* ── Formula Showcase ──────────────────────────────────── */
+    .formula-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    .formula-table th {
+      background: var(--bg2);
+      color: var(--text2);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .formula-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text2);
+      vertical-align: top;
+    }
+
+    .formula-table tr:hover td { background: var(--surface); }
+
+    .formula-table td:first-child {
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .formula-table td:nth-child(2) { color: var(--accent2); }
+
+    /* ── Disclaimer ────────────────────────────────────────── */
+    .disclaimer-bar {
+      background: #fff3cd1a;
+      border: 1px solid #f4a26130;
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--gold);
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    @media (max-width: 768px) {
+      .query-grid, .schema-grid, .findings-grid,
+      .sheets-grid { grid-template-columns: 1fr; }
+      .project-header { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"></div>
+  <div class="cursor-ring"></div>
+
+  <nav>
+    <a class="nav-logo" href="index.html"><span>A</span>T</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="page-hero">
+      <div class="container fade-up">
+        <div class="section-label">My Work</div>
+        <h1 class="section-title">Projects</h1>
+        <p class="section-subtitle">
+          Everything here is built from scratch — real databases, real formulas, real analysis.
+          Not exercises to tick a box, but work I can talk through in any interview.
+        </p>
+      </div>
+    </div>
+
+    <!-- ════ SQL PROJECT ════════════════════════════════════════ -->
+    <div id="sql" class="project-block">
+      <div class="container">
+
+        <div class="disclaimer-bar fade-up">
+          <span>⚠</span>
+          <span>
+            <strong>Fictional Project Disclaimer:</strong> Hartwell Bank is a completely fictional
+            organisation created for portfolio and educational purposes only. All data —
+            customer names, account details, financial figures — is entirely fabricated.
+            No real individuals or institutions are represented. No real data was collected
+            at any stage. Privacy by design.
+          </span>
+        </div>
+
+        <div class="project-header fade-up">
+          <div>
+            <div class="project-meta">
+              <span class="tag tag-blue">SQL</span>
+              <span class="tag tag-purple">MySQL 8.x</span>
+              <span class="tag tag-gold">FinTech</span>
+              <span class="tag tag-green">Data Analysis</span>
+            </div>
+            <h2 class="project-title">Hartwell Bank — SQL Analytics Engine</h2>
+            <p class="project-desc">
+              Designed and built a relational banking database from scratch. Wrote 15+ analytical
+              queries across three business domains: customer segmentation, fraud detection,
+              and revenue trend analysis. Demonstrates database design, complex SQL, and
+              the ability to translate data into business insight.
+            </p>
+          </div>
+          <a href="#" class="btn btn-ghost" style="white-space:nowrap">
+            ↓ Download SQL Files
+          </a>
+        </div>
+
+        <!-- Database Schema -->
+        <div class="fade-up">
+          <div class="section-label" style="margin-bottom:1.25rem">Database Schema — 6 Tables</div>
+          <div class="schema-grid">
+            <div class="schema-table">
+              <div class="schema-table-header">🧑 customers</div>
+              <div class="schema-field pk"><span>customer_id</span><span class="field-type">INT PK</span></div>
+              <div class="schema-field"><span>first_name</span><span class="field-type">VARCHAR</span></div>
+              <div class="schema-field"><span>country</span><span class="field-type">VARCHAR</span></div>
+              <div class="schema-field"><span>email_domain</span><span class="field-type">VARCHAR</span></div>
+              <div class="schema-field"><span>customer_tier</span><span class="field-type">ENUM</span></div>
+              <div class="schema-field"><span>join_date</span><span class="field-type">DATE</span></div>
+            </div>
+            <div class="schema-table">
+              <div class="schema-table-header">🏦 accounts</div>
+              <div class="schema-field pk"><span>account_id</span><span class="field-type">INT PK</span></div>
+              <div class="schema-field fk"><span>customer_id</span><span class="field-type">INT FK</span></div>
+              <div class="schema-field"><span>account_type</span><span class="field-type">ENUM</span></div>
+              <div class="schema-field"><span>currency</span><span class="field-type">ENUM</span></div>
+              <div class="schema-field"><span>balance</span><span class="field-type">DECIMAL</span></div>
+            </div>
+            <div class="schema-table">
+              <div class="schema-table-header">💳 transactions</div>
+              <div class="schema-field pk"><span>transaction_id</span><span class="field-type">INT PK</span></div>
+              <div class="schema-field fk"><span>account_id</span><span class="field-type">INT FK</span></div>
+              <div class="schema-field fk"><span>merchant_id</span><span class="field-type">INT FK</span></div>
+              <div class="schema-field"><span>amount</span><span class="field-type">DECIMAL</span></div>
+              <div class="schema-field"><span>transaction_date</span><span class="field-type">DATETIME</span></div>
+            </div>
+            <div class="schema-table">
+              <div class="schema-table-header">🏪 merchants</div>
+              <div class="schema-field pk"><span>merchant_id</span><span class="field-type">INT PK</span></div>
+              <div class="schema-field"><span>merchant_name</span><span class="field-type">VARCHAR</span></div>
+              <div class="schema-field"><span>category</span><span class="field-type">ENUM</span></div>
+              <div class="schema-field"><span>country</span><span class="field-type">VARCHAR</span></div>
+            </div>
+            <div class="schema-table">
+              <div class="schema-table-header">⚠ fraud_flags</div>
+              <div class="schema-field pk"><span>flag_id</span><span class="field-type">INT PK</span></div>
+              <div class="schema-field fk"><span>transaction_id</span><span class="field-type">INT FK</span></div>
+              <div class="schema-field"><span>flag_reason</span><span class="field-type">ENUM</span></div>
+              <div class="schema-field"><span>reviewed_status</span><span class="field-type">ENUM</span></div>
+            </div>
+            <div class="schema-table">
+              <div class="schema-table-header">📅 monthly_snapshots</div>
+              <div class="schema-field pk"><span>snapshot_id</span><span class="field-type">INT PK</span></div>
+              <div class="schema-field fk"><span>account_id</span><span class="field-type">INT FK</span></div>
+              <div class="schema-field"><span>closing_balance</span><span class="field-type">DECIMAL</span></div>
+              <div class="schema-field"><span>total_debits</span><span class="field-type">DECIMAL</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SQL Queries Showcase -->
+        <div class="fade-up" style="margin-top:3rem">
+          <div class="section-label" style="margin-bottom:1.25rem">Featured Queries</div>
+          <div class="query-grid">
+
+            <!-- Query 1 -->
+            <div class="query-card">
+              <div class="query-card-header">
+                <span class="query-card-title">A2 — TOP CUSTOMERS BY BALANCE</span>
+                <span class="tag tag-blue">JOIN</span>
+              </div>
+              <div class="query-card-body"><pre><span class="kw">SELECT</span>
+  <span class="fn">CONCAT</span>(c.first_name, <span class="str">' '</span>, c.last_name) <span class="kw">AS</span> customer,
+  c.customer_tier,
+  <span class="fn">COUNT</span>(a.account_id)          <span class="kw">AS</span> accounts,
+  <span class="fn">SUM</span>(a.balance)               <span class="kw">AS</span> total_balance
+<span class="kw">FROM</span> customers c
+<span class="kw">JOIN</span> accounts a <span class="kw">ON</span> c.customer_id = a.customer_id
+<span class="kw">WHERE</span> a.is_active = <span class="num">1</span>
+<span class="kw">GROUP BY</span> c.customer_id
+<span class="kw">ORDER BY</span> total_balance <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> <span class="num">10</span>;</pre></div>
+              <div class="query-card-footer">↳ Multi-account JOIN · GROUP BY · SUM · ORDER DESC</div>
+            </div>
+
+            <!-- Query 2 -->
+            <div class="query-card">
+              <div class="query-card-header">
+                <span class="query-card-title">B2 — ANOMALY DETECTION</span>
+                <span class="tag tag-red">Fraud</span>
+              </div>
+              <div class="query-card-body"><pre><span class="kw">SELECT</span> t.transaction_id, t.amount,
+  <span class="fn">ROUND</span>(avg_data.avg_spend, <span class="num">2</span>) <span class="kw">AS</span> cust_avg,
+  <span class="fn">ROUND</span>(t.amount / avg_data.avg_spend, <span class="num">2</span>)
+    <span class="kw">AS</span> multiple_of_average
+<span class="kw">FROM</span> transactions t
+<span class="kw">JOIN</span> accounts a <span class="kw">ON</span> t.account_id = a.account_id
+<span class="kw">JOIN</span> (
+  <span class="kw">SELECT</span> a2.customer_id,
+         <span class="fn">AVG</span>(t2.amount) <span class="kw">AS</span> avg_spend
+  <span class="kw">FROM</span> transactions t2
+  <span class="kw">JOIN</span> accounts a2 <span class="kw">ON</span> t2.account_id = a2.account_id
+  <span class="kw">WHERE</span> t2.transaction_type = <span class="str">'Debit'</span>
+  <span class="kw">GROUP BY</span> a2.customer_id
+) <span class="kw">AS</span> avg_data <span class="kw">ON</span> a.customer_id = avg_data.customer_id
+<span class="kw">WHERE</span> t.amount > (avg_data.avg_spend * <span class="num">2</span>)
+<span class="kw">ORDER BY</span> multiple_of_average <span class="kw">DESC</span>;</pre></div>
+              <div class="query-card-footer">↳ Subquery · Personalised baseline · Fraud signal logic</div>
+            </div>
+
+            <!-- Query 3 -->
+            <div class="query-card">
+              <div class="query-card-header">
+                <span class="query-card-title">C2 — MoM GROWTH (WINDOW FUNCTION)</span>
+                <span class="tag tag-purple">Advanced</span>
+              </div>
+              <div class="query-card-body"><pre><span class="kw">WITH</span> monthly_totals <span class="kw">AS</span> (
+  <span class="kw">SELECT</span>
+    <span class="fn">DATE_FORMAT</span>(transaction_date,
+      <span class="str">'%Y-%m'</span>)     <span class="kw">AS</span> month,
+    <span class="fn">ROUND</span>(<span class="fn">SUM</span>(amount), <span class="num">2</span>) <span class="kw">AS</span> total_volume
+  <span class="kw">FROM</span> transactions
+  <span class="kw">WHERE</span> status = <span class="str">'Completed'</span>
+  <span class="kw">GROUP BY</span> <span class="fn">DATE_FORMAT</span>(transaction_date, <span class="str">'%Y-%m'</span>)
+)
+<span class="kw">SELECT</span> month, total_volume,
+  <span class="fn">LAG</span>(total_volume) <span class="kw">OVER</span>
+    (<span class="kw">ORDER BY</span> month)  <span class="kw">AS</span> prev_month,
+  <span class="fn">ROUND</span>((total_volume
+    - <span class="fn">LAG</span>(total_volume) <span class="kw">OVER</span>
+        (<span class="kw">ORDER BY</span> month))
+    / <span class="fn">LAG</span>(total_volume) <span class="kw">OVER</span>
+        (<span class="kw">ORDER BY</span> month) * <span class="num">100</span>, <span class="num">1</span>)
+    <span class="kw">AS</span> mom_growth_pct
+<span class="kw">FROM</span> monthly_totals;</pre></div>
+              <div class="query-card-footer">↳ CTE · LAG() window function · Growth rate formula</div>
+            </div>
+
+            <!-- Query 4 -->
+            <div class="query-card">
+              <div class="query-card-header">
+                <span class="query-card-title">B3 — RAPID SUCCESSION DETECTION</span>
+                <span class="tag tag-red">Fraud</span>
+              </div>
+              <div class="query-card-body"><pre><span class="kw">SELECT</span>
+  t1.transaction_id     <span class="kw">AS</span> first_txn,
+  t2.transaction_id     <span class="kw">AS</span> second_txn,
+  <span class="fn">TIMESTAMPDIFF</span>(<span class="kw">MINUTE</span>,
+    t1.transaction_date,
+    t2.transaction_date) <span class="kw">AS</span> minutes_apart,
+  t1.amount + t2.amount <span class="kw">AS</span> combined_value
+<span class="kw">FROM</span> transactions t1
+<span class="kw">JOIN</span> transactions t2
+  <span class="kw">ON</span>  t1.account_id = t2.account_id
+  <span class="kw">AND</span> t2.transaction_id > t1.transaction_id
+  <span class="kw">AND</span> <span class="fn">TIMESTAMPDIFF</span>(<span class="kw">MINUTE</span>,
+        t1.transaction_date,
+        t2.transaction_date)
+      <span class="kw">BETWEEN</span> <span class="num">0</span> <span class="kw">AND</span> <span class="num">10</span>
+<span class="kw">WHERE</span> t1.transaction_type = <span class="str">'Debit'</span>
+<span class="kw">ORDER BY</span> combined_value <span class="kw">DESC</span>;</pre></div>
+              <div class="query-card-footer">↳ Self-JOIN · TIMESTAMPDIFF · Card skimming pattern</div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Key Findings -->
+        <div class="fade-up" style="margin-top:2rem">
+          <div class="section-label" style="margin-bottom:1rem">Key Findings</div>
+          <div class="findings-grid">
+            <div class="finding-card">
+              <div class="finding-number">2</div>
+              <div class="finding-label">Confirmed Fraud Cases</div>
+              <div class="finding-desc">Both flagged by statistical anomaly detection — 2AM transactions at 4 minutes apart, 3–5× customer average spend.</div>
+            </div>
+            <div class="finding-card">
+              <div class="finding-number">20%</div>
+              <div class="finding-label">False Positive Rate</div>
+              <div class="finding-desc">1 of 5 fraud flags was legitimate. Reducing this is a core focus — every false positive is friction for a real customer.</div>
+            </div>
+            <div class="finding-card">
+              <div class="finding-number">17%</div>
+              <div class="finding-label">Platinum Customers</div>
+              <div class="finding-desc">Represent a disproportionate share of total portfolio value — a classic long-tail distribution in retail banking.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- end SQL project -->
+
+    <!-- ════ EXCEL PROJECT ══════════════════════════════════════ -->
+    <div id="excel" class="project-block">
+      <div class="container">
+
+        <div class="disclaimer-bar fade-up">
+          <span>⚠</span>
+          <span>
+            <strong>Fictional Project Disclaimer:</strong> This workbook is an extension of the
+            Hartwell Bank SQL project. All data, figures, and scenarios are entirely fictional
+            and created for educational purposes only. No real financial data was used.
+          </span>
+        </div>
+
+        <div class="project-header fade-up">
+          <div>
+            <div class="project-meta">
+              <span class="tag tag-green">Excel</span>
+              <span class="tag tag-gold">Financial Modelling</span>
+              <span class="tag tag-blue">Dashboard</span>
+              <span class="tag tag-purple">Risk Scoring</span>
+            </div>
+            <h2 class="project-title">Hartwell Bank — Excel Analytics Workbook</h2>
+            <p class="project-desc">
+              A 9-sheet professional workbook continuing the Hartwell Bank story. Includes a
+              full financial model driven by a central Assumptions sheet, loan amortisation
+              schedule, weighted risk scoring model, fraud tracker, and executive dashboard
+              with 4 charts. 505 live formulas. Zero errors.
+            </p>
+          </div>
+          <a href="#" class="btn btn-ghost" style="white-space:nowrap">↓ Download .xlsx</a>
+        </div>
+
+        <!-- Sheet Overview -->
+        <div class="fade-up">
+          <div class="section-label" style="margin-bottom:1.25rem">Workbook Structure — 9 Sheets</div>
+          <div class="sheets-grid">
+            <div class="sheet-card">
+              <div class="sheet-icon">📋</div>
+              <div class="sheet-name">README</div>
+              <div class="sheet-desc">Formula index, project overview, privacy statement.</div>
+              <div class="sheet-formulas">Documentation + colour-coding guide</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">🔧</div>
+              <div class="sheet-name">Assumptions</div>
+              <div class="sheet-desc">Central hub. Change one cell → entire model updates.</div>
+              <div class="sheet-formulas">All hardcoded inputs in blue</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">👥</div>
+              <div class="sheet-name">Customers</div>
+              <div class="sheet-desc">30 customers, tier breakdown, privacy-email analysis.</div>
+              <div class="sheet-formulas">COUNTIFS · AVERAGEIF · VLOOKUP</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">💳</div>
+              <div class="sheet-name">Transactions</div>
+              <div class="sheet-desc">Full ledger, colour-coded debits/credits, category SUMIF.</div>
+              <div class="sheet-formulas">SUMIF · TEXT() · IF · MIN(IF)</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">📈</div>
+              <div class="sheet-name">Revenue Model</div>
+              <div class="sheet-desc">12-month P&L. MoM growth formula, variance to target.</div>
+              <div class="sheet-formulas">Cross-sheet refs · % growth · IFERROR</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">🏦</div>
+              <div class="sheet-name">Loan Analysis</div>
+              <div class="sheet-desc">12-loan portfolio + full amortisation schedule.</div>
+              <div class="sheet-formulas">PMT · IPMT · PPMT · SUMPRODUCT</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">⚠</div>
+              <div class="sheet-name">Fraud Monitor</div>
+              <div class="sheet-desc">Flag tracker with auto risk score and action recommendation.</div>
+              <div class="sheet-formulas">IF(AND()) · COUNTIF · RANK</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">📉</div>
+              <div class="sheet-name">Risk Scoring</div>
+              <div class="sheet-desc">5-factor weighted customer risk model → loan grade.</div>
+              <div class="sheet-formulas">Weighted sum · INDEX/MATCH · Nested IF</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">📊</div>
+              <div class="sheet-name">Dashboard</div>
+              <div class="sheet-desc">KPI cards + 4 charts pulling live from all sheets.</div>
+              <div class="sheet-formulas">Cross-sheet · SUMIF · Bar · Line · Pie</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formula Showcase Table -->
+        <div class="fade-up" style="margin-top:2rem">
+          <div class="section-label" style="margin-bottom:1.25rem">Formula Showcase</div>
+          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);overflow:hidden">
+            <table class="formula-table">
+              <thead>
+                <tr>
+                  <th>Formula</th>
+                  <th>Sheet</th>
+                  <th>What It Does</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>=PMT(rate/12, term, -amount)</td><td>Loan Analysis</td><td>Calculates fixed monthly loan repayment</td></tr>
+                <tr><td>=IPMT(rate/12, period, term, -pv)</td><td>Loan Analysis</td><td>Extracts the interest portion of each payment</td></tr>
+                <tr><td>=SUMPRODUCT(scores, weights)</td><td>Risk Scoring</td><td>Calculates weighted risk score for each customer</td></tr>
+                <tr><td>=INDEX(range, MATCH(val, col, 0))</td><td>Risk Scoring</td><td>Two-way flexible lookup — more powerful than VLOOKUP</td></tr>
+                <tr><td>=IFERROR((B-A)/A, 0)</td><td>Revenue Model</td><td>Month-on-month growth rate, safe against divide-by-zero</td></tr>
+                <tr><td>=SUMIFS(range, col1, crit1, col2, crit2)</td><td>Dashboard</td><td>Sum with multiple simultaneous filters</td></tr>
+                <tr><td>=AVERAGEIF(tier_col, "Platinum", balance_col)</td><td>Customers</td><td>Average balance for a specific customer tier only</td></tr>
+                <tr><td>=IF(AND(H5="Fraud", I5&lt;&gt;""), "Closed", "Escalate")</td><td>Fraud Monitor</td><td>Nested logic: auto-generates action recommendation</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- end Excel project -->
+
+  </div><!-- end .page -->
+
+  <footer>
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="privacy-badge">🔒 No cookies · No tracking · No analytics · Privacy by design</div>
+      <p class="footer-copy">© 2024 Aston Tellis · Built by hand, not by template</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

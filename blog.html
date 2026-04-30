@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog — Aston Tellis</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .page-hero {
+      padding: 5rem 0 3rem;
+      background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Blog Layout ───────────────────────────────────────── */
+    .blog-layout {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 4rem;
+      padding: 5rem 0;
+    }
+
+    /* ── Featured Post ─────────────────────────────────────── */
+    .post-featured {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+      transition: var(--transition);
+    }
+
+    .post-featured:hover {
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    .post-featured-banner {
+      background: linear-gradient(135deg, #0f1420 0%, #1a2035 100%);
+      padding: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .post-featured-banner::before {
+      content: '"';
+      position: absolute;
+      top: -20px; right: 20px;
+      font-size: 12rem;
+      color: var(--accent);
+      opacity: 0.04;
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .post-featured-body { padding: 2rem 2.5rem; }
+
+    .post-category {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.85rem;
+    }
+
+    .post-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+
+    .post-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+
+    .post-title a:hover { color: var(--accent); }
+
+    .post-excerpt {
+      color: var(--text2);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text3);
+    }
+
+    .post-meta-dot {
+      width: 3px; height: 3px;
+      background: var(--text3);
+      border-radius: 50%;
+    }
+
+    /* ── Post List ─────────────────────────────────────────── */
+    .post-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    .post-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 1.75rem;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .post-card:hover {
+      border-color: var(--border2);
+      transform: translateX(4px);
+      box-shadow: -4px 0 0 var(--accent), 8px 0 40px #00000040;
+    }
+
+    .post-card-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+    }
+
+    .post-read-time {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text3);
+      white-space: nowrap;
+    }
+
+    /* ── Blog post content (inline expanded) ──────────────── */
+    .post-content {
+      display: none;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border);
+      color: var(--text2);
+      font-size: 0.92rem;
+      line-height: 1.9;
+    }
+
+    .post-content.open { display: block; }
+
+    .post-content h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 1.25rem 0 0.5rem;
+    }
+
+    .post-content p { margin-bottom: 1rem; }
+
+    .post-content blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1.25rem;
+      margin: 1.25rem 0;
+      background: var(--bg2);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      font-style: italic;
+      color: var(--text);
+    }
+
+    .post-content a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .post-content a:hover { text-decoration: underline; }
+
+    .post-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      background: none;
+      border: none;
+      cursor: none;
+      padding: 0;
+      margin-top: 0.75rem;
+      transition: var(--transition);
+    }
+
+    .post-toggle:hover { opacity: 0.7; }
+    .post-toggle .arrow { transition: transform var(--transition); }
+    .post-toggle.open .arrow { transform: rotate(90deg); }
+
+    /* ── Sidebar ───────────────────────────────────────────── */
+    .sidebar { position: sticky; top: 90px; }
+
+    .sidebar-widget {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .sidebar-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .sidebar-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text2);
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.65rem;
+      border-radius: 4px;
+      cursor: none;
+      transition: var(--transition);
+    }
+
+    .sidebar-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .sidebar-books { list-style: none; }
+    .sidebar-books li {
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.83rem;
+      color: var(--text2);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .sidebar-books li:last-child { border-bottom: none; }
+    .sidebar-books .b-icon { font-size: 1rem; flex-shrink: 0; }
+    .sidebar-books .b-title { color: var(--text); font-size: 0.82rem; font-weight: 600; }
+    .sidebar-books .b-author { font-size: 0.73rem; color: var(--text3); font-family: var(--font-mono); }
+
+    .snowden-quote {
+      background: linear-gradient(135deg, #00d4ff08, #7b61ff08);
+      border: 1px solid #00d4ff18;
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+
+    .snowden-quote blockquote {
+      font-style: italic;
+      color: var(--text2);
+      font-size: 0.85rem;
+      line-height: 1.75;
+      margin-bottom: 0.75rem;
+    }
+
+    .snowden-quote cite {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .blog-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"></div>
+  <div class="cursor-ring"></div>
+
+  <nav>
+    <a class="nav-logo" href="index.html"><span>A</span>T</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="page-hero">
+      <div class="container fade-up">
+        <div class="section-label">Writing</div>
+        <h1 class="section-title">Blog</h1>
+        <p class="section-subtitle">
+          Thoughts on technology, digital privacy, and the systems that shape how we live.
+          Written by someone who genuinely cares — not for SEO, not for engagement, just because these things matter.
+        </p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="blog-layout">
+
+        <!-- ── Main Content ─────────────────────────────────── -->
+        <main>
+
+          <!-- Featured post -->
+          <div class="post-featured fade-up">
+            <div class="post-featured-banner">
+              <div class="post-category">★ Featured · Privacy</div>
+              <h2 class="post-title" style="font-size:2rem">
+                What Snowden Actually Taught Us — And Why Most People Got the Wrong Lesson
+              </h2>
+              <div class="post-meta">
+                <span>Aston Tellis</span>
+                <div class="post-meta-dot"></div>
+                <span>December 2024</span>
+                <div class="post-meta-dot"></div>
+                <span>8 min read</span>
+              </div>
+            </div>
+            <div class="post-featured-body">
+              <p class="post-excerpt">
+                In 2013, Edward Snowden handed journalists a hard drive that proved something most people
+                suspected but couldn't confirm: governments were building surveillance infrastructure that
+                covered the entire internet. Eleven years later, most people's reaction to this is
+                a shrug. That shrug is itself the most important data point in the story.
+              </p>
+              <p style="color:var(--text2);line-height:1.85;margin-bottom:1rem">
+                The popular narrative is that Snowden was heroic but his revelations changed nothing.
+                That narrative is wrong — it changed everything, just not in ways that show up in opinion polls.
+                HTTPS became the default on almost all websites. End-to-end encryption became mainstream.
+                Signal exists and has hundreds of millions of users. The EU passed GDPR. These weren't coincidences.
+              </p>
+              <p style="color:var(--text2);line-height:1.85;margin-bottom:1.5rem">
+                What Snowden actually revealed wasn't just that governments spy — everyone knew that.
+                He revealed the <em style="color:var(--text);font-style:normal">architecture</em>. The specific
+                programs (PRISM, XKeyscore), the specific companies involved, the specific legal frameworks
+                that made it all "legal." That specificity mattered, because vague knowledge is easy to dismiss
+                and specific knowledge demands a response.
+              </p>
+              <blockquote style="border-left:3px solid var(--accent);padding:0.75rem 1.25rem;background:var(--bg2);border-radius:0 8px 8px 0;font-style:italic;color:var(--text2);margin-bottom:1.5rem">
+                "Arguing that you don't care about the right to privacy because you have nothing to hide
+                is no different from saying you don't care about free speech because you have nothing to say."
+                <footer style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent);margin-top:0.5rem">— Edward Snowden</footer>
+              </blockquote>
+              <p style="color:var(--text2);line-height:1.85">
+                As someone studying CS and Business, I think about Snowden's revelations differently than
+                most people. I see them as a product failure. Governments built surveillance infrastructure
+                with no accountability, no user consent, and no oversight. If any commercial product
+                worked this way — collecting data without consent, sharing it without disclosure — it would
+                rightly be called a scandal. The lesson for anyone building technology: design for the
+                user's interests first, not for your own ability to collect.
+              </p>
+              <div class="post-meta" style="margin-top:1.25rem">
+                <span class="tag tag-red">Privacy</span>
+                <span class="tag tag-blue">Politics</span>
+                <span class="tag tag-purple">Technology</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Post List -->
+          <div class="post-list">
+
+            <!-- Post 1 -->
+            <div class="post-card fade-up">
+              <div class="post-card-inner">
+                <div>
+                  <div class="post-category">Privacy · Tech</div>
+                  <h3 class="post-title" style="font-size:1.15rem">
+                    Why I Don't Use Instagram, Facebook, or LinkedIn — And What I Use Instead
+                  </h3>
+                </div>
+                <span class="post-read-time">5 min</span>
+              </div>
+              <p class="post-excerpt" style="margin-top:0.75rem">
+                The honest answer isn't "because I'm anti-social." It's because these platforms
+                are fundamentally surveillance businesses that happen to have social features.
+                Understanding the business model is understanding the product — and you are the product.
+              </p>
+              <button class="post-toggle" onclick="togglePost(this)">
+                <span class="arrow">→</span> Read more
+              </button>
+              <div class="post-content">
+                <p>
+                  Facebook's revenue is approximately $50 per user per year in the US. That money
+                  doesn't come from you paying for the service — it comes from advertisers paying
+                  for access to your attention, your data, and your behavioural profile.
+                  The more you engage, the more data they have, the more they can charge.
+                  That's not a conspiracy — it's in their annual report.
+                </p>
+                <h4>The LinkedIn Problem</h4>
+                <p>
+                  LinkedIn is trickier because professional networking is a genuinely useful concept.
+                  But LinkedIn is owned by Microsoft, runs an advertising business, and has had several
+                  significant data breaches. More subtly: it normalises the idea that your professional
+                  identity should live on a platform you don't control.
+                </p>
+                <blockquote>
+                  "If you're not paying for the product, you are the product." — The oldest rule on the internet.
+                </blockquote>
+                <h4>What I Use Instead</h4>
+                <p>
+                  For professional presence: this website. For communication: Signal and encrypted email.
+                  For news: RSS feeds and direct subscriptions. For networking: actual conversations.
+                  None of this is perfect, but all of it is on terms I understand and partially control.
+                </p>
+                <div class="post-meta" style="margin-top:1rem">
+                  <span class="tag tag-green">Privacy</span>
+                  <span class="tag tag-blue">Personal</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Post 2 -->
+            <div class="post-card fade-up">
+              <div class="post-card-inner">
+                <div>
+                  <div class="post-category">FinTech · Data</div>
+                  <h3 class="post-title" style="font-size:1.15rem">
+                    How Open Banking is Quietly Revolutionising Financial Privacy
+                  </h3>
+                </div>
+                <span class="post-read-time">6 min</span>
+              </div>
+              <p class="post-excerpt" style="margin-top:0.75rem">
+                Open Banking sounds like it should be a privacy nightmare — sharing your transaction data
+                with third-party apps. In practice, it might be the first time financial data regulation
+                actually gave consumers meaningful control. Here's why the EU got this one right.
+              </p>
+              <button class="post-toggle" onclick="togglePost(this)">
+                <span class="arrow">→</span> Read more
+              </button>
+              <div class="post-content">
+                <p>
+                  Under PSD2 (the EU Payment Services Directive), banks must share your transaction data
+                  with third-party apps — but only if you explicitly give consent, only for the specific
+                  data requested, and you can revoke that consent at any time. This is privacy-by-design
+                  built into regulation.
+                </p>
+                <h4>Why This Matters for FinTech</h4>
+                <p>
+                  The traditional financial data model was opaque: banks knew everything about you,
+                  you knew almost nothing about how they used it, and you had no meaningful way to
+                  switch. Open Banking breaks that monopoly. It's not perfect, but it's the right direction.
+                </p>
+                <h4>The Counterargument</h4>
+                <p>
+                  Critics argue that "consent fatigue" means users click through permissions without
+                  reading them, making consent meaningless. This is a real problem. The solution isn't
+                  less sharing — it's better consent design. Shorter, simpler, more specific permission
+                  requests with real explanations of consequences.
+                </p>
+                <p>
+                  This is exactly the kind of problem I want to work on: where technology, regulation,
+                  and user experience intersect.
+                </p>
+                <div class="post-meta" style="margin-top:1rem">
+                  <span class="tag tag-purple">FinTech</span>
+                  <span class="tag tag-green">Privacy</span>
+                  <span class="tag tag-blue">EU Regulation</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Post 3 -->
+            <div class="post-card fade-up">
+              <div class="post-card-inner">
+                <div>
+                  <div class="post-category">Technology · Opinion</div>
+                  <h3 class="post-title" style="font-size:1.15rem">
+                    AI and Privacy: The Conversation We're Not Having
+                  </h3>
+                </div>
+                <span class="post-read-time">7 min</span>
+              </div>
+              <p class="post-excerpt" style="margin-top:0.75rem">
+                The public conversation about AI safety focuses on existential risk — could it become
+                sentient, could it destroy humanity. The boring but more immediate risk barely gets
+                discussed: AI is the most powerful surveillance tool ever built, and we're deploying
+                it at scale without serious governance.
+              </p>
+              <button class="post-toggle" onclick="togglePost(this)">
+                <span class="arrow">→</span> Read more
+              </button>
+              <div class="post-content">
+                <p>
+                  Consider what modern LLMs actually require: enormous training datasets that often
+                  include scraped personal information, deployment through cloud platforms that log
+                  your queries, fine-tuning on user feedback that further expands data collection.
+                  None of this is secret — it's in the terms of service that nobody reads.
+                </p>
+                <h4>The Scale Problem</h4>
+                <p>
+                  Legacy surveillance required dedicated resources — people to watch people.
+                  AI-powered surveillance is near-zero marginal cost. Facial recognition at scale,
+                  behaviour prediction from aggregated data, real-time content monitoring — these
+                  were science fiction twenty years ago. They're off-the-shelf products now.
+                </p>
+                <blockquote>
+                  The question isn't whether AI will be used for surveillance. It will be, and it is.
+                  The question is what governance structures exist to limit that use — and whether
+                  we build them before or after the damage is done.
+                </blockquote>
+                <h4>What Good Looks Like</h4>
+                <p>
+                  The EU AI Act is imperfect but directionally correct. It bans real-time biometric
+                  surveillance in public spaces, requires transparency about AI decision-making in
+                  high-risk contexts, and mandates human oversight. These aren't technical solutions —
+                  they're governance solutions. That's what the problem requires.
+                </p>
+                <div class="post-meta" style="margin-top:1rem">
+                  <span class="tag tag-red">AI</span>
+                  <span class="tag tag-green">Privacy</span>
+                  <span class="tag tag-gold">Governance</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Post 4 -->
+            <div class="post-card fade-up">
+              <div class="post-card-inner">
+                <div>
+                  <div class="post-category">Careers · CS+Business</div>
+                  <h3 class="post-title" style="font-size:1.15rem">
+                    The Honest Case for Studying CS and Business Together
+                  </h3>
+                </div>
+                <span class="post-read-time">4 min</span>
+              </div>
+              <p class="post-excerpt" style="margin-top:0.75rem">
+                Most people think combined degrees are a hedge — you can't decide so you do both.
+                I think they're a strategy. The most interesting problems in technology right now
+                are not technical problems. They're organisational, ethical, and strategic ones.
+              </p>
+              <button class="post-toggle" onclick="togglePost(this)">
+                <span class="arrow">→</span> Read more
+              </button>
+              <div class="post-content">
+                <p>
+                  A pure CS graduate understands how to build the system but often struggles to
+                  explain why it should be built, or whether it's the right system. A pure business
+                  graduate can articulate the why perfectly but often can't engage meaningfully with
+                  engineers about the how. Both are useful. Neither is as useful as someone who
+                  can do both, even if imperfectly.
+                </p>
+                <h4>Where This Shows Up in Practice</h4>
+                <p>
+                  Product managers need to write user stories that engineers can act on. Business
+                  analysts need to query databases directly rather than waiting for reports. FinTech
+                  analysts need to understand APIs and payment architectures to spot opportunities.
+                  None of this requires being an expert engineer — it requires being technically
+                  literate enough to operate in a technical environment.
+                </p>
+                <p>
+                  That's what I'm building: not expertise in two fields, but fluency in the space
+                  between them.
+                </p>
+                <div class="post-meta" style="margin-top:1rem">
+                  <span class="tag tag-blue">Careers</span>
+                  <span class="tag tag-gold">Education</span>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- end post-list -->
+        </main>
+
+        <!-- ── Sidebar ──────────────────────────────────────── -->
+        <aside class="sidebar">
+
+          <div class="sidebar-widget fade-up">
+            <div class="sidebar-title">Topics</div>
+            <div class="sidebar-tags">
+              <span class="sidebar-tag">Privacy</span>
+              <span class="sidebar-tag">FinTech</span>
+              <span class="sidebar-tag">AI</span>
+              <span class="sidebar-tag">Snowden</span>
+              <span class="sidebar-tag">Open Banking</span>
+              <span class="sidebar-tag">GDPR</span>
+              <span class="sidebar-tag">Surveillance</span>
+              <span class="sidebar-tag">SQL</span>
+              <span class="sidebar-tag">Data</span>
+              <span class="sidebar-tag">Careers</span>
+              <span class="sidebar-tag">Product</span>
+              <span class="sidebar-tag">Tech Policy</span>
+            </div>
+          </div>
+
+          <div class="sidebar-widget fade-up">
+            <div class="sidebar-title">Reading List</div>
+            <ul class="sidebar-books">
+              <li>
+                <span class="b-icon">📖</span>
+                <div>
+                  <div class="b-title">Permanent Record</div>
+                  <div class="b-author">Edward Snowden</div>
+                </div>
+              </li>
+              <li>
+                <span class="b-icon">📖</span>
+                <div>
+                  <div class="b-title">The Age of Surveillance Capitalism</div>
+                  <div class="b-author">Shoshana Zuboff</div>
+                </div>
+              </li>
+              <li>
+                <span class="b-icon">📖</span>
+                <div>
+                  <div class="b-title">Data and Goliath</div>
+                  <div class="b-author">Bruce Schneier</div>
+                </div>
+              </li>
+              <li>
+                <span class="b-icon">📖</span>
+                <div>
+                  <div class="b-title">The Lean Startup</div>
+                  <div class="b-author">Eric Ries</div>
+                </div>
+              </li>
+              <li>
+                <span class="b-icon">📖</span>
+                <div>
+                  <div class="b-title">Inspired</div>
+                  <div class="b-author">Marty Cagan</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-widget fade-up">
+            <div class="sidebar-title">Quote of the Month</div>
+            <div class="snowden-quote">
+              <blockquote>
+                "The internet is the greatest tool of emancipation in human history. It gives a
+                voice to the voiceless, and a face to the faceless. But it can also be the
+                greatest tool of oppression in human history."
+              </blockquote>
+              <cite>— Edward Snowden</cite>
+            </div>
+          </div>
+
+          <div class="sidebar-widget fade-up">
+            <div class="sidebar-title">This Site's Privacy Policy</div>
+            <p style="font-size:0.82rem;color:var(--text2);line-height:1.75">
+              No cookies. No analytics. No tracking pixels. No third-party scripts.
+              No data is collected about you, period. This site doesn't know you visited.
+              That's intentional.
+            </p>
+            <div class="privacy-badge" style="margin-top:1rem;display:inline-flex">🔒 Zero data collected</div>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="privacy-badge">🔒 No cookies · No tracking · No analytics · Privacy by design</div>
+      <p class="footer-copy">© 2024 Aston Tellis · Built by hand, not by template</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    function togglePost(btn) {
+      const content = btn.nextElementSibling;
+      const isOpen = content.classList.contains('open');
+      content.classList.toggle('open', !isOpen);
+      btn.classList.toggle('open', !isOpen);
+      btn.innerHTML = isOpen
+        ? '<span class="arrow">→</span> Read more'
+        : '<span class="arrow" style="transform:rotate(90deg)">→</span> Collapse';
+    }
+  </script>
+</body>
+</html>

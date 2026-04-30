@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — Aston Tellis</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .page-hero {
+      padding: 5rem 0 3rem;
+      background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Contact Layout ────────────────────────────────────── */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      padding: 5rem 0;
+    }
+
+    /* ── Contact Methods ────────────────────────────────────── */
+    .contact-methods { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .contact-method {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .contact-method:hover {
+      border-color: var(--accent);
+      transform: translateX(6px);
+      box-shadow: -4px 0 0 var(--accent);
+    }
+
+    .contact-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .contact-method-info h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-method-info p {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text3);
+    }
+
+    .contact-note {
+      margin-top: 2rem;
+      background: #00ffaa0a;
+      border: 1px solid #00ffaa18;
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.75;
+    }
+
+    .contact-note strong { color: var(--accent3); }
+
+    /* ── CV Section ─────────────────────────────────────────── */
+    .cv-section { padding: 5rem 0; background: var(--bg2); border-top: 1px solid var(--border); }
+
+    .cv-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
+    }
+
+    /* CV Sidebar */
+    .cv-sidebar {}
+
+    .cv-name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .cv-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .cv-contact-list {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .cv-contact-list li {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text2);
+      padding: 0.3rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cv-section-mini {
+      margin-bottom: 1.75rem;
+    }
+
+    .cv-mini-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.75rem;
+    }
+
+    .cv-skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+    .cv-skill-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text2);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+    }
+
+    /* CV Main */
+    .cv-main {}
+
+    .cv-entry {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cv-entry:last-child { border-bottom: none; }
+
+    .cv-entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.4rem;
+    }
+
+    .cv-entry-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .cv-entry-date {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .cv-entry-org {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text3);
+      margin-bottom: 0.75rem;
+    }
+
+    .cv-entry-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .cv-entry-points li {
+      font-size: 0.87rem;
+      color: var(--text2);
+      line-height: 1.6;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .cv-entry-points li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+    }
+
+    .cv-section-heading {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cv-download-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+    }
+
+    .cv-download-bar p {
+      font-size: 0.88rem;
+      color: var(--text2);
+    }
+
+    @media (max-width: 768px) {
+      .contact-layout { grid-template-columns: 1fr; }
+      .cv-layout { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"></div>
+  <div class="cursor-ring"></div>
+
+  <nav>
+    <a class="nav-logo" href="index.html"><span>A</span>T</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html" class="active nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="page-hero">
+      <div class="container fade-up">
+        <div class="section-label">Get In Touch</div>
+        <h1 class="section-title">Contact</h1>
+        <p class="section-subtitle">
+          Open to internships, graduate roles, and conversations about FinTech, product,
+          or data. No spam, no cold outreach — just genuine opportunities.
+        </p>
+      </div>
+    </div>
+
+    <!-- ── Contact Section ──────────────────────────────────── -->
+    <div class="container">
+      <div class="contact-layout">
+
+        <div class="fade-up">
+          <div class="section-label" style="margin-bottom:1.25rem">Reach Me</div>
+          <div class="contact-methods">
+
+            <a href="mailto:[your-email@email.com]" class="contact-method">
+              <div class="contact-icon" style="background:#00d4ff15">📧</div>
+              <div class="contact-method-info">
+                <h4>Email</h4>
+                <p>[your-email@email.com] — Preferred contact method</p>
+              </div>
+            </a>
+
+            <a href="https://github.com/AstonTellis" target="_blank" class="contact-method">
+              <div class="contact-icon" style="background:#ffffff08">🐙</div>
+              <div class="contact-method-info">
+                <h4>GitHub</h4>
+                <p>github.com/AstonTellis — See my actual work</p>
+              </div>
+            </a>
+
+            <div class="contact-method" style="cursor:default">
+              <div class="contact-icon" style="background:#00ffaa10">🔒</div>
+              <div class="contact-method-info">
+                <h4>No LinkedIn</h4>
+                <p>Intentional. Email me directly — it's more honest anyway.</p>
+              </div>
+            </div>
+
+            <div class="contact-method" style="cursor:default">
+              <div class="contact-icon" style="background:#7b61ff15">📍</div>
+              <div class="contact-method-info">
+                <h4>Location</h4>
+                <p>[Your City, Country] — Open to remote and relocation</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="contact-note">
+            <strong>A note on privacy:</strong> If you need to send anything sensitive,
+            please use PGP encryption or reach out first to establish a secure channel.
+            I take data hygiene seriously — yours and mine.
+          </div>
+        </div>
+
+        <!-- Right: Availability + what I'm looking for -->
+        <div class="fade-up" style="transition-delay:0.2s">
+          <div class="section-label" style="margin-bottom:1.25rem">What I'm Looking For</div>
+
+          <div class="card" style="margin-bottom:1.25rem">
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem">
+              <div style="width:10px;height:10px;border-radius:50%;background:var(--accent3);box-shadow:0 0 10px var(--accent3);animation:pulse 2s infinite"></div>
+              <span style="font-family:var(--font-mono);font-size:0.78rem;color:var(--accent3)">Available for opportunities</span>
+            </div>
+            <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.75rem">
+              Roles I'm interested in
+            </h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem">
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Product Management Internship / Graduate</li>
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Business / Data Analyst</li>
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> FinTech Analyst or Associate</li>
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Strategy & Operations at a startup</li>
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Any role where tech meets business strategy</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.75rem">
+              Things I will not do
+            </h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.4rem">
+              <li style="font-size:0.83rem;color:var(--text3)">✗ Work on products designed to surveil or exploit users</li>
+              <li style="font-size:0.83rem;color:var(--text3)">✗ Roles that require me to pretend privacy doesn't matter</li>
+              <li style="font-size:0.83rem;color:var(--text3)">✗ Companies whose core business is selling personal data</li>
+            </ul>
+            <p style="font-size:0.8rem;color:var(--text3);margin-top:0.75rem;font-style:italic">
+              This isn't a dealbreaker for most employers — it's a feature.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── CV Section ────────────────────────────────────────── -->
+    <section class="cv-section">
+      <div class="container">
+        <div class="cv-download-bar fade-up">
+          <p>Want the one-page version? Download my CV as a PDF.</p>
+          <a href="#" class="btn btn-primary">↓ Download CV (PDF)</a>
+        </div>
+
+        <div class="section-label fade-up" style="margin-bottom:0.5rem">Curriculum Vitae</div>
+        <h2 class="section-title fade-up" style="margin-bottom:3rem">CV Summary</h2>
+
+        <div class="cv-layout">
+
+          <!-- CV Sidebar -->
+          <div class="cv-sidebar fade-up">
+            <div class="cv-name">Aston Tellis</div>
+            <div class="cv-title">CS & Business Student</div>
+
+            <ul class="cv-contact-list">
+              <li>📧 [your-email@email.com]</li>
+              <li>🌐 AstonTellis.github.io</li>
+              <li>🐙 github.com/AstonTellis</li>
+              <li>📍 [Your City, Country]</li>
+            </ul>
+
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Technical Skills</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">SQL / MySQL</span>
+                <span class="cv-skill-tag">Excel</span>
+                <span class="cv-skill-tag">Python</span>
+                <span class="cv-skill-tag">HTML/CSS</span>
+                <span class="cv-skill-tag">GitHub</span>
+                <span class="cv-skill-tag">Power BI</span>
+              </div>
+            </div>
+
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Business Skills</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">Financial Modelling</span>
+                <span class="cv-skill-tag">Data Analysis</span>
+                <span class="cv-skill-tag">Business Analysis</span>
+                <span class="cv-skill-tag">Product Thinking</span>
+                <span class="cv-skill-tag">Stakeholder Comms</span>
+                <span class="cv-skill-tag">Case Analysis</span>
+              </div>
+            </div>
+
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Languages</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">English — Fluent</span>
+                <span class="cv-skill-tag">[Language 2]</span>
+              </div>
+            </div>
+
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Interests</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">Digital Privacy</span>
+                <span class="cv-skill-tag">FinTech</span>
+                <span class="cv-skill-tag">Open Source</span>
+                <span class="cv-skill-tag">Tech Policy</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CV Main -->
+          <div class="cv-main fade-up" style="transition-delay:0.2s">
+
+            <div style="margin-bottom:2.5rem">
+              <div class="cv-section-heading">Education</div>
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">BSc Computer Science & Business</span>
+                  <span class="cv-entry-date">2021 — Present</span>
+                </div>
+                <div class="cv-entry-org">[Your University] · [Your City]</div>
+                <ul class="cv-entry-points">
+                  <li>Combined degree covering software engineering, data structures, corporate finance, and strategy</li>
+                  <li>Relevant modules: Database Systems, Financial Analysis, Business Intelligence, Information Security</li>
+                  <li>Current classification: [Your Grade] — Expected graduation: [Year]</li>
+                </ul>
+              </div>
+            </div>
+
+            <div style="margin-bottom:2.5rem">
+              <div class="cv-section-heading">Projects</div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Hartwell Bank — SQL Analytics Engine</span>
+                  <span class="cv-entry-date">2024</span>
+                </div>
+                <div class="cv-entry-org">Personal Portfolio Project · MySQL · FinTech</div>
+                <ul class="cv-entry-points">
+                  <li>Designed a 6-table relational banking database from scratch with foreign keys and indexes</li>
+                  <li>Wrote 15+ SQL queries across fraud detection, customer segmentation, and revenue trend analysis</li>
+                  <li>Used advanced techniques: CTEs, LAG window functions, self-JOINs, subqueries, RANK OVER PARTITION</li>
+                  <li>Identified two confirmed fraud cases using statistical anomaly detection logic</li>
+                </ul>
+              </div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Hartwell Bank — Excel Analytics Workbook</span>
+                  <span class="cv-entry-date">2024</span>
+                </div>
+                <div class="cv-entry-org">Personal Portfolio Project · Microsoft Excel · Financial Modelling</div>
+                <ul class="cv-entry-points">
+                  <li>Built a 9-sheet professional workbook with 505 live formulas and zero errors</li>
+                  <li>Implemented PMT/IPMT/PPMT loan amortisation, SUMPRODUCT weighted risk scoring, INDEX/MATCH lookups</li>
+                  <li>Created assumption-driven revenue model where one cell change updates the entire workbook</li>
+                  <li>Built executive dashboard with 4 charts pulling live data from all sheets</li>
+                </ul>
+              </div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Portfolio Website</span>
+                  <span class="cv-entry-date">2024</span>
+                </div>
+                <div class="cv-entry-org">Personal Project · HTML · CSS · JavaScript</div>
+                <ul class="cv-entry-points">
+                  <li>Designed and built a multi-page portfolio site from scratch — no templates, no frameworks</li>
+                  <li>Implemented custom cursor, particle animation, typing effects, terminal simulator, live clock</li>
+                  <li>Built with privacy-by-design: no cookies, no analytics, no third-party tracking scripts</li>
+                </ul>
+              </div>
+            </div>
+
+            <div>
+              <div class="cv-section-heading">Extracurricular & Other</div>
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">[Add your activities, societies, part-time work here]</span>
+                  <span class="cv-entry-date">Ongoing</span>
+                </div>
+                <div class="cv-entry-org">[Organisation / Context]</div>
+                <ul class="cv-entry-points">
+                  <li>Replace this placeholder with your real activities</li>
+                  <li>This is a good place for: societies, volunteering, sports, part-time work, competitions</li>
+                  <li>The more specific and achievement-oriented, the better</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="privacy-badge">🔒 No cookies · No tracking · No analytics · Privacy by design</div>
+      <p class="footer-copy">© 2024 Aston Tellis · Built by hand, not by template</p>
+    </div>
+  </footer>
+
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+  </style>
+
+  <script src="script.js"></script>
+</body>
+</html>
