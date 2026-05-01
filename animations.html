@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Design & Animations — Aston Tellis</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* ═══════════════════════════════════════════════════════════
+       ALL ANIMATIONS ON THIS PAGE ARE PURE CSS — NO JAVASCRIPT
+       This page exists to demonstrate CSS mastery independently
+       ═══════════════════════════════════════════════════════════ */
+
+    .page-hero {
+      padding: 5rem 0 3rem;
+      background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .css-only-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent3);
+      background: #00ffaa0a;
+      border: 1px solid #00ffaa25;
+      padding: 0.35rem 0.85rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+
+    .anim-section {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .anim-section:nth-child(even) { background: var(--bg2); }
+
+    .anim-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-bottom: 0.5rem;
+    }
+
+    .anim-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .anim-desc {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text3);
+      margin-bottom: 2.5rem;
+      font-style: italic;
+    }
+
+    .demo-area {
+      background: #060910;
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 3rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      min-height: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── 1. Floating Orbs ────────────────────────────────────── */
+    .orb {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .orb-1 { background: radial-gradient(circle at 35% 35%, #00d4ff, #0066cc); animation-delay: 0s; }
+    .orb-2 { background: radial-gradient(circle at 35% 35%, #7b61ff, #3300cc); animation-delay: 0.6s; }
+    .orb-3 { background: radial-gradient(circle at 35% 35%, #00ffaa, #006644); animation-delay: 1.2s; }
+    .orb-4 { background: radial-gradient(circle at 35% 35%, #f4a261, #cc5500); animation-delay: 1.8s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); box-shadow: 0 10px 30px #00000060; }
+      50% { transform: translateY(-20px) scale(1.05); box-shadow: 0 30px 60px #00000080; }
+    }
+
+    /* ── 2. CSS Spinner Collection ───────────────────────────── */
+    .spinner-ring {
+      width: 60px; height: 60px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .spinner-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .spinner-dots span {
+      width: 12px; height: 12px;
+      background: var(--accent2);
+      border-radius: 50%;
+      animation: dot-bounce 1.4s ease-in-out infinite;
+    }
+
+    .spinner-dots span:nth-child(2) { animation-delay: 0.2s; background: var(--accent); }
+    .spinner-dots span:nth-child(3) { animation-delay: 0.4s; background: var(--accent3); }
+
+    .spinner-bars {
+      display: flex;
+      gap: 5px;
+      align-items: flex-end;
+      height: 40px;
+    }
+
+    .spinner-bars span {
+      width: 8px;
+      background: var(--accent);
+      border-radius: 4px 4px 0 0;
+      animation: bar-wave 1.2s ease-in-out infinite;
+    }
+
+    .spinner-bars span:nth-child(1) { animation-delay: 0s; height: 20px; }
+    .spinner-bars span:nth-child(2) { animation-delay: 0.1s; height: 30px; background: var(--accent2); }
+    .spinner-bars span:nth-child(3) { animation-delay: 0.2s; height: 40px; background: var(--accent3); }
+    .spinner-bars span:nth-child(4) { animation-delay: 0.3s; height: 30px; background: var(--accent2); }
+    .spinner-bars span:nth-child(5) { animation-delay: 0.4s; height: 20px; }
+
+    .spinner-pulse {
+      width: 50px; height: 50px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: pulse-ring 1.5s ease-out infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes dot-bounce {
+      0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+      40% { transform: scale(1.2); opacity: 1; }
+    }
+    @keyframes bar-wave {
+      0%, 100% { transform: scaleY(0.5); opacity: 0.6; }
+      50% { transform: scaleY(1); opacity: 1; }
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(255,77,109,0.6); }
+      70% { transform: scale(1); box-shadow: 0 0 0 20px rgba(255,77,109,0); }
+      100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(255,77,109,0); }
+    }
+
+    /* ── 3. CSS-only Hover Cards ─────────────────────────────── */
+    .hover-card-demo {
+      width: 180px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hover-card-demo::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--accent)15, var(--accent2)15);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .hover-card-demo:hover {
+      transform: translateY(-12px) scale(1.03) rotate(-1deg);
+      border-color: var(--accent);
+      box-shadow: 0 25px 50px #00000080, 0 0 60px #00d4ff20;
+    }
+
+    .hover-card-demo:hover::before { opacity: 1; }
+
+    .hover-card-demo .hc-icon { font-size: 2rem; margin-bottom: 0.5rem; position: relative; }
+    .hover-card-demo .hc-title { font-family: var(--font-display); font-weight: 700; color: var(--text); font-size: 0.9rem; position: relative; }
+
+    /* ── 4. Gradient Text Animation ──────────────────────────── */
+    .gradient-text-demo {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      background: linear-gradient(90deg, #00d4ff, #7b61ff, #00ffaa, #f4a261, #00d4ff);
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient-shift 4s linear infinite;
+    }
+
+    @keyframes gradient-shift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
+    }
+
+    /* ── 5. CSS Morphing Blob ────────────────────────────────── */
+    .blob {
+      width: 160px;
+      height: 160px;
+      background: linear-gradient(135deg, #00d4ff, #7b61ff);
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+      animation: morph 6s ease-in-out infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes morph {
+      0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+      25%       { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+      50%       { border-radius: 40% 60% 30% 70% / 40% 40% 60% 50%; }
+      75%       { border-radius: 70% 30% 60% 40% / 30% 70% 40% 60%; }
+    }
+
+    /* ── 6. CSS Typewriter (no JS) ───────────────────────────── */
+    .typewriter-css {
+      font-family: var(--font-mono);
+      font-size: 1.2rem;
+      color: var(--accent3);
+      border-right: 3px solid var(--accent3);
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: type-out 3s steps(30, end) 0.5s forwards,
+                 blink-cursor 0.75s step-end infinite;
+    }
+
+    @keyframes type-out {
+      from { width: 0; }
+      to   { width: 22ch; }
+    }
+
+    @keyframes blink-cursor {
+      0%, 100% { border-color: var(--accent3); }
+      50%       { border-color: transparent; }
+    }
+
+    /* ── 7. Staggered List Animation ─────────────────────────── */
+    .stagger-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: left;
+    }
+
+    .stagger-list li {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text2);
+      padding: 0.5rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: slide-in 0.4s ease forwards;
+    }
+
+    .stagger-list li:nth-child(1) { animation-delay: 0.1s; }
+    .stagger-list li:nth-child(2) { animation-delay: 0.3s; }
+    .stagger-list li:nth-child(3) { animation-delay: 0.5s; }
+    .stagger-list li:nth-child(4) { animation-delay: 0.7s; }
+    .stagger-list li:nth-child(5) { animation-delay: 0.9s; }
+
+    @keyframes slide-in {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ── 8. CSS Progress Bars ────────────────────────────────── */
+    .progress-demo { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 1rem; }
+
+    .prog-row { display: flex; flex-direction: column; gap: 0.3rem; }
+
+    .prog-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text2);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .prog-track {
+      height: 8px;
+      background: var(--surface);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .prog-fill {
+      height: 100%;
+      border-radius: 4px;
+      animation: fill-bar 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      width: 0;
+    }
+
+    .prog-fill-1 { background: linear-gradient(90deg, #00d4ff, #7b61ff); animation-delay: 0.2s; --target: 85%; }
+    .prog-fill-2 { background: linear-gradient(90deg, #00ffaa, #00d4ff); animation-delay: 0.4s; --target: 72%; }
+    .prog-fill-3 { background: linear-gradient(90deg, #f4a261, #ff4d6d); animation-delay: 0.6s; --target: 60%; }
+    .prog-fill-4 { background: linear-gradient(90deg, #7b61ff, #00ffaa); animation-delay: 0.8s; --target: 45%; }
+
+    @keyframes fill-bar {
+      to { width: var(--target); }
+    }
+
+    /* ── 9. Ripple Button (CSS only) ─────────────────────────── */
+    .ripple-btn {
+      position: relative;
+      overflow: hidden;
+      padding: 0.85rem 2rem;
+      background: transparent;
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      border-radius: var(--radius);
+      cursor: none;
+      transition: color 0.3s ease, background 0.3s ease;
+    }
+
+    .ripple-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .ripple-btn::after {
+      content: '';
+      position: absolute;
+      inset: 50% 50%;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      transition: transform 0.6s ease, opacity 0.6s ease;
+      opacity: 0;
+    }
+
+    .ripple-btn:active::after {
+      transform: translate(-50%, -50%) scale(4);
+      opacity: 0;
+      transition: 0s;
+    }
+
+    /* ── 10. CSS 3D Card Flip ────────────────────────────────── */
+    .flip-container {
+      width: 180px; height: 200px;
+      perspective: 1000px;
+      cursor: none;
+    }
+
+    .flip-card {
+      width: 100%; height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .flip-container:hover .flip-card { transform: rotateY(180deg); }
+
+    .flip-front, .flip-back {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: var(--radius2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: var(--font-display);
+      font-weight: 700;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .flip-front {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .flip-back {
+      background: linear-gradient(135deg, #00d4ff22, #7b61ff22);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      transform: rotateY(180deg);
+    }
+
+    .flip-front .f-icon { font-size: 2rem; }
+    .flip-back .f-text { font-size: 0.8rem; color: var(--text2); font-family: var(--font-mono); font-weight: 400; margin-top: 0.25rem; line-height: 1.5; }
+
+    /* ── Code View toggle ────────────────────────────────────── */
+    .code-toggle {
+      margin-top: 1.5rem;
+      text-align: right;
+    }
+
+    .code-toggle input[type="checkbox"] { display: none; }
+
+    .code-toggle label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text3);
+      cursor: none;
+      transition: color var(--transition);
+      user-select: none;
+    }
+
+    .code-toggle label:hover { color: var(--accent); }
+
+    .code-snippet {
+      display: none;
+      margin-top: 1rem;
+    }
+
+    .code-toggle input:checked ~ .code-snippet { display: block; }
+
+    @media (max-width: 768px) {
+      .demo-area { padding: 2rem 1rem; }
+      .gradient-text-demo { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"></div>
+  <div class="cursor-ring"></div>
+
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-inner">
+      <div class="loading-logo">AT</div>
+      <div class="loading-bar"><div class="loading-fill"></div></div>
+      <div class="loading-text">Loading...</div>
+    </div>
+  </div>
+
+  <nav>
+    <a class="nav-logo" href="index.html"><span>A</span>T</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="animations.html" class="active">Design</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="page-hero">
+      <div class="container fade-up">
+        <div class="css-only-badge">✦ Pure CSS — Zero JavaScript used on this page</div>
+        <div class="section-label">Web Design Skills</div>
+        <h1 class="section-title">CSS Animations Showcase</h1>
+        <p class="section-subtitle">
+          Every animation, transition, and effect on this page is written in pure CSS.
+          No JavaScript, no libraries, no frameworks. This demonstrates a deep understanding
+          of CSS — the language of the web's visual layer.
+        </p>
+      </div>
+    </div>
+
+    <!-- 1. Floating Orbs -->
+    <section class="anim-section">
+      <div class="container">
+        <div class="anim-label">Animation 01</div>
+        <div class="anim-title">Floating Orbs — CSS @keyframes + animation-delay</div>
+        <div class="anim-desc">Each orb uses the same keyframe animation but with staggered delays, creating a wave effect from pure CSS.</div>
+        <div class="demo-area">
+          <div class="orb orb-1"></div>
+          <div class="orb orb-2"></div>
+          <div class="orb orb-3"></div>
+          <div class="orb orb-4"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Spinners -->
+    <section class="anim-section">
+      <div class="container">
+        <div class="anim-label">Animation 02</div>
+        <div class="anim-title">Loading Indicators — Four approaches, pure CSS</div>
+        <div class="anim-desc">Ring spinner (border trick), bouncing dots (scale transform), audio bars (scaleY), pulse ring (box-shadow animation).</div>
+        <div class="demo-area">
+          <div class="spinner-ring"></div>
+          <div class="spinner-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="spinner-bars">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="spinner-pulse"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Hover Cards -->
+    <section class="anim-section">
+      <div class="container">
+        <div class="anim-label">Animation 03</div>
+        <div class="anim-title">3D Hover Cards — CSS transform + transition timing</div>
+        <div class="anim-desc">Hover over the cards. Uses cubic-bezier easing for the springy feel, and CSS pseudo-elements for the overlay gradient.</div>
+        <div class="demo-area">
+          <div class="hover-card-demo"><div class="hc-icon">🗄️</div><div class="hc-title">SQL</div></div>
+          <div class="hover-card-demo"><div class="hc-icon">📊</div><div class="hc-title">Excel</div></div>
+          <div class="hover-card-demo"><div class="hc-icon">🔒</div><div class="hc-title">Privacy</div></div>
+          <div class="hover-card-demo"><div class="hc-icon">🐍</div><div class="hc-title">Python</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Gradient Text -->
+    <section class="anim-section">
+      <div class="container">
+        <div class="anim-label">Animation 04</div>
+        <div class="anim-title">Animated Gradient Text — background-clip + keyframes</div>
+        <div class="anim-desc">The text has no colour — it clips a moving gradient background. The animation shifts background-position continuously.</div>
+        <div class="demo-area" style="flex-direction:column;gap:0.5rem">
+          <div class="gradient-text-demo">Aston Tellis</div>
+          <span style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text3)">background-clip: text · background-size: 300% · animation: 4s linear infinite</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Morphing Blob -->
+    <section class="anim-section">
+      <div class="container">
+        <div class="anim-label">Animation 05</div>
+        <div class="anim-title">CSS Morphing Blob — border-radius animation</div>
+        <div class="anim-desc">Animating border-radius with four independent values (x/y per corner) creates organic, fluid shape-shifting from a single div.</div>
+        <div class="demo-area">
+          <div class="blob"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. CSS Typewriter -->
+    <section class="anim-section">
+      <div class="container">
+        <div class="anim-label">Animation 06</div>
+        <div class="anim-title">CSS-only Typewriter — steps() timing function</div>
+        <div class="anim-desc">No JavaScript. Uses the steps() easing function to reveal characters one at a time, and a second animation for the cursor blink.</div>
+        <div class="demo-area" style="flex-direction:column;align-items:flex-start;padding:2rem 3rem">
+          <div class="typewriter-css">Privacy by design.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Stagger List -->
+    <section class="anim-section">
+      <div class="container">
+        <div class="anim-label">Animation 07</div>
+        <div class="anim-title">Staggered List Entrance — nth-child delay</div>
+        <div class="anim-desc">Each item uses animation-delay with nth-child selectors. Reload the page to replay. No JavaScript needed.</div>
+        <div class="demo-area">
+          <ul class="stagger-list">
+            <li>→ SQL: CTEs, Window Functions, Self-JOINs</li>
+            <li>→ Excel: PMT, SUMPRODUCT, INDEX/MATCH</li>
+            <li>→ Python: pandas, data wrangling</li>
+            <li>→ HTML / CSS / JavaScript</li>
+            <li>→ Privacy-by-design thinking</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. CSS Progress Bars -->
+    <section class="anim-section">
+      <div class="container">
+        <div class="anim-label">Animation 08</div>
+        <div class="anim-title">Animated Progress Bars — CSS custom properties + @keyframes</div>
+        <div class="anim-desc">Each bar uses a CSS custom property (--target) so the same keyframe animation works for any percentage. Staggered delays.</div>
+        <div class="demo-area">
+          <div class="progress-demo">
+            <div class="prog-row">
+              <div class="prog-label"><span>SQL / MySQL</span><span>85%</span></div>
+              <div class="prog-track"><div class="prog-fill prog-fill-1"></div></div>
+            </div>
+            <div class="prog-row">
+              <div class="prog-label"><span>Excel Modelling</span><span>72%</span></div>
+              <div class="prog-track"><div class="prog-fill prog-fill-2"></div></div>
+            </div>
+            <div class="prog-row">
+              <div class="prog-label"><span>Python</span><span>60%</span></div>
+              <div class="prog-track"><div class="prog-fill prog-fill-3"></div></div>
+            </div>
+            <div class="prog-row">
+              <div class="prog-label"><span>Power BI</span><span>45%</span></div>
+              <div class="prog-track"><div class="prog-fill prog-fill-4"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. Ripple Button -->
+    <section class="anim-section">
+      <div class="container">
+        <div class="anim-label">Animation 09</div>
+        <div class="anim-title">Ripple Button — CSS ::after pseudo-element</div>
+        <div class="anim-desc">Click the button. The ripple effect uses a ::after pseudo-element that scales from 0 on :active, with no JavaScript whatsoever.</div>
+        <div class="demo-area" style="gap:1.5rem">
+          <button class="ripple-btn">Click me →</button>
+          <button class="ripple-btn" style="border-color:var(--accent3);color:var(--accent3)">Download CV</button>
+          <button class="ripple-btn" style="border-color:var(--accent2);color:var(--accent2)">View Projects</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. 3D Card Flip -->
+    <section class="anim-section" style="border-bottom:none">
+      <div class="container">
+        <div class="anim-label">Animation 10</div>
+        <div class="anim-title">3D Card Flip — CSS perspective + rotateY</div>
+        <div class="anim-desc">Hover over each card. Uses CSS 3D transforms with perspective and backface-visibility — no JS, no library.</div>
+        <div class="demo-area" style="gap:2rem;flex-wrap:wrap">
+          <div class="flip-container">
+            <div class="flip-card">
+              <div class="flip-front"><div class="f-icon">🗄️</div>SQL Project</div>
+              <div class="flip-back">15+ queries · Fraud detection · Window functions<div class="f-text">Hover to flip</div></div>
+            </div>
+          </div>
+          <div class="flip-container">
+            <div class="flip-card">
+              <div class="flip-front"><div class="f-icon">📊</div>Excel Model</div>
+              <div class="flip-back">9 sheets · 505 formulas · PMT · Risk scoring<div class="f-text">Hover to flip</div></div>
+            </div>
+          </div>
+          <div class="flip-container">
+            <div class="flip-card">
+              <div class="flip-front"><div class="f-icon">🔒</div>Privacy</div>
+              <div class="flip-back">No cookies · No tracking · Privacy by design<div class="f-text">Hover to flip</div></div>
+            </div>
+          </div>
+          <div class="flip-container">
+            <div class="flip-card">
+              <div class="flip-front"><div class="f-icon">🌐</div>This Site</div>
+              <div class="flip-back">Built from scratch · HTML CSS JS · No templates<div class="f-text">Hover to flip</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="animations.html">Design</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="privacy-badge">🔒 No cookies · No tracking · No analytics · Privacy by design</div>
+      <p class="footer-copy">© 2026 Aston Tellis · Built by hand, not by template</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

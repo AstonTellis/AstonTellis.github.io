@@ -296,3 +296,147 @@ document.addEventListener('DOMContentLoaded', () => {
     if (link.getAttribute('href') === currentPage) link.classList.add('active');
   });
 });
+
+// ═══════════════════════════════════════════════════════════
+// LOADING SCREEN
+// ═══════════════════════════════════════════════════════════
+(function() {
+  const ls = document.getElementById('loading-screen');
+  if (!ls) return;
+  // Hide after 1.4s (animation completes)
+  setTimeout(() => ls.classList.add('hidden'), 1400);
+})();
+
+// ═══════════════════════════════════════════════════════════
+// PAGE TRANSITIONS
+// ═══════════════════════════════════════════════════════════
+(function() {
+  const curtain = document.createElement('div');
+  curtain.className = 'page-transition';
+  document.body.appendChild(curtain);
+
+  // Animate out on load
+  curtain.classList.add('leaving');
+  setTimeout(() => curtain.classList.remove('leaving'), 400);
+
+  // Animate in on internal link click
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('http') ||
+        href.startsWith('mailto') || href.startsWith('tel')) return;
+
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      curtain.classList.add('entering');
+      setTimeout(() => { window.location.href = href; }, 380);
+    });
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// DARK / LIGHT MODE TOGGLE
+// ═══════════════════════════════════════════════════════════
+(function() {
+  // Inject toggle button
+  const btn = document.createElement('button');
+  btn.className = 'theme-toggle';
+  btn.setAttribute('aria-label', 'Toggle dark/light mode');
+  btn.setAttribute('title', 'Toggle dark/light mode');
+  document.body.appendChild(btn);
+
+  const saved = localStorage.getItem('theme') || 'dark';
+  const apply = mode => {
+    document.body.classList.toggle('light-mode', mode === 'light');
+    btn.textContent = mode === 'light' ? '🌙' : '☀️';
+    localStorage.setItem('theme', mode);
+  };
+
+  apply(saved);
+
+  btn.addEventListener('click', () => {
+    const isLight = document.body.classList.contains('light-mode');
+    apply(isLight ? 'dark' : 'light');
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// KEYBOARD NAVIGATION SUPPORT
+// ═══════════════════════════════════════════════════════════
+(function() {
+  // Detect keyboard vs mouse navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Tab') {
+      document.body.classList.add('keyboard-nav');
+    }
+  });
+  document.addEventListener('mousedown', () => {
+    document.body.classList.remove('keyboard-nav');
+  });
+
+  // Inject skip-to-content link
+  const skip = document.createElement('a');
+  skip.href = '#main-content';
+  skip.className = 'skip-link';
+  skip.textContent = 'Skip to main content';
+  document.body.prepend(skip);
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', e => {
+    // Press H → home, P → projects, S → skills, B → blog, C → contact
+    if (e.altKey) return;
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    const map = { 'h': 'index.html', 'p': 'projects.html', 's': 'skills.html', 'b': 'blog.html', 'c': 'contact.html' };
+    if (map[e.key]) {
+      window.location.href = map[e.key];
+    }
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// GOATCOUNTER — Privacy-respecting page analytics
+// Replace 'your-goatcounter-code' with your actual code
+// after signing up at goatcounter.com (free)
+// ═══════════════════════════════════════════════════════════
+// Uncomment the lines below once you have your GoatCounter code:
+// window.goatcounter = { path: location.pathname };
+// (function() {
+//   const s = document.createElement('script');
+//   s.src = 'https://[your-code].goatcounter.com/count/script.js';
+//   s.async = true;
+//   document.head.appendChild(s);
+// })();
+
+// ═══════════════════════════════════════════════════════════
+// CV DOWNLOAD COUNTER — Supabase integration
+// ═══════════════════════════════════════════════════════════
+// This logs every CV download to a free Supabase table.
+// Setup: create a Supabase project → create a table called
+// 'cv_downloads' with columns: id (int8), downloaded_at (timestamptz)
+// → replace the URL and key below with your Supabase project details.
+
+const SUPABASE_URL = '[your-supabase-url]';
+const SUPABASE_KEY = '[your-supabase-anon-key]';
+
+async function logCVDownload() {
+  if (SUPABASE_URL.includes('[')) return; // not configured yet
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/cv_downloads`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ downloaded_at: new Date().toISOString() })
+    });
+    console.log('CV download logged.');
+  } catch (err) {
+    console.warn('CV download log failed:', err);
+  }
+}
+
+// Attach to CV download buttons
+document.querySelectorAll('.cv-download-btn').forEach(btn => {
+  btn.addEventListener('click', () => logCVDownload());
+});
