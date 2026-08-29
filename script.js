@@ -94,7 +94,7 @@ function initTerminal(terminalEl) {
 
   const lines = [
     { delay: 400,  text: '$ whoami',                          type: 'cmd' },
-    { delay: 900,  text: '[Your Name] — CS & Business Student', type: 'out' },
+    { delay: 900,  text: 'Aston Tellis — CS & Business Student', type: 'out' },
     { delay: 1400, text: '$ cat interests.txt',               type: 'cmd' },
     { delay: 1900, text: 'FinTech · Product Management · Privacy · Data Analytics', type: 'out' },
     { delay: 2400, text: '$ ls projects/',                    type: 'cmd' },
