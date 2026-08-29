@@ -310,11 +310,11 @@
               </div>
             </a>
 
-            <a href="https://linkedin.com/in/[your-linkedin-username]" target="_blank" class="contact-method">
+            <a href="https://www.linkedin.com/in/aston-tellis-134259313" target="_blank" class="contact-method">
               <div class="contact-icon" style="background:#0077b515">💼</div>
               <div class="contact-method-info">
-                <h4>LinkedIn <button class="copy-btn" onclick="copyText('linkedin.com/in/[your-linkedin-username]', this)">Copy</button></h4>
-                <p>linkedin.com/in/[your-linkedin-username] — I'm on there, selectively</p>
+                <h4>LinkedIn <button class="copy-btn" onclick="copyText('linkedin.com/in/aston-tellis-134259313', this)" title="Copy LinkedIn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></h4>
+                <p>linkedin.com/in/aston-tellis — I'm on there, selectively</p>
               </div>
             </a>
 
@@ -604,5 +604,63 @@
   </style>
 
   <script src="script.js"></script>
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+  </style>
+
+  <script>
+  function prefillCVRequest() {
+    setTimeout(() => {
+      const subjectField = document.getElementById('subject');
+      const messageField = document.getElementById('message');
+      if (subjectField) subjectField.value = 'CV Request';
+      if (messageField) messageField.value = "Hi Aston,\n\nI came across your portfolio and I'm interested in your background. Could you please send me your CV?\n\nThank you.";
+      document.getElementById('contact-form').scrollIntoView({ behavior: 'smooth' });
+    }, 200);
+  }
+
+  function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.innerHTML;
+      btn.innerHTML = '✓';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Contact form handler
+  const form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('form-submit');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      const data = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        btn.textContent = '✓ Message Sent!';
+        btn.style.background = 'var(--accent3)';
+        form.reset();
+      } else {
+        btn.textContent = 'Error — try emailing directly';
+        btn.style.background = 'var(--red)';
+        btn.disabled = false;
+      }
+    });
+  }
+  </script>
 </body>
 </html>
