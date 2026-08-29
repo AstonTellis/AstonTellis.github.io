@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>About — Aston Tellis</title>
+  <title>Contact — Aston Tellis</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
     .page-hero {
@@ -12,353 +12,241 @@
       border-bottom: 1px solid var(--border);
     }
 
-    /* ── Personal Intro ─────────────────────────────────────── */
-    .personal-grid {
+    /* ── Contact Layout ────────────────────────────────────── */
+    .contact-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 4rem;
       padding: 5rem 0;
-      border-bottom: 1px solid var(--border);
     }
 
-    .personal-text p {
-      color: var(--text2);
-      line-height: 1.9;
-      margin-bottom: 1.25rem;
-      font-size: 1rem;
-    }
+    /* ── Contact Methods ────────────────────────────────────── */
+    .contact-methods { display: flex; flex-direction: column; gap: 1.25rem; }
 
-    .personal-text p strong { color: var(--text); }
-    .personal-text p em { color: var(--accent); font-style: normal; }
-
-    /* ── Hobbies Grid ───────────────────────────────────────── */
-    .hobbies-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
-
-    .hobby-card {
+    .contact-method {
       background: var(--surface);
       border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .contact-method:hover {
+      border-color: var(--accent);
+      transform: translateX(6px);
+      box-shadow: -4px 0 0 var(--accent);
+    }
+
+    .contact-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .contact-method-info h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-method-info p {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text3);
+    }
+
+    .contact-note {
+      margin-top: 2rem;
+      background: #00ffaa0a;
+      border: 1px solid #00ffaa18;
       border-radius: var(--radius);
       padding: 1.25rem;
-      transition: var(--transition);
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.75;
     }
 
-    .hobby-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-3px);
-      box-shadow: var(--glow);
-    }
+    .contact-note strong { color: var(--accent3); }
 
-    .hobby-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    /* ── CV Section ─────────────────────────────────────────── */
+    .cv-section { padding: 5rem 0; background: var(--bg2); border-top: 1px solid var(--border); }
 
-    .hobby-name {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--text);
-      margin-bottom: 0.3rem;
-    }
-
-    .hobby-desc {
-      font-size: 0.8rem;
-      color: var(--text3);
-      line-height: 1.6;
-    }
-
-    /* ── Photo Gallery ──────────────────────────────────────── */
-    .gallery-section {
-      padding: 5rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .gallery-intro {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 2.5rem;
-    }
-
-    .gallery-note {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text3);
-      font-style: italic;
-    }
-
-    .photo-gallery {
+    .cv-layout {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
     }
 
-    .photo-item {
-      position: relative;
-      border-radius: var(--radius2);
-      overflow: hidden;
-      border: 1px solid var(--border);
-      aspect-ratio: 3/4;
-      background: var(--surface);
-      cursor: zoom-in;
-      transition: var(--transition);
-    }
+    /* CV Sidebar */
+    .cv-sidebar {}
 
-    .photo-item:hover {
-      border-color: var(--accent);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px #00000060, var(--glow);
-    }
-
-    .photo-item img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-      display: block;
-    }
-
-    .photo-item:hover img { transform: scale(1.04); }
-
-    .photo-overlay {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(0deg, #000000cc, transparent);
-      padding: 1.5rem 1.25rem 1rem;
-      transform: translateY(100%);
-      transition: var(--transition);
-    }
-
-    .photo-item:hover .photo-overlay { transform: translateY(0); }
-
-    .photo-caption {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    .photo-tag {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 0.25rem;
-    }
-
-    /* Add photo placeholder card */
-    .photo-add {
-      border: 2px dashed var(--border2);
-      border-radius: var(--radius2);
-      aspect-ratio: 3/4;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
-      background: var(--surface);
-      transition: var(--transition);
-    }
-
-    .photo-add:hover {
-      border-color: var(--accent);
-      background: #00d4ff08;
-    }
-
-    .photo-add-icon { font-size: 2rem; opacity: 0.4; }
-
-    .photo-add-text {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text3);
-      text-align: center;
-      line-height: 1.6;
-    }
-
-    /* ── Lightbox ───────────────────────────────────────────── */
-    .lightbox {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.92);
-      z-index: 9000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      backdrop-filter: blur(12px);
-    }
-
-    .lightbox.open {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    .lightbox img {
-      max-width: 90vw;
-      max-height: 88vh;
-      object-fit: contain;
-      border-radius: var(--radius);
-      box-shadow: 0 40px 120px #00000080;
-    }
-
-    .lightbox-close {
-      position: absolute;
-      top: 1.5rem; right: 1.5rem;
-      font-family: var(--font-mono);
-      font-size: 1.5rem;
-      color: var(--text2);
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: color var(--transition);
-    }
-
-    .lightbox-close:hover { color: var(--accent); }
-
-    .lightbox-caption {
-      position: absolute;
-      bottom: 1.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--text2);
-      text-align: center;
-    }
-
-    /* ── Fun Skills ─────────────────────────────────────────── */
-    .fun-skills-section {
-      padding: 5rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .fun-skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-    }
-
-    .fun-skill-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius2);
-      padding: 1.75rem;
-      text-align: center;
-      transition: var(--transition);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .fun-skill-card::before {
-      content: 'NOT ON CV';
-      position: absolute;
-      top: 0.8rem; right: -1.8rem;
-      font-family: var(--font-mono);
-      font-size: 0.55rem;
-      font-weight: 700;
-      color: var(--bg);
-      background: var(--gold);
-      padding: 0.2rem 2.5rem;
-      transform: rotate(45deg);
-      letter-spacing: 0.08em;
-    }
-
-    .fun-skill-card:hover {
-      border-color: var(--gold);
-      box-shadow: 0 0 30px #f4a26115;
-      transform: translateY(-3px);
-    }
-
-    .fun-skill-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
-
-    .fun-skill-name {
+    .cv-name {
       font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 1rem;
-      color: var(--text);
-      margin-bottom: 0.4rem;
-    }
-
-    .fun-skill-desc {
-      font-size: 0.82rem;
-      color: var(--text2);
-      line-height: 1.65;
-    }
-
-    /* ── Eager to Learn ─────────────────────────────────────── */
-    .learn-section {
-      padding: 5rem 0;
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-    }
-
-    .learn-card {
-      background: linear-gradient(135deg, #00d4ff08 0%, #7b61ff08 50%, #00ffaa08 100%);
-      border: 1px solid var(--border2);
-      border-radius: var(--radius2);
-      padding: 3rem;
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .learn-card h2 {
-      font-family: var(--font-display);
-      font-size: 2rem;
+      font-size: 1.6rem;
       font-weight: 800;
       letter-spacing: -0.03em;
       color: var(--text);
-      margin-bottom: 1rem;
+      margin-bottom: 0.25rem;
     }
 
-    .learn-card h2 span { color: var(--accent); }
-
-    .learn-card p {
-      color: var(--text2);
-      line-height: 1.85;
+    .cv-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       margin-bottom: 1.5rem;
-      font-size: 1rem;
     }
 
-    .learn-suggestions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      justify-content: center;
+    .cv-contact-list {
+      list-style: none;
       margin-bottom: 2rem;
     }
 
-    .suggestion-tag {
+    .cv-contact-list li {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
-      padding: 0.3rem 0.75rem;
-      border-radius: 4px;
+      font-size: 0.72rem;
+      color: var(--text2);
+      padding: 0.3rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cv-section-mini {
+      margin-bottom: 1.75rem;
+    }
+
+    .cv-mini-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.75rem;
+    }
+
+    .cv-skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+    .cv-skill-tag {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text2);
       background: var(--surface);
       border: 1px solid var(--border);
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+    }
+
+    /* CV Main */
+    .cv-main {}
+
+    .cv-entry {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cv-entry:last-child { border-bottom: none; }
+
+    .cv-entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.4rem;
+    }
+
+    .cv-entry-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .cv-entry-date {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .cv-entry-org {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text3);
+      margin-bottom: 0.75rem;
+    }
+
+    .cv-entry-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .cv-entry-points li {
+      font-size: 0.87rem;
+      color: var(--text2);
+      line-height: 1.6;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .cv-entry-points li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+    }
+
+    .cv-section-heading {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cv-download-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+    }
+
+    .cv-download-bar p {
+      font-size: 0.88rem;
       color: var(--text2);
     }
 
-    .suggestion-tag.highlight {
-      background: #00d4ff12;
-      border-color: #00d4ff30;
-      color: var(--accent);
-    }
-
     @media (max-width: 768px) {
-      .personal-grid { grid-template-columns: 1fr; gap: 2rem; }
-      .hobbies-grid { grid-template-columns: 1fr; }
-      .fun-skills-grid { grid-template-columns: 1fr; }
-      .photo-gallery { grid-template-columns: 1fr; }
+      .contact-layout { grid-template-columns: 1fr; }
+      .cv-layout { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <div class="cursor"></div>
-  <div class="cursor-ring"></div>
-
+  
   <!-- Loading screen -->
   <div class="loading-screen" id="loading-screen">
     <div class="loading-inner">
@@ -368,235 +256,326 @@
     </div>
   </div>
 
+  <div class="cursor"></div>
+  <div class="cursor-ring"></div>
+
   <nav>
     <a class="nav-logo" href="index.html"><span>A</span>T</a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="about.html">About</a></li>
       <li><a href="projects.html">Projects</a></li>
       <li><a href="it-projects.html">IT Lab</a></li>
       <li><a href="animations.html">Design</a></li>
       <li><a href="tools.html">Tools</a></li>
       <li><a href="skills.html">Skills &amp; Training</a></li>
       <li><a href="blog.html">Blog</a></li>
-      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+      <li><a href="contact.html" class="active nav-cta">Contact</a></li>
     </ul>
   </nav>
 
   <div class="page">
     <div class="page-hero">
       <div class="container fade-up">
-        <div class="section-label">The Person Behind the Projects</div>
-        <h1 class="section-title">About Aston</h1>
+        <div class="section-label">Get In Touch</div>
+        <h1 class="section-title">Contact</h1>
         <p class="section-subtitle">
-          Skills and projects tell you what I can do. This page tells you who I am
-          when I'm not in front of a screen.
+          Open to internships, graduate roles, and conversations about FinTech, product,
+          or data. No spam, no cold outreach — just genuine opportunities.
         </p>
       </div>
     </div>
 
-    <!-- ── Personal Intro ────────────────────────────────────── -->
+    <!-- ── Contact Section ──────────────────────────────────── -->
     <div class="container">
-      <div class="personal-grid">
+      <div class="contact-layout">
+
         <div class="fade-up">
-          <div class="section-label">Who I Am</div>
-          <h2 class="section-title" style="font-size:2rem">Beyond the CV</h2>
+          <div class="section-label" style="margin-bottom:1.25rem">Reach Me</div>
+          <div class="contact-methods">
 
-          <p>
-            I'm <strong>Aston Tellis</strong> — a CS and Business student who genuinely enjoys
-            the work. Not just because it opens doors, but because I find the intersection
-            of technology, data, and human behaviour <em>interesting</em>.
-          </p>
-          <p>
-            Outside of studying and building projects, I spend a lot of time outdoors.
-            I take photos of the places I walk through — not with expensive equipment,
-            just a phone and an eye for a good moment. Nature has a way of resetting
-            your thinking that no productivity app has managed to replicate.
-          </p>
-          <p>
-            I'm the kind of person who goes down rabbit holes. I'll read about a topic
-            for hours not because I need to, but because I want to understand it properly.
-            That's led me to everything from digital privacy and surveillance architecture
-            to financial systems, open source philosophy, and how cities are designed.
-          </p>
-          <p>
-            I believe being a well-rounded person makes you a better professional.
-            Curiosity, patience, and the ability to sit with uncertainty — those aren't
-            soft skills, they're the core ones.
-          </p>
-        </div>
+            <a href="mailto:astontellis6@email.com" class="contact-method">
+              <div class="contact-icon" style="background:#00d4ff15">📧</div>
+              <div class="contact-method-info">
+                <h4>Email</h4>
+                <p>astontellis6@gmail.com — Preferred contact method</p>
+              </div>
+            </a>
 
-        <div class="fade-up" style="transition-delay:0.2s">
-          <div class="section-label" style="margin-bottom:1.25rem">How I Spend My Time</div>
-          <div class="hobbies-grid">
-            <div class="hobby-card">
-              <div class="hobby-icon">📷</div>
-              <div class="hobby-name">Nature Photography</div>
-              <div class="hobby-desc">Phone camera, good light, and patience. I photograph parks, paths, and whatever catches my eye outdoors.</div>
+            <a href="https://github.com/AstonTellis" target="_blank" class="contact-method">
+              <div class="contact-icon" style="background:#ffffff08">🐙</div>
+              <div class="contact-method-info">
+                <h4>GitHub</h4>
+                <p>github.com/AstonTellis — See my actual work</p>
+              </div>
+            </a>
+
+            <a href="https://linkedin.com/in/[your-linkedin-username]" target="_blank" class="contact-method">
+              <div class="contact-icon" style="background:#0077b515">💼</div>
+              <div class="contact-method-info">
+                <h4>LinkedIn <button class="copy-btn" onclick="copyText('linkedin.com/in/[your-linkedin-username]', this)">Copy</button></h4>
+                <p>linkedin.com/in/[your-linkedin-username] — I'm on there, selectively</p>
+              </div>
+            </a>
+
+            <div class="contact-method" style="cursor:default">
+              <div class="contact-icon" style="background:#7b61ff15">📍</div>
+              <div class="contact-method-info">
+                <h4>Location</h4>
+                <p>Dublin, Ireland — Open to remote and relocation</p>
+              </div>
             </div>
-            <div class="hobby-card">
-              <div class="hobby-icon">🥾</div>
-              <div class="hobby-name">Hiking and Physical Activities </div>
-              <div class="hobby-desc">Walking, cycling, cooking, music, sport, travel, reading.</div>
-            </div>
-            <div class="hobby-card">
-              <div class="hobby-icon">📚</div>
-              <div class="hobby-name">Reading & Research</div>
-              <div class="hobby-desc">Books on privacy, tech policy, startups, and occasionally something completely unrelated. I learn a fact everyday that could be completely random. Ask me ! I love to explain.</div>
-            </div>
-            <div class="hobby-card">
-              <div class="hobby-icon">🌍</div>
-              <div class="hobby-name">Anything Random</div>
-              <div class="hobby-desc">Travel, languages, volunteering, gaming, cooking and definetly cars and adrenaline pu,ping activites</div>
-            </div>
+
+          </div>
+
+          <div class="contact-note">
+            <strong>A note on privacy:</strong> If you need to send anything sensitive,
+            please use PGP encryption or reach out first to establish a secure channel.
+            I take data hygiene seriously — yours and mine.
           </div>
         </div>
+
+        <!-- Right: Availability + what I'm looking for -->
+        <div class="fade-up" style="transition-delay:0.2s">
+          <div class="section-label" style="margin-bottom:1.25rem">What I'm Looking For</div>
+
+          <div class="card" style="margin-bottom:1.25rem">
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem">
+              <div style="width:10px;height:10px;border-radius:50%;background:var(--accent3);box-shadow:0 0 10px var(--accent3);animation:pulse 2s infinite"></div>
+              <span style="font-family:var(--font-mono);font-size:0.78rem;color:var(--accent3)">Available for opportunities</span>
+            </div>
+            <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.75rem">
+              Roles I'm interested in
+            </h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem">
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Product Management Internship / Graduate</li>
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Business / Data Analyst</li>
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> FinTech Analyst or Associate</li>
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Strategy & Operations at a startup</li>
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Any role where tech meets business strategy</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.75rem">
+              What I value in a role
+            </h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.4rem">
+              <li style="font-size:0.83rem;color:var(--text3)">✓ Transparent, ethical use of data</li>
+              <li style="font-size:0.83rem;color:var(--text3)">✓ Teams where privacy and user trust are taken seriously</li>
+              <li style="font-size:0.83rem;color:var(--text3)">✓ Organisations that value long-term thinking over short-term data extraction</li>
+            </ul>
+            <p style="font-size:0.8rem;color:var(--text3);margin-top:0.75rem;font-style:italic">
+              I'm adaptable and open to most environments — I just bring these values with me wherever I go.
+            </p>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <!-- ── Photo Gallery ─────────────────────────────────────── -->
-    <section class="gallery-section">
+    <!-- ── CV Section ────────────────────────────────────────── -->
+    <section class="cv-section">
       <div class="container">
-        <div class="gallery-intro fade-up">
-          <div>
-            <div class="section-label">Through My Lens</div>
-            <h2 class="section-title" style="font-size:2rem">Nature Photography</h2>
-            <p class="section-subtitle" style="max-width:500px">
-              Places I've walked through and thought were worth remembering.
-              All shot on a phone — no filters, no editing.
-            </p>
-          </div>
-          <span class="gallery-note">Click any photo to expand · More coming soon</span>
+        <div class="cv-download-bar fade-up">
+          <p>Want the one-page version? Download my CV as a PDF.(I will upload it on request)</p>
+          <a href="#" class="btn btn-primary cv-download-btn">↓ Download CV (PDF)</a>
         </div>
 
-        <div class="photo-gallery fade-up">
+        <div class="section-label fade-up" style="margin-bottom:0.5rem">Curriculum Vitae</div>
+        <h2 class="section-title fade-up" style="margin-bottom:3rem">CV Summary</h2>
 
-          <!-- Photo 1 -->
-          <div class="photo-item" onclick="openLightbox('photo-lake.jpg', 'A quiet lake in spring — trees just coming back to life, cyclists passing through.')">
-            <img src="photo-lake.jpg" alt="Lake with trees and path in spring" loading="lazy"/>
-            <div class="photo-overlay">
-              <div class="photo-tag">📍 Local Park</div>
-              <div class="photo-caption">A quiet lake in spring — trees just coming back to life.</div>
+        <div class="cv-layout">
+
+          <!-- CV Sidebar -->
+          <div class="cv-sidebar fade-up">
+            <div class="cv-name">Aston Tellis</div>
+            <div class="cv-title">CS & Business Student</div>
+
+            <ul class="cv-contact-list">
+              <li>📧 [astontellis6@gmail.com]</li>
+              <li>🌐 AstonTellis.github.io</li>
+              <li>🐙 github.com/AstonTellis</li>
+              <li>📍 Dublin, Ireland </li>
+            </ul>
+
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Technical Skills</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">SQL / MySQL</span>
+                <span class="cv-skill-tag">Excel</span>
+                <span class="cv-skill-tag">Python</span>
+                <span class="cv-skill-tag">HTML/CSS</span>
+                <span class="cv-skill-tag">GitHub</span>
+                <span class="cv-skill-tag">Power BI</span>
+              </div>
+            </div>
+
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Business Skills</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">Financial Modelling</span>
+                <span class="cv-skill-tag">Data Analysis</span>
+                <span class="cv-skill-tag">Business Analysis</span>
+                <span class="cv-skill-tag">Product Thinking</span>
+                <span class="cv-skill-tag">Stakeholder Comms</span>
+                <span class="cv-skill-tag">Case Analysis</span>
+              </div>
+            </div>
+
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Languages (Fluent)</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">English</span>
+                <span class="cv-skill-tag">Hindi</span>
+                <span class="cv-skill-tag">Bengali</span>
+                <span class="cv-skill-tag">Urdu</span>
+                <span class="cv-skill-tag">Malayalam</span>
+                <span class="cv-skill-tag">Kannada</span>
+              </div>
+            </div>
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Languages (Working)</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">Spanish</span>
+                <span class="cv-skill-tag">Arabic</span>
+                <span class="cv-skill-tag">French</span>
+              </div>
+            </div>
+
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Certifications</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">IBM Project Management</span>
+                <span class="cv-skill-tag">Azure Cloud Storage</span>
+                <span class="cv-skill-tag">Python Programming</span>
+                <span class="cv-skill-tag">Generative AI</span>
+                <span class="cv-skill-tag">Cybersecurity</span>
+                <span class="cv-skill-tag">Kotlin Development</span>
+              </div>
+            </div>
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Interests</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">Digital Privacy</span>
+                <span class="cv-skill-tag">FinTech</span>
+                <span class="cv-skill-tag">Open Source</span>
+                <span class="cv-skill-tag">Tech Policy</span>
+                <span class="cv-skill-tag">Sports & Fitness</span>
+                <span class="cv-skill-tag">Video Games</span>
+              </div>
             </div>
           </div>
 
-          <!-- Photo 2 -->
-          <div class="photo-item" onclick="openLightbox('photo-trees.jpg', 'Tall conifers against an autumn sky — the contrast of the red tree caught my eye.')">
-            <img src="photo-trees.jpg" alt="Tall conifer trees against blue sky with autumn colours" loading="lazy"/>
-            <div class="photo-overlay">
-              <div class="photo-tag">📍 Local Walk</div>
-              <div class="photo-caption">Tall conifers against an autumn sky — that red tree in the corner made the shot.</div>
-            </div>
-          </div>
+          <!-- CV Main -->
+          <div class="cv-main fade-up" style="transition-delay:0.2s">
 
-          <!-- Add more photos card -->
-          <div class="photo-add">
-            <div class="photo-add-icon">＋</div>
-            <div class="photo-add-text">
-              More photos coming.<br/>
-              <span style="color:var(--accent)">As time permits:</span> I will add more....
+            <div style="margin-bottom:2.5rem">
+              <div class="cv-section-heading">Education</div>
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">BSc Computer Science & Business</span>
+                  <span class="cv-entry-date">2021 — Present</span>
+                </div>
+                <div class="cv-entry-org">Dublin City University · Dublin </div>
+                <ul class="cv-entry-points">
+                  <li>Combined degree covering software engineering, data structures, corporate finance, and strategy</li>
+                  <li>Relevant modules: Database Systems, Financial Analysis, Business Intelligence, Information Security</li>
+                  <li>Current classification: Higher Merit — Expected graduation: 2028</li>
+                </ul>
+              </div>
             </div>
-          </div>
 
+            <div style="margin-bottom:2.5rem">
+              <div class="cv-section-heading">Projects</div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Hartwell Bank — SQL Analytics Engine</span>
+                  <span class="cv-entry-date">2024</span>
+                </div>
+                <div class="cv-entry-org">Personal Portfolio Project · MySQL · FinTech</div>
+                <ul class="cv-entry-points">
+                  <li>Designed a 6-table relational banking database from scratch with foreign keys and indexes</li>
+                  <li>Wrote 15+ SQL queries across fraud detection, customer segmentation, and revenue trend analysis</li>
+                  <li>Used advanced techniques: CTEs, LAG window functions, self-JOINs, subqueries, RANK OVER PARTITION</li>
+                  <li>Identified two confirmed fraud cases using statistical anomaly detection logic</li>
+                </ul>
+              </div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Hartwell Bank — Excel Analytics Workbook</span>
+                  <span class="cv-entry-date">2024</span>
+                </div>
+                <div class="cv-entry-org">Personal Portfolio Project · Microsoft Excel · Financial Modelling</div>
+                <ul class="cv-entry-points">
+                  <li>Built a 9-sheet professional workbook with 505 live formulas and zero errors</li>
+                  <li>Implemented PMT/IPMT/PPMT loan amortisation, SUMPRODUCT weighted risk scoring, INDEX/MATCH lookups</li>
+                  <li>Created assumption-driven revenue model where one cell change updates the entire workbook</li>
+                  <li>Built executive dashboard with 4 charts pulling live data from all sheets</li>
+                </ul>
+              </div>
+
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Portfolio Website</span>
+                  <span class="cv-entry-date">2024</span>
+                </div>
+                <div class="cv-entry-org">Personal Project · HTML · CSS · JavaScript</div>
+                <ul class="cv-entry-points">
+                  <li>Designed and built a multi-page portfolio site from scratch — no templates, no frameworks</li>
+                  <li>Implemented custom cursor, particle animation, typing effects, terminal simulator, live clock</li>
+                  <li>Built with privacy-by-design: no cookies, no analytics, no third-party tracking scripts</li>
+                </ul>
+              </div>
+            </div>
+
+            <div>
+              <div class="cv-section-heading">Extracurricular & Other</div>
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Voluntary IT Support</span>
+                  <span class="cv-entry-date">2021 — 2022</span>
+                </div>
+                <div class="cv-entry-org">School IT Department · Dublin</div>
+                <ul class="cv-entry-points">
+                  <li>Supported hardware troubleshooting and basic network maintenance</li>
+                  <li>Assisted with device setup and end-user technical support</li>
+                  <li>Gained hands-on experience in a real IT environment</li>
+                </ul>
+              </div>
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Kotlin Mobile Development — Tech Club</span>
+                  <span class="cv-entry-date">2021</span>
+                </div>
+                <div class="cv-entry-org">School Tech / Coding Programme · Dublin</div>
+                <ul class="cv-entry-points">
+                  <li>Completed coding programme covering Kotlin fundamentals for Android development</li>
+                  <li>Studied object-oriented programming principles and mobile app logic</li>
+                </ul>
+              </div>
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Interests & Activities</span>
+                  <span class="cv-entry-date">Ongoing</span>
+                </div>
+                <div class="cv-entry-org">Personal</div>
+                <ul class="cv-entry-points">
+                  <li>Sports, fitness, and video games — active in keeping a healthy balance alongside studies</li>
+                  <li>Passionate about digital privacy, open-source software, and tech policy</li>
+                  <li>Self-directed learning: regularly completing online courses and certifications outside of degree</li>
+                  <li>Full driving licence holder</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ── Fun Skills ────────────────────────────────────────── -->
-    <section class="fun-skills-section">
-      <div class="container">
-        <div class="fade-up">
-          <div class="section-label">The Other Stuff</div>
-          <h2 class="section-title" style="font-size:2rem">Fun Skills</h2>
-          <p class="section-subtitle" style="margin-bottom:2.5rem">
-            Things I've picked up because they interested me — not because they were on a syllabus.
-            Not necessarily job-relevant, but they say something about how I learn.
-          </p>
-        </div>
-
-        <div class="fun-skills-grid fade-up">
-          <div class="fun-skill-card">
-            <div class="fun-skill-icon">📷</div>
-            <div class="fun-skill-name">Phone Photography</div>
-            <div class="fun-skill-desc">Composition, lighting, and patience. The best camera is the one you have with you.</div>
-          </div>
-          <div class="fun-skill-card">
-            <div class="fun-skill-icon">🔒</div>
-            <div class="fun-skill-name">Privacy & OPSEC</div>
-            <div class="fun-skill-desc">Threat modelling, encrypted communication, understanding what data leaks and where. A hobby that became a professional value.</div>
-          </div>
-          <div class="fun-skill-card">
-            <div class="fun-skill-icon">🌐</div>
-            <div class="fun-skill-name">Web Design</div>
-            <div class="fun-skill-desc">This website is evidence. Built from scratch, no templates, no AI-generated UI. Learned by doing.</div>
-          </div>
-          <div class="fun-skill-card">
-            <div class="fun-skill-icon">🎯</div>
-            <div class="fun-skill-name">[Your Fun Skill]</div>
-            <div class="fun-skill-desc">Replace with something real — cooking, a language, an instrument, a sport, anything you've genuinely put time into.</div>
-          </div>
-          <div class="fun-skill-card">
-            <div class="fun-skill-icon">🗺️</div>
-            <div class="fun-skill-name">[Your Fun Skill]</div>
-            <div class="fun-skill-desc">Another real one — travel hacking, urban exploration, coffee brewing, whatever you've explored out of pure curiosity.</div>
-          </div>
-          <div class="fun-skill-card">
-            <div class="fun-skill-icon">📖</div>
-            <div class="fun-skill-name">Self-Directed Learning</div>
-            <div class="fun-skill-desc">The skill behind the skills. Knowing how to pick up something new without being taught it is probably the most valuable thing I've developed.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Eager to Learn ────────────────────────────────────── -->
-    <section class="learn-section">
-      <div class="container">
-        <div class="learn-card fade-up">
-          <div class="section-label" style="justify-content:center;margin-bottom:1rem">Always Growing</div>
-          <h2>Always <span>Learning</span></h2>
-          <p>
-            I'm genuinely open to learning anything that makes me more useful, more curious, or
-            more capable. If you've come across something interesting — a tool, a concept, a field,
-            a book — I'd love to hear about it. The best suggestions I've ever received came from
-            unexpected conversations.
-          </p>
-          <p>
-            I'm currently exploring Python for data, Power BI, privacy engineering, and open source
-            finance tools. But I'm not attached to any particular roadmap — I follow what's genuinely
-            interesting and what has real application.
-          </p>
-
-          <div class="learn-suggestions">
-            <span class="suggestion-tag highlight">Python for Data</span>
-            <span class="suggestion-tag highlight">Power BI</span>
-            <span class="suggestion-tag highlight">Privacy Engineering</span>
-            <span class="suggestion-tag">dbt (data build tool)</span>
-            <span class="suggestion-tag">Tableau</span>
-            <span class="suggestion-tag">Product Analytics</span>
-            <span class="suggestion-tag">Figma</span>
-            <span class="suggestion-tag">Open Banking APIs</span>
-            <span class="suggestion-tag">R for Statistics</span>
-            <span class="suggestion-tag">What would you suggest?</span>
-          </div>
-
-          <p style="font-size:0.9rem;color:var(--text3);margin:0">
-            Have a suggestion? Something you think I should explore?
-            <a href="contact.html" style="color:var(--accent);text-decoration:none;font-family:var(--font-mono)">
-              → Get in touch
-            </a>
-          </p>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-    <img id="lightbox-img" src="" alt=""/>
-    <div class="lightbox-caption" id="lightbox-caption"></div>
   </div>
 
   <footer>
@@ -617,24 +596,13 @@
     </div>
   </footer>
 
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+  </style>
+
   <script src="script.js"></script>
-  <script>
-    function openLightbox(src, caption) {
-      const lb = document.getElementById('lightbox');
-      document.getElementById('lightbox-img').src = src;
-      document.getElementById('lightbox-caption').textContent = caption;
-      lb.classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeLightbox() {
-      document.getElementById('lightbox').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeLightbox();
-    });
-  </script>
 </body>
 </html>
