@@ -238,6 +238,123 @@
       color: var(--text2);
     }
 
+
+    /* ── Copy Buttons ───────────────────────────────────────── */
+    .copy-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text3);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      padding: 0.2rem 0.5rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-left: 0.5rem;
+    }
+    .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .copy-btn.copied { border-color: var(--accent3); color: var(--accent3); }
+
+    /* ── Contact Form ───────────────────────────────────────── */
+    .contact-form-section {
+      margin-top: 3rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .form-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group { margin-bottom: 1rem; }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text2);
+      margin-bottom: 0.4rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .form-input, .form-textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem 1rem;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease;
+      resize: vertical;
+    }
+
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+    .form-textarea { min-height: 120px; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .form-submit {
+      width: 100%;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 0.5rem;
+    }
+
+    .form-submit:hover { background: #33ddff; transform: translateY(-1px); }
+
+    .form-note {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text3);
+      text-align: center;
+      margin-top: 0.75rem;
+    }
+
+    /* CV on request */
+    .cv-request-box {
+      background: linear-gradient(135deg, #00d4ff08, #7b61ff08);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius2);
+      padding: 1.75rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .cv-request-box h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .cv-request-box p {
+      font-size: 0.88rem;
+      color: var(--text2);
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     @media (max-width: 768px) {
       .contact-layout { grid-template-columns: 1fr; }
       .cv-layout { grid-template-columns: 1fr; }
@@ -265,7 +382,9 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="projects.html">Projects</a></li>
+      <li><a href="it-projects.html">IT Lab</a></li>
       <li><a href="animations.html">Design</a></li>
+      <li><a href="tools.html">Tools</a></li>
       <li><a href="skills.html">Skills</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html" class="active nav-cta">Contact</a></li>
@@ -295,7 +414,7 @@
             <a href="mailto:astontellis6@email.com" class="contact-method">
               <div class="contact-icon" style="background:#00d4ff15">📧</div>
               <div class="contact-method-info">
-                <h4>Email</h4>
+                <h4>Email <button class="copy-btn" onclick="copyText('astontellis6@gmail.com', this)">Copy</button></h4>
                 <p>astontellis6@gmail.com — Preferred contact method</p>
               </div>
             </a>
@@ -303,7 +422,7 @@
             <a href="https://github.com/AstonTellis" target="_blank" class="contact-method">
               <div class="contact-icon" style="background:#ffffff08">🐙</div>
               <div class="contact-method-info">
-                <h4>GitHub</h4>
+                <h4>GitHub <button class="copy-btn" onclick="copyText('github.com/AstonTellis', this)">Copy</button></h4>
                 <p>github.com/AstonTellis — See my actual work</p>
               </div>
             </a>
@@ -331,6 +450,37 @@
             please use PGP encryption or reach out first to establish a secure channel.
             I take data hygiene seriously — yours and mine.
           </div>
+          <!-- Contact Form -->
+          <div class="contact-form-section">
+            <div class="form-title">Send a Message</div>
+            <p style="font-size:0.85rem;color:var(--text2);margin-bottom:1.25rem;line-height:1.7">
+              Fill in the form below and it will go directly to my inbox.
+              Powered by Formspree — no data is stored on this site.
+            </p>
+            <form action="https://formspree.io/f//mljeeylo" method="POST" id="contact-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="name">Your Name</label>
+                  <input type="text" id="name" name="name" class="form-input" placeholder="Jane Smith" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="email">Your Email</label>
+                  <input type="email" id="email" name="email" class="form-input" placeholder="jane@company.com" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" class="form-input" placeholder="Internship opportunity / General enquiry">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="message">Message</label>
+                <textarea id="message" name="message" class="form-textarea" placeholder="Hi Aston, I came across your portfolio and..." required></textarea>
+              </div>
+              <button type="submit" class="form-submit" id="form-submit">Send Message →</button>
+              <div class="form-note">🔒 Sent via Formspree · Your email is only used to reply to you</div>
+            </form>
+          </div>
+
         </div>
 
         <!-- Right: Availability + what I'm looking for -->
@@ -375,9 +525,17 @@
     <!-- ── CV Section ────────────────────────────────────────── -->
     <section class="cv-section">
       <div class="container">
-        <div class="cv-download-bar fade-up">
-          <p>Want the one-page version? Download my CV as a PDF.(I will upload it on request)</p>
-          <a href="#" class="btn btn-primary cv-download-btn">↓ Download CV (PDF)</a>
+        <div class="cv-request-box fade-up">
+          <h3>📄 CV Available on Request</h3>
+          <p>
+            I share my CV directly with genuine opportunities rather than leaving it
+            publicly available online — both for privacy reasons and to ensure
+            it reaches the right people. Use the contact form above or email me directly.
+          </p>
+          <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap">
+            <a href="mailto:astontellis6@gmail.com?subject=CV Request" class="btn btn-primary">Request CV via Email →</a>
+            <a href="#contact-form" class="btn btn-ghost">Use Contact Form</a>
+          </div>
         </div>
 
         <div class="section-label fade-up" style="margin-bottom:0.5rem">Curriculum Vitae</div>
@@ -533,7 +691,9 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="projects.html">Projects</a></li>
+        <li><a href="it-projects.html">IT Lab</a></li>
         <li><a href="animations.html">Design</a></li>
+        <li><a href="tools.html">Tools</a></li>
         <li><a href="skills.html">Skills</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -551,5 +711,46 @@
   </style>
 
   <script src="script.js"></script>
+
+  <script>
+  function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Contact form handler
+  const form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('form-submit');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      const data = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        btn.textContent = '✓ Message Sent!';
+        btn.style.background = 'var(--accent3)';
+        form.reset();
+      } else {
+        btn.textContent = 'Error — try emailing directly';
+        btn.style.background = 'var(--red)';
+        btn.disabled = false;
+      }
+    });
+  }
+  </script>
 </body>
 </html>
