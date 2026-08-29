@@ -297,7 +297,7 @@
             <a href="mailto:astontellis6@email.com" class="contact-method">
               <div class="contact-icon" style="background:#00d4ff15">📧</div>
               <div class="contact-method-info">
-                <h4>Email</h4>
+                <h4>Email <button class="copy-btn" onclick="event.preventDefault();copyText('astontellis6@gmail.com', this)" title="Copy email"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></h4>
                 <p>astontellis6@gmail.com — Preferred contact method</p>
               </div>
             </a>
@@ -305,7 +305,7 @@
             <a href="https://github.com/AstonTellis" target="_blank" class="contact-method">
               <div class="contact-icon" style="background:#ffffff08">🐙</div>
               <div class="contact-method-info">
-                <h4>GitHub</h4>
+                <h4>GitHub <button class="copy-btn" onclick="event.preventDefault();copyText('github.com/AstonTellis', this)" title="Copy GitHub"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></h4>
                 <p>github.com/AstonTellis — See my actual work</p>
               </div>
             </a>
@@ -373,6 +373,73 @@
 
       </div>
     </div>
+
+
+    <!-- ── Contact Form Section ─────────────────────────────── -->
+    <section style="padding:5rem 0;background:var(--bg2);border-top:1px solid var(--border)">
+      <div class="container">
+        <div style="max-width:680px;margin:0 auto">
+          <div class="section-label fade-up" style="margin-bottom:0.75rem">Send a Message</div>
+          <h2 class="section-title fade-up" style="font-size:2rem;margin-bottom:0.75rem">
+            Get in Touch Directly
+          </h2>
+          <p class="section-subtitle fade-up" style="margin-bottom:2.5rem">
+            Fill in the form below and it goes straight to my inbox. I'll get back to you
+            as soon as I can. You can use this to introduce yourself, ask about my work,
+            or request my CV.
+          </p>
+
+          <div class="fade-up" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:2.5rem">
+            <form action="https://formspree.io/f/mljeeylo" method="POST" id="contact-form">
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="cf-name">Your Name *</label>
+                  <input type="text" id="cf-name" name="name" class="form-input"
+                    placeholder="Jane Smith" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="cf-email">Your Email *</label>
+                  <input type="email" id="cf-email" name="email" class="form-input"
+                    placeholder="jane@company.com" required autocomplete="email">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="cf-subject">Subject</label>
+                <input type="text" id="cf-subject" name="subject" class="form-input"
+                  placeholder="Internship opportunity / CV Request / General enquiry">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="cf-message">Message *</label>
+                <textarea id="cf-message" name="message" class="form-textarea"
+                  placeholder="Hi Aston, I came across your portfolio and..." required></textarea>
+              </div>
+
+              <!-- hidden fields for formspree -->
+              <input type="text" name="_gotcha" style="display:none">
+
+              <button type="submit" class="form-submit" id="form-submit">
+                Send Message →
+              </button>
+              <p class="form-note" style="margin-top:0.75rem">
+                🔒 Powered by Formspree · Your email is only used to reply to you ·
+                No data stored on this site
+              </p>
+            </form>
+          </div>
+
+          <!-- Success / error message -->
+          <div id="form-success" style="display:none;margin-top:1.5rem;background:#00ffaa0f;border:1px solid #00ffaa25;border-radius:var(--radius);padding:1.25rem;text-align:center;font-family:var(--font-mono);font-size:0.85rem;color:var(--accent3)">
+            ✓ Message sent! I'll get back to you soon.
+          </div>
+          <div id="form-error" style="display:none;margin-top:1.5rem;background:#ff4d6d0f;border:1px solid #ff4d6d25;border-radius:var(--radius);padding:1.25rem;text-align:center;font-family:var(--font-mono);font-size:0.85rem;color:var(--red)">
+            ✗ Something went wrong. Please email me directly at astontellis6@gmail.com
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ── CV Section ────────────────────────────────────────── -->
     <section class="cv-section">
@@ -614,11 +681,12 @@
   <script>
   function prefillCVRequest() {
     setTimeout(() => {
-      const subjectField = document.getElementById('subject');
-      const messageField = document.getElementById('message');
+      const subjectField = document.getElementById('cf-subject');
+      const messageField = document.getElementById('cf-message');
       if (subjectField) subjectField.value = 'CV Request';
-      if (messageField) messageField.value = "Hi Aston,\n\nI came across your portfolio and I'm interested in your background. Could you please send me your CV?\n\nThank you.";
-      document.getElementById('contact-form').scrollIntoView({ behavior: 'smooth' });
+      if (messageField) messageField.value = "Hi Aston,\n\nI came across your portfolio and I\'m interested in your background. Could you please send me your CV?\n\nThank you.";
+      const form = document.getElementById('contact-form');
+      if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 200);
   }
 
@@ -640,24 +708,34 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const btn = document.getElementById('form-submit');
+      const successEl = document.getElementById('form-success');
+      const errorEl   = document.getElementById('form-error');
       btn.textContent = 'Sending...';
       btn.disabled = true;
 
-      const data = new FormData(form);
-      const response = await fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      });
+      try {
+        const data = new FormData(form);
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
 
-      if (response.ok) {
-        btn.textContent = '✓ Message Sent!';
-        btn.style.background = 'var(--accent3)';
-        form.reset();
-      } else {
-        btn.textContent = 'Error — try emailing directly';
+        if (response.ok) {
+          btn.textContent = '✓ Sent!';
+          btn.style.background = 'var(--accent3)';
+          form.reset();
+          if (successEl) successEl.style.display = 'block';
+          if (errorEl)   errorEl.style.display   = 'none';
+        } else {
+          throw new Error('Server error');
+        }
+      } catch (err) {
+        btn.textContent = 'Try again';
         btn.style.background = 'var(--red)';
         btn.disabled = false;
+        if (errorEl)   errorEl.style.display   = 'block';
+        if (successEl) successEl.style.display = 'none';
       }
     });
   }
