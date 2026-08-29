@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IT Lab — Aston Tellis</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .page-hero {
+      padding: 5rem 0 3rem;
+      background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .it-section {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .it-section:nth-child(even) { background: var(--bg2); }
+
+    /* ══════════════════════════════════════════════════════════
+       PASSWORD STRENGTH CHECKER
+    ══════════════════════════════════════════════════════════ */
+    .pw-container {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .pw-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      overflow: hidden;
+    }
+
+    .pw-header {
+      background: #0f1420;
+      padding: 1rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pw-body { padding: 2rem; }
+
+    .pw-input-wrap {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .pw-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.85rem 3rem 0.85rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--text);
+      letter-spacing: 0.1em;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .pw-input:focus { border-color: var(--accent); }
+
+    .pw-toggle {
+      position: absolute;
+      right: 0.75rem; top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--text3);
+      transition: color 0.2s;
+    }
+
+    .pw-toggle:hover { color: var(--accent); }
+
+    /* Strength meter */
+    .strength-meter {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      margin-bottom: 0.6rem;
+    }
+
+    .strength-bar {
+      height: 6px;
+      border-radius: 3px;
+      background: var(--bg);
+      transition: background 0.3s ease;
+    }
+
+    .strength-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      margin-bottom: 1.5rem;
+      color: var(--text3);
+    }
+
+    /* Criteria checklist */
+    .pw-criteria {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .criterion {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text3);
+      transition: color 0.2s ease;
+    }
+
+    .criterion.met { color: var(--accent3); }
+
+    .criterion-icon {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .criterion.met .criterion-icon {
+      background: var(--accent3);
+      border-color: var(--accent3);
+      color: var(--bg);
+    }
+
+    /* Time to crack */
+    .crack-time {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .crack-time-label { color: var(--text2); }
+    .crack-time-value { font-weight: 700; color: var(--accent); }
+
+    /* Suggestions */
+    .pw-suggestions {
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.7;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       HTTPS EXPLAINER
+    ══════════════════════════════════════════════════════════ */
+    .https-visual {
+      position: relative;
+      margin: 2rem 0;
+    }
+
+    .https-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .https-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1.25rem;
+      align-items: stretch;
+      cursor: pointer;
+    }
+
+    .https-step-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .https-step-num {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text3);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .https-step.active .https-step-num {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg);
+      box-shadow: 0 0 20px #00d4ff40;
+    }
+
+    .https-step-line {
+      flex: 1;
+      width: 2px;
+      background: var(--border);
+      margin: 4px 0;
+      min-height: 20px;
+    }
+
+    .https-step:last-child .https-step-line { display: none; }
+
+    .https-step-content {
+      padding: 0.75rem 0 1.5rem;
+    }
+
+    .https-step-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+      transition: color 0.2s;
+    }
+
+    .https-step.active .https-step-title { color: var(--accent); }
+
+    .https-step-desc {
+      font-size: 0.83rem;
+      color: var(--text2);
+      line-height: 1.7;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .https-step.active .https-step-desc { max-height: 200px; }
+
+    .https-code {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.4rem 0.75rem;
+      margin-top: 0.5rem;
+      color: var(--accent3);
+      display: inline-block;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       PYTHON PROJECT SHOWCASE
+    ══════════════════════════════════════════════════════════ */
+    .python-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .python-about h3 {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .python-about p {
+      color: var(--text2);
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      font-size: 0.92rem;
+    }
+
+    .python-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1.25rem 0;
+    }
+
+    .python-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    .python-feature::before {
+      content: '→';
+      color: var(--accent);
+      font-family: var(--font-mono);
+      flex-shrink: 0;
+    }
+
+    .code-window {
+      background: #060910;
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      overflow: hidden;
+    }
+
+    .code-window-bar {
+      background: #0f1420;
+      padding: 0.65rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .code-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .code-dot.r { background: #ff5f56; }
+    .code-dot.y { background: #ffbd2e; }
+    .code-dot.g { background: #27c93f; }
+
+    .code-filename {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text3);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .code-body {
+      padding: 1.25rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      line-height: 1.9;
+      color: #a8b4cc;
+      overflow-x: auto;
+    }
+
+    .py-kw  { color: #7b61ff; }
+    .py-fn  { color: #00d4ff; }
+    .py-str { color: #00ffaa; }
+    .py-cm  { color: #4a5a7a; font-style: italic; }
+    .py-num { color: #f4a261; }
+    .py-cls { color: #ff9f43; }
+
+    .download-note {
+      background: #00ffaa0a;
+      border: 1px solid #00ffaa20;
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      font-size: 0.82rem;
+      color: var(--text2);
+      line-height: 1.7;
+      margin-top: 1.25rem;
+    }
+
+    .download-note strong { color: var(--accent3); }
+
+    @media (max-width: 768px) {
+      .python-layout { grid-template-columns: 1fr; }
+      .pw-criteria { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"></div>
+  <div class="cursor-ring"></div>
+
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-inner">
+      <div class="loading-logo">AT</div>
+      <div class="loading-bar"><div class="loading-fill"></div></div>
+      <div class="loading-text">Loading...</div>
+    </div>
+  </div>
+
+  <nav>
+    <a class="nav-logo" href="index.html"><span>A</span>T</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="it-projects.html" class="active">IT Lab</a></li>
+      <li><a href="animations.html">Design</a></li>
+      <li><a href="tools.html">Tools</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="page-hero">
+      <div class="container fade-up">
+        <div class="section-label">CS & IT Projects</div>
+        <h1 class="section-title">IT Lab</h1>
+        <p class="section-subtitle">
+          Where the computer science side lives. A password security analyser,
+          an interactive HTTPS explainer, and a real Python script you can download and run.
+          Built to show range across web, security, and scripting.
+        </p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         PASSWORD STRENGTH CHECKER
+    ══════════════════════════════════════════════════════════ -->
+    <section class="it-section">
+      <div class="container">
+        <div class="fade-up" style="margin-bottom:2.5rem">
+          <div class="section-label">Project 01 — Web App · HTML/CSS/JavaScript</div>
+          <h2 class="section-title" style="font-size:2rem">Password Strength Analyser</h2>
+          <p class="section-subtitle">
+            A real-time password analyser that checks entropy, character variety, common patterns,
+            and estimates crack time. Entirely client-side — your password never leaves your browser.
+          </p>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+            <span class="tag tag-blue">JavaScript</span>
+            <span class="tag tag-green">Cybersecurity</span>
+            <span class="tag tag-purple">HTML/CSS</span>
+            <span class="tag tag-red">Privacy-First</span>
+          </div>
+        </div>
+
+        <div class="pw-container fade-up">
+          <div class="pw-card">
+            <div class="pw-header">
+              🔐 Password Strength Analyser · Client-side only · Zero data sent anywhere
+            </div>
+            <div class="pw-body">
+              <div class="pw-input-wrap">
+                <input type="password" class="pw-input" id="pw-input"
+                  placeholder="Type a password to analyse..."
+                  oninput="analysePassword(this.value)" autocomplete="off">
+                <button class="pw-toggle" id="pw-toggle" onclick="togglePwVisibility()">👁</button>
+              </div>
+
+              <div class="strength-meter" id="strength-meter">
+                <div class="strength-bar" id="sb1"></div>
+                <div class="strength-bar" id="sb2"></div>
+                <div class="strength-bar" id="sb3"></div>
+                <div class="strength-bar" id="sb4"></div>
+                <div class="strength-bar" id="sb5"></div>
+              </div>
+              <div class="strength-label" id="strength-label">Enter a password to begin analysis</div>
+
+              <div class="pw-criteria">
+                <div class="criterion" id="c-length"><div class="criterion-icon">✓</div> 12+ characters</div>
+                <div class="criterion" id="c-upper"><div class="criterion-icon">✓</div> Uppercase letters</div>
+                <div class="criterion" id="c-lower"><div class="criterion-icon">✓</div> Lowercase letters</div>
+                <div class="criterion" id="c-number"><div class="criterion-icon">✓</div> Numbers</div>
+                <div class="criterion" id="c-symbol"><div class="criterion-icon">✓</div> Special symbols</div>
+                <div class="criterion" id="c-nocommon"><div class="criterion-icon">✓</div> No common words</div>
+              </div>
+
+              <div class="crack-time">
+                <span class="crack-time-label">Estimated time to crack (offline attack)</span>
+                <span class="crack-time-value" id="crack-time">—</span>
+              </div>
+
+              <div class="pw-suggestions" id="pw-suggestions">
+                Start typing a password above to see your security analysis.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         HTTPS EXPLAINER
+    ══════════════════════════════════════════════════════════ -->
+    <section class="it-section">
+      <div class="container">
+        <div class="fade-up" style="margin-bottom:2.5rem">
+          <div class="section-label">Project 02 — Network Security · Interactive Explainer</div>
+          <h2 class="section-title" style="font-size:2rem">How HTTPS Actually Works</h2>
+          <p class="section-subtitle">
+            Most people know HTTPS is "secure" — but what actually happens during that connection?
+            Click each step to walk through the TLS handshake process that protects every
+            secure website you visit.
+          </p>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+            <span class="tag tag-blue">Networking</span>
+            <span class="tag tag-green">Cryptography</span>
+            <span class="tag tag-purple">TLS/SSL</span>
+            <span class="tag tag-red">Security</span>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start" class="fade-up">
+          <div class="https-steps" id="https-steps">
+
+            <div class="https-step active" onclick="setStep(0)">
+              <div class="https-step-left">
+                <div class="https-step-num">1</div>
+                <div class="https-step-line"></div>
+              </div>
+              <div class="https-step-content">
+                <div class="https-step-title">Client Hello</div>
+                <div class="https-step-desc">
+                  Your browser sends a "hello" message to the server. This includes the TLS version it supports,
+                  a list of supported cipher suites (encryption algorithms), and a randomly generated number.
+                  <div class="https-code">→ Browser: "I support TLS 1.3, here are my cipher suites"</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="https-step" onclick="setStep(1)">
+              <div class="https-step-left">
+                <div class="https-step-num">2</div>
+                <div class="https-step-line"></div>
+              </div>
+              <div class="https-step-content">
+                <div class="https-step-title">Server Hello + Certificate</div>
+                <div class="https-step-desc">
+                  The server responds with its chosen cipher suite and sends its SSL/TLS certificate —
+                  a digital document issued by a Certificate Authority (CA) that proves the server's identity.
+                  <div class="https-code">← Server: "Using AES-256, here is my certificate"</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="https-step" onclick="setStep(2)">
+              <div class="https-step-left">
+                <div class="https-step-num">3</div>
+                <div class="https-step-line"></div>
+              </div>
+              <div class="https-step-content">
+                <div class="https-step-title">Certificate Verification</div>
+                <div class="https-step-desc">
+                  Your browser checks the certificate against a list of trusted Certificate Authorities
+                  built into your OS and browser. It verifies the certificate hasn't expired,
+                  matches the domain, and hasn't been revoked.
+                  <div class="https-code">Browser checks: Valid CA? ✓ Not expired? ✓ Domain match? ✓</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="https-step" onclick="setStep(3)">
+              <div class="https-step-left">
+                <div class="https-step-num">4</div>
+                <div class="https-step-line"></div>
+              </div>
+              <div class="https-step-content">
+                <div class="https-step-title">Key Exchange</div>
+                <div class="https-step-desc">
+                  Using asymmetric cryptography (the server's public key), the browser and server
+                  negotiate a shared "session key" without ever transmitting it over the network.
+                  This uses Diffie-Hellman key exchange — mathematically clever.
+                  <div class="https-code">Both sides derive the same session key independently</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="https-step" onclick="setStep(4)">
+              <div class="https-step-left">
+                <div class="https-step-num">5</div>
+                <div class="https-step-line"></div>
+              </div>
+              <div class="https-step-content">
+                <div class="https-step-title">Encrypted Connection Established</div>
+                <div class="https-step-desc">
+                  Both sides confirm the handshake with a "Finished" message encrypted with the session key.
+                  All subsequent communication uses fast symmetric encryption (AES).
+                  The 🔒 padlock appears in your browser.
+                  <div class="https-code">→ All data now encrypted with AES-256 symmetric key</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="https-step" onclick="setStep(5)">
+              <div class="https-step-left">
+                <div class="https-step-num">6</div>
+                <div class="https-step-line"></div>
+              </div>
+              <div class="https-step-content">
+                <div class="https-step-title">What HTTPS Doesn't Protect</div>
+                <div class="https-step-desc">
+                  HTTPS encrypts the content of your communication but NOT the fact that you visited
+                  a site (your ISP still sees the domain), metadata, or what the website does with
+                  your data once received. It's transport security, not end-to-end privacy.
+                  <div class="https-code">⚠ Your ISP still knows: you visited astontellis.github.io</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Visual diagram -->
+          <div>
+            <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:2rem;text-align:center">
+              <div style="display:flex;justify-content:space-around;align-items:flex-start;gap:1rem;margin-bottom:2rem">
+                <div style="text-align:center">
+                  <div style="font-size:2.5rem;margin-bottom:0.5rem">💻</div>
+                  <div style="font-family:var(--font-mono);font-size:0.68rem;color:var(--text2)">Your Browser</div>
+                </div>
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:1rem">
+                  <div id="https-arrow" style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent);margin-bottom:0.25rem;transition:all 0.3s">Step 1: ClientHello →</div>
+                  <div style="height:2px;width:100%;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
+                  <div id="https-arrow2" style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent2);margin-top:0.25rem;transition:all 0.3s">← Step 2: ServerHello</div>
+                </div>
+                <div style="text-align:center">
+                  <div style="font-size:2.5rem;margin-bottom:0.5rem">🖥️</div>
+                  <div style="font-family:var(--font-mono);font-size:0.68rem;color:var(--text2)">Web Server</div>
+                </div>
+              </div>
+              <div id="https-status" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--accent3);background:#00ffaa0a;border:1px solid #00ffaa20;border-radius:var(--radius);padding:0.75rem;margin-top:0.5rem">
+                🔒 TLS Handshake in progress — click steps to explore
+              </div>
+            </div>
+
+            <div style="margin-top:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem">
+              <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.75rem">Key Terms</div>
+              <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.78rem;color:var(--text2)">
+                <div><strong style="color:var(--text);font-family:var(--font-mono)">TLS</strong> — Transport Layer Security. The protocol behind HTTPS.</div>
+                <div><strong style="color:var(--text);font-family:var(--font-mono)">CA</strong> — Certificate Authority. Trusted organisations that sign certificates.</div>
+                <div><strong style="color:var(--text);font-family:var(--font-mono)">AES-256</strong> — The symmetric encryption standard used after handshake.</div>
+                <div><strong style="color:var(--text);font-family:var(--font-mono)">Diffie-Hellman</strong> — Algorithm for exchanging keys without transmitting them.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         PYTHON PROJECT
+    ══════════════════════════════════════════════════════════ -->
+    <section class="it-section">
+      <div class="container">
+        <div class="fade-up" style="margin-bottom:2.5rem">
+          <div class="section-label">Project 03 — Python · Data Processing Script</div>
+          <h2 class="section-title" style="font-size:2rem">CSV Data Cleaner & Analyser</h2>
+        </div>
+
+        <div class="python-layout fade-up">
+          <div class="python-about">
+            <h3>What It Does</h3>
+            <p>
+              A command-line Python script that takes any CSV file, cleans the data,
+              identifies issues, and outputs a formatted summary report. Built to solve
+              a real problem: raw data is almost always messy.
+            </p>
+            <p>
+              This directly connects to my Excel and SQL work — the same analytical
+              thinking applied in a scripting context. It demonstrates that I can
+              work programmatically, not just in spreadsheets.
+            </p>
+
+            <div class="python-features">
+              <div class="python-feature">Detects and reports missing values per column</div>
+              <div class="python-feature">Identifies duplicate rows automatically</div>
+              <div class="python-feature">Calculates basic statistics (mean, min, max, std dev)</div>
+              <div class="python-feature">Detects column data types and flags inconsistencies</div>
+              <div class="python-feature">Outputs a clean summary report as a .txt file</div>
+              <div class="python-feature">Works on any CSV — no hardcoded column names</div>
+            </div>
+
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem">
+              <span class="tag tag-blue">Python 3</span>
+              <span class="tag tag-green">pandas</span>
+              <span class="tag tag-purple">Data Cleaning</span>
+              <span class="tag tag-gold">CLI Tool</span>
+            </div>
+
+            <a href="data_cleaner.py" download class="btn btn-primary" style="margin-bottom:0.75rem">
+              ↓ Download data_cleaner.py
+            </a>
+
+            <div class="download-note">
+              <strong>Safe to download.</strong> This is a plain Python (.py) text file.
+              You can open it in any text editor to read every line before running it.
+              It requires Python 3 and pandas (<code style="color:var(--accent)">pip install pandas</code>).
+              It only reads the CSV you point it at — it does not connect to the internet
+              or access any other files.
+            </div>
+          </div>
+
+          <!-- Code preview -->
+          <div class="code-window">
+            <div class="code-window-bar">
+              <div class="code-dot r"></div>
+              <div class="code-dot y"></div>
+              <div class="code-dot g"></div>
+              <span class="code-filename">data_cleaner.py</span>
+            </div>
+            <div class="code-body"><pre><span class="py-cm"># ─────────────────────────────────────────────────────</span>
+<span class="py-cm"># CSV Data Cleaner & Analyser — by Aston Tellis</span>
+<span class="py-cm"># Portfolio Project · Python 3 · pandas</span>
+<span class="py-cm"># Usage: python data_cleaner.py your_file.csv</span>
+<span class="py-cm"># ─────────────────────────────────────────────────────</span>
+
+<span class="py-kw">import</span> pandas <span class="py-kw">as</span> pd
+<span class="py-kw">import</span> sys, os
+<span class="py-kw">from</span> datetime <span class="py-kw">import</span> datetime
+
+<span class="py-kw">def</span> <span class="py-fn">load_csv</span>(path):
+    <span class="py-str">"""Load CSV with encoding fallback."""</span>
+    <span class="py-kw">try</span>:
+        <span class="py-kw">return</span> pd.<span class="py-fn">read_csv</span>(path, encoding=<span class="py-str">'utf-8'</span>)
+    <span class="py-kw">except</span> UnicodeDecodeError:
+        <span class="py-kw">return</span> pd.<span class="py-fn">read_csv</span>(path, encoding=<span class="py-str">'latin-1'</span>)
+
+<span class="py-kw">def</span> <span class="py-fn">analyse</span>(df, filename):
+    <span class="py-str">"""Run full analysis and return report."""</span>
+    lines = []
+    lines.<span class="py-fn">append</span>(<span class="py-str">f"CSV ANALYSIS REPORT"</span>)
+    lines.<span class="py-fn">append</span>(<span class="py-str">f"File: {filename}"</span>)
+    lines.<span class="py-fn">append</span>(<span class="py-str">f"Generated: {datetime.now()}"</span>)
+    lines.<span class="py-fn">append</span>(<span class="py-str">"-" * 50</span>)
+
+    <span class="py-cm"># Shape</span>
+    lines.<span class="py-fn">append</span>(<span class="py-str">f"Rows: {df.shape[0]:,}"</span>)
+    lines.<span class="py-fn">append</span>(<span class="py-str">f"Columns: {df.shape[1]}"</span>)
+
+    <span class="py-cm"># Duplicates</span>
+    dupes = df.<span class="py-fn">duplicated</span>().<span class="py-fn">sum</span>()
+    lines.<span class="py-fn">append</span>(<span class="py-str">f"Duplicate rows: {dupes}"</span>)
+
+    <span class="py-cm"># Missing values per column</span>
+    lines.<span class="py-fn">append</span>(<span class="py-str">"\nMISSING VALUES"</span>)
+    <span class="py-kw">for</span> col <span class="py-kw">in</span> df.columns:
+        missing = df[col].<span class="py-fn">isna</span>().<span class="py-fn">sum</span>()
+        pct = missing / <span class="py-fn">len</span>(df) * <span class="py-num">100</span>
+        <span class="py-kw">if</span> missing > <span class="py-num">0</span>:
+            lines.<span class="py-fn">append</span>(
+              <span class="py-str">f"  {col}: {missing} ({pct:.1f}%)"</span>)
+
+    <span class="py-cm"># Numeric column stats</span>
+    numeric = df.<span class="py-fn">select_dtypes</span>(include=<span class="py-str">'number'</span>)
+    <span class="py-kw">if not</span> numeric.<span class="py-fn">empty</span>:
+        lines.<span class="py-fn">append</span>(<span class="py-str">"\nNUMERIC COLUMN STATS"</span>)
+        lines.<span class="py-fn">append</span>(numeric.<span class="py-fn">describe</span>().<span class="py-fn">to_string</span>())
+
+    <span class="py-kw">return</span> <span class="py-str">"\n"</span>.<span class="py-fn">join</span>(lines)
+
+<span class="py-kw">def</span> <span class="py-fn">main</span>():
+    <span class="py-kw">if</span> <span class="py-fn">len</span>(sys.argv) < <span class="py-num">2</span>:
+        <span class="py-fn">print</span>(<span class="py-str">"Usage: python data_cleaner.py file.csv"</span>)
+        sys.<span class="py-fn">exit</span>(<span class="py-num">1</span>)
+
+    path = sys.argv[<span class="py-num">1</span>]
+    df   = <span class="py-fn">load_csv</span>(path)
+    report = <span class="py-fn">analyse</span>(df, path)
+    <span class="py-fn">print</span>(report)
+
+    out = path.<span class="py-fn">replace</span>(<span class="py-str">'.csv'</span>, <span class="py-str">'_report.txt'</span>)
+    <span class="py-kw">with</span> <span class="py-fn">open</span>(out, <span class="py-str">'w'</span>) <span class="py-kw">as</span> f:
+        f.<span class="py-fn">write</span>(report)
+    <span class="py-fn">print</span>(<span class="py-str">f"\n✓ Report saved to {out}"</span>)
+
+<span class="py-kw">if</span> __name__ == <span class="py-str">"__main__"</span>:
+    <span class="py-fn">main</span>()</pre></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="it-projects.html">IT Lab</a></li>
+        <li><a href="animations.html">Design</a></li>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="privacy-badge">🔒 No cookies · No tracking · No analytics · Privacy by design</div>
+      <p class="footer-copy">© 2026 Aston Tellis · Built by hand, not by template</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+  // ══════════════════════════════════════════════════════════
+  // PASSWORD STRENGTH ANALYSER
+  // ══════════════════════════════════════════════════════════
+  const common = ['password','123456','qwerty','abc123','letmein','monkey','dragon','master','sunshine','princess','welcome','shadow','superman','michael','football'];
+
+  function analysePassword(pw) {
+    const len = pw.length;
+    if (len === 0) { resetPw(); return; }
+
+    // Criteria
+    const hasUpper  = /[A-Z]/.test(pw);
+    const hasLower  = /[a-z]/.test(pw);
+    const hasNum    = /[0-9]/.test(pw);
+    const hasSym    = /[^A-Za-z0-9]/.test(pw);
+    const longEnough = len >= 12;
+    const noCommon  = !common.some(w => pw.toLowerCase().includes(w));
+
+    setCriterion('c-length',   longEnough);
+    setCriterion('c-upper',    hasUpper);
+    setCriterion('c-lower',    hasLower);
+    setCriterion('c-number',   hasNum);
+    setCriterion('c-symbol',   hasSym);
+    setCriterion('c-nocommon', noCommon);
+
+    // Score (0-5)
+    let score = 0;
+    if (longEnough) score++;
+    if (hasUpper && hasLower) score++;
+    if (hasNum) score++;
+    if (hasSym) score++;
+    if (noCommon && len >= 16) score++;
+
+    // Entropy estimate
+    let charSpace = 0;
+    if (hasLower) charSpace += 26;
+    if (hasUpper) charSpace += 26;
+    if (hasNum)   charSpace += 10;
+    if (hasSym)   charSpace += 32;
+    const entropy = charSpace > 0 ? len * Math.log2(charSpace) : 0;
+
+    // Crack time estimate (offline, 10B guesses/sec)
+    const guesses = Math.pow(2, entropy);
+    const seconds = guesses / 1e10;
+    document.getElementById('crack-time').textContent = formatTime(seconds);
+
+    // Strength bars
+    const colors = ['#ff4d6d','#ff4d6d','#f4a261','#f4a261','#00d4ff','#00ffaa'];
+    const labels = ['','Very Weak','Weak','Fair','Strong','Very Strong'];
+    const barColors = ['var(--bg)','#ff4d6d','#f4a261','#f4a261','#00d4ff','#00ffaa'];
+    for (let i = 1; i <= 5; i++) {
+      const bar = document.getElementById(`sb${i}`);
+      bar.style.background = i <= score ? barColors[score] : 'var(--surface)';
+    }
+    const label = document.getElementById('strength-label');
+    label.textContent = score > 0 ? labels[score] : 'Very Weak';
+    label.style.color = barColors[score] || 'var(--text3)';
+
+    // Suggestions
+    const suggestions = [];
+    if (!longEnough) suggestions.push('Use at least 12 characters — longer is always better.');
+    if (!hasUpper || !hasLower) suggestions.push('Mix uppercase and lowercase letters.');
+    if (!hasNum) suggestions.push('Add numbers to increase complexity.');
+    if (!hasSym) suggestions.push('Add special characters like !@#$%^&*');
+    if (!noCommon) suggestions.push('Avoid common words like "password", "123456", or "qwerty".');
+    if (len >= 12 && score >= 4) suggestions.push('Strong password. Consider using a password manager to store it securely.');
+
+    document.getElementById('pw-suggestions').innerHTML = suggestions.length
+      ? suggestions.map(s => `<div style="margin-bottom:0.4rem">→ ${s}</div>`).join('')
+      : '<div style="color:var(--accent3)">✓ Excellent password. Store it in a password manager.</div>';
+  }
+
+  function setCriterion(id, met) {
+    const el = document.getElementById(id);
+    el.classList.toggle('met', met);
+    el.querySelector('.criterion-icon').textContent = met ? '✓' : '✗';
+  }
+
+  function resetPw() {
+    for (let i = 1; i <= 5; i++) document.getElementById(`sb${i}`).style.background = 'var(--surface)';
+    document.getElementById('strength-label').textContent = 'Enter a password to begin analysis';
+    document.getElementById('strength-label').style.color = 'var(--text3)';
+    document.getElementById('crack-time').textContent = '—';
+    document.getElementById('pw-suggestions').textContent = 'Start typing a password above to see your security analysis.';
+    ['c-length','c-upper','c-lower','c-number','c-symbol','c-nocommon'].forEach(id => {
+      document.getElementById(id).classList.remove('met');
+      document.getElementById(id).querySelector('.criterion-icon').textContent = '✓';
+    });
+  }
+
+  function formatTime(seconds) {
+    if (seconds < 1) return 'Instant';
+    if (seconds < 60) return `${Math.round(seconds)} seconds`;
+    if (seconds < 3600) return `${Math.round(seconds/60)} minutes`;
+    if (seconds < 86400) return `${Math.round(seconds/3600)} hours`;
+    if (seconds < 31536000) return `${Math.round(seconds/86400)} days`;
+    if (seconds < 3.15e9) return `${Math.round(seconds/31536000)} years`;
+    if (seconds < 3.15e13) return `${Math.round(seconds/3.15e9)} thousand years`;
+    if (seconds < 3.15e16) return `${Math.round(seconds/3.15e13)} million years`;
+    return 'Longer than the universe';
+  }
+
+  function togglePwVisibility() {
+    const input = document.getElementById('pw-input');
+    const btn   = document.getElementById('pw-toggle');
+    if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
+    else { input.type = 'password'; btn.textContent = '👁'; }
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // HTTPS STEP NAVIGATOR
+  // ══════════════════════════════════════════════════════════
+  const arrowTexts = [
+    ['Step 1: ClientHello →', '← Step 2: ServerHello'],
+    ['Step 2: Certificate →', '← Step 2: Cert + Hello'],
+    ['Step 3: Verifying...', '← Certificate Check'],
+    ['Step 4: Key Exchange →', '← Diffie-Hellman'],
+    ['Step 5: Finished →', '← Step 5: Finished'],
+    ['⚠ Encrypted but...', 'ISP sees domain ⚠'],
+  ];
+
+  const statuses = [
+    '🔄 Initiating TLS handshake...',
+    '🔐 Receiving server certificate...',
+    '🔍 Verifying certificate authority...',
+    '🔑 Exchanging encryption keys...',
+    '🔒 Secure connection established!',
+    '⚠ Understanding HTTPS limits...',
+  ];
+
+  function setStep(n) {
+    document.querySelectorAll('.https-step').forEach((s, i) => {
+      s.classList.toggle('active', i === n);
+    });
+    document.getElementById('https-arrow').textContent  = arrowTexts[n][0];
+    document.getElementById('https-arrow2').textContent = arrowTexts[n][1];
+    document.getElementById('https-status').textContent = statuses[n];
+  }
+  </script>
+</body>
+</html>

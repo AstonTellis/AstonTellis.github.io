@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tools & Games — Aston Tellis</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .page-hero {
+      padding: 5rem 0 3rem;
+      background: linear-gradient(180deg, var(--bg2) 0%, var(--bg) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Section Dividers ───────────────────────────────────── */
+    .tool-section {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .tool-section:nth-child(even) { background: var(--bg2); }
+
+    /* ══════════════════════════════════════════════════════════
+       PRIVACY AWARENESS GAME
+    ══════════════════════════════════════════════════════════ */
+    .game-container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .game-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      overflow: hidden;
+      box-shadow: 0 20px 60px #00000040;
+    }
+
+    .game-header {
+      background: linear-gradient(135deg, #0f1420, #1a2035);
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .game-title-bar {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+    }
+
+    .game-score-display {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .game-progress-bar {
+      height: 4px;
+      background: var(--bg);
+      position: relative;
+    }
+
+    .game-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width 0.5s ease;
+    }
+
+    .game-body { padding: 2rem; }
+
+    .game-screen { display: none; }
+    .game-screen.active { display: block; }
+
+    /* Start screen */
+    .game-start {
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .game-start-icon { font-size: 4rem; margin-bottom: 1rem; }
+
+    .game-start h2 {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .game-start p {
+      color: var(--text2);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+
+    /* Question screen */
+    .question-number {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.75rem;
+    }
+
+    .question-text {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 1.75rem;
+    }
+
+    .answer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .answer-btn {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: left;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text2);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      line-height: 1.5;
+    }
+
+    .answer-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--text);
+      background: #00d4ff08;
+    }
+
+    .answer-btn.correct {
+      border-color: var(--accent3);
+      background: #00ffaa15;
+      color: var(--accent3);
+    }
+
+    .answer-btn.wrong {
+      border-color: var(--red);
+      background: #ff4d6d12;
+      color: var(--red);
+    }
+
+    .answer-btn:disabled { cursor: not-allowed; }
+
+    .answer-letter {
+      display: inline-block;
+      width: 20px; height: 20px;
+      border-radius: 4px;
+      background: var(--surface);
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-align: center;
+      line-height: 20px;
+      margin-right: 0.5rem;
+      color: var(--accent);
+    }
+
+    .feedback-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .feedback-box.show { display: block; }
+    .feedback-box.correct { border-color: var(--accent3); }
+    .feedback-box.wrong { border-color: var(--red); }
+
+    /* Results screen */
+    .results-screen { text-align: center; padding: 1rem 0; }
+
+    .result-score {
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .result-grade {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.5rem;
+    }
+
+    .result-breakdown {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .result-stat {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.75rem;
+    }
+
+    .result-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .result-stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       FINTECH BUDGET CALCULATOR
+    ══════════════════════════════════════════════════════════ */
+    .calc-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .calc-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 1.75rem;
+    }
+
+    .calc-panel-title {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .calc-field {
+      margin-bottom: 1rem;
+    }
+
+    .calc-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text2);
+      margin-bottom: 0.4rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .calc-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.6rem 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text);
+      transition: border-color 0.2s ease;
+      outline: none;
+    }
+
+    .calc-input:focus { border-color: var(--accent); }
+
+    .calc-input[type="range"] {
+      padding: 0;
+      height: 4px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .calc-result-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    .calc-result-item:last-child { border-bottom: none; }
+
+    .calc-result-label { color: var(--text2); }
+
+    .calc-result-value {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .calc-result-value.positive { color: var(--accent3); }
+    .calc-result-value.negative { color: var(--red); }
+    .calc-result-value.warning  { color: var(--gold); }
+
+    .calc-chart {
+      margin-top: 1.25rem;
+    }
+
+    .chart-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+    }
+
+    .chart-bar-label { width: 90px; color: var(--text2); flex-shrink: 0; }
+
+    .chart-bar-track {
+      flex: 1;
+      height: 8px;
+      background: var(--bg);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .chart-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    .chart-bar-val { width: 55px; text-align: right; color: var(--text3); }
+
+    .savings-indicator {
+      margin-top: 1.25rem;
+      padding: 1rem;
+      border-radius: var(--radius);
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .savings-indicator.good {
+      background: #00ffaa10;
+      border: 1px solid #00ffaa25;
+      color: var(--accent3);
+    }
+
+    .savings-indicator.ok {
+      background: #f4a26110;
+      border: 1px solid #f4a26125;
+      color: var(--gold);
+    }
+
+    .savings-indicator.bad {
+      background: #ff4d6d10;
+      border: 1px solid #ff4d6d25;
+      color: var(--red);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       IT SKILLS / CERTIFICATIONS
+    ══════════════════════════════════════════════════════════ */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .cert-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      padding: 1.5rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cert-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .cert-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: var(--glow);
+    }
+
+    .cert-issuer {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.5rem;
+    }
+
+    .cert-name {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .cert-desc {
+      font-size: 0.8rem;
+      color: var(--text2);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+
+    .cert-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--accent3);
+      background: #00ffaa0a;
+      border: 1px solid #00ffaa20;
+      padding: 0.2rem 0.6rem;
+      border-radius: 3px;
+    }
+
+    /* Languages */
+    .languages-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .lang-group-title {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+    }
+
+    .lang-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .lang-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .lang-tag.fluent {
+      background: #00d4ff12;
+      color: var(--accent);
+      border-color: #00d4ff30;
+    }
+
+    .lang-tag.working {
+      background: #f4a26112;
+      color: var(--gold);
+      border-color: #f4a26130;
+    }
+
+    @media (max-width: 768px) {
+      .answer-grid { grid-template-columns: 1fr; }
+      .calc-grid { grid-template-columns: 1fr; }
+      .cert-grid { grid-template-columns: 1fr; }
+      .result-breakdown { grid-template-columns: 1fr 1fr; }
+      .languages-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor"></div>
+  <div class="cursor-ring"></div>
+
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-inner">
+      <div class="loading-logo">AT</div>
+      <div class="loading-bar"><div class="loading-fill"></div></div>
+      <div class="loading-text">Loading...</div>
+    </div>
+  </div>
+
+  <nav>
+    <a class="nav-logo" href="index.html"><span>A</span>T</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="it-projects.html">IT Lab</a></li>
+      <li><a href="animations.html">Design</a></li>
+      <li><a href="tools.html" class="active">Tools</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="page">
+    <div class="page-hero">
+      <div class="container fade-up">
+        <div class="section-label">Interactive</div>
+        <h1 class="section-title">Tools & Games</h1>
+        <p class="section-subtitle">
+          Things I built that you can actually use. A privacy awareness game,
+          a FinTech budget calculator, and a showcase of my certifications and languages.
+          Everything runs in your browser — nothing is tracked or stored.
+        </p>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════
+         PRIVACY AWARENESS GAME
+    ══════════════════════════════════════════════════════ -->
+    <section class="tool-section">
+      <div class="container">
+        <div class="fade-up" style="margin-bottom:2.5rem">
+          <div class="section-label">Game 01</div>
+          <h2 class="section-title" style="font-size:2rem">Privacy IQ Test</h2>
+          <p class="section-subtitle">
+            10 questions on digital privacy, data rights, and surveillance.
+            How privacy-literate are you really? Built entirely in vanilla JavaScript.
+          </p>
+        </div>
+
+        <div class="game-container fade-up">
+          <div class="game-card">
+            <div class="game-header">
+              <span class="game-title-bar">🔒 Privacy IQ — by Aston Tellis</span>
+              <div class="game-score-display">
+                <span>Score: <span id="score-display">0</span></span>
+                <span>Q <span id="q-display">0</span>/10</span>
+              </div>
+            </div>
+            <div class="game-progress-bar">
+              <div class="game-progress-fill" id="game-progress" style="width:0%"></div>
+            </div>
+            <div class="game-body">
+
+              <!-- START SCREEN -->
+              <div class="game-screen active" id="screen-start">
+                <div class="game-start">
+                  <div class="game-start-icon">🕵️</div>
+                  <h2>How Privacy-Literate Are You?</h2>
+                  <p>
+                    10 questions covering digital privacy, GDPR, surveillance capitalism,
+                    data rights, and online security. Each question has a detailed explanation.
+                    No data is collected. Your score stays in your browser.
+                  </p>
+                  <button class="btn btn-primary" onclick="startGame()" style="font-size:0.9rem;padding:0.85rem 2rem">
+                    Start the Test →
+                  </button>
+                </div>
+              </div>
+
+              <!-- QUESTION SCREEN -->
+              <div class="game-screen" id="screen-question">
+                <div class="question-number" id="question-number">Question 1 of 10</div>
+                <div class="question-text" id="question-text"></div>
+                <div class="answer-grid" id="answer-grid"></div>
+                <div class="feedback-box" id="feedback-box"></div>
+                <button class="btn btn-ghost" id="next-btn" onclick="nextQuestion()" style="display:none;margin-top:0.5rem">
+                  Next Question →
+                </button>
+              </div>
+
+              <!-- RESULTS SCREEN -->
+              <div class="game-screen" id="screen-results">
+                <div class="results-screen">
+                  <div class="result-score" id="result-score"></div>
+                  <div class="result-grade" id="result-grade"></div>
+                  <p id="result-message" style="color:var(--text2);max-width:480px;margin:0 auto 1.5rem;font-size:0.9rem;line-height:1.75"></p>
+                  <div class="result-breakdown">
+                    <div class="result-stat">
+                      <div class="result-stat-num" id="res-correct">0</div>
+                      <div class="result-stat-label">Correct</div>
+                    </div>
+                    <div class="result-stat">
+                      <div class="result-stat-num" id="res-wrong">0</div>
+                      <div class="result-stat-label">Wrong</div>
+                    </div>
+                    <div class="result-stat">
+                      <div class="result-stat-num" id="res-pct">0%</div>
+                      <div class="result-stat-label">Score</div>
+                    </div>
+                  </div>
+                  <button class="btn btn-primary" onclick="resetGame()" style="margin-top:1rem">
+                    Play Again →
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         FINTECH BUDGET CALCULATOR
+    ══════════════════════════════════════════════════════ -->
+    <section class="tool-section">
+      <div class="container">
+        <div class="fade-up" style="margin-bottom:2.5rem">
+          <div class="section-label">Tool 02</div>
+          <h2 class="section-title" style="font-size:2rem">Personal Finance Dashboard</h2>
+          <p class="section-subtitle">
+            A live budget calculator and savings analyser. Enter your income and expenses —
+            it calculates your savings rate, surplus/deficit, and gives a breakdown.
+            Built to mirror the financial modelling logic in my Excel project.
+          </p>
+        </div>
+
+        <div class="calc-container fade-up">
+          <div class="calc-grid">
+            <!-- Inputs -->
+            <div class="calc-panel">
+              <div class="calc-panel-title">📥 Monthly Income & Expenses</div>
+
+              <div class="calc-field">
+                <div class="calc-label"><span>Monthly Income (€)</span></div>
+                <input type="number" class="calc-input" id="income" value="2500" min="0" oninput="calculate()">
+              </div>
+
+              <div class="calc-field">
+                <div class="calc-label"><span>Rent / Housing (€)</span></div>
+                <input type="number" class="calc-input" id="rent" value="800" min="0" oninput="calculate()">
+              </div>
+
+              <div class="calc-field">
+                <div class="calc-label"><span>Food & Groceries (€)</span></div>
+                <input type="number" class="calc-input" id="food" value="300" min="0" oninput="calculate()">
+              </div>
+
+              <div class="calc-field">
+                <div class="calc-label"><span>Transport (€)</span></div>
+                <input type="number" class="calc-input" id="transport" value="150" min="0" oninput="calculate()">
+              </div>
+
+              <div class="calc-field">
+                <div class="calc-label"><span>Subscriptions (€)</span></div>
+                <input type="number" class="calc-input" id="subs" value="50" min="0" oninput="calculate()">
+              </div>
+
+              <div class="calc-field">
+                <div class="calc-label"><span>Entertainment & Other (€)</span></div>
+                <input type="number" class="calc-input" id="other" value="200" min="0" oninput="calculate()">
+              </div>
+
+              <div class="calc-field">
+                <div class="calc-label">
+                  <span>Savings Target (%)</span>
+                  <span id="savings-target-label" style="color:var(--accent)">20%</span>
+                </div>
+                <input type="range" class="calc-input" id="savings-target" min="5" max="50" value="20" oninput="updateSavingsLabel();calculate()">
+              </div>
+            </div>
+
+            <!-- Results -->
+            <div>
+              <div class="calc-panel" style="margin-bottom:1.25rem">
+                <div class="calc-panel-title">📊 Your Financial Summary</div>
+
+                <div class="calc-result-item">
+                  <span class="calc-result-label">Monthly Income</span>
+                  <span class="calc-result-value" id="r-income">€2,500</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="calc-result-label">Total Expenses</span>
+                  <span class="calc-result-value negative" id="r-expenses">€1,500</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="calc-result-label">Net Surplus / Deficit</span>
+                  <span class="calc-result-value positive" id="r-surplus">€1,000</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="calc-result-label">Savings Rate</span>
+                  <span class="calc-result-value" id="r-savings-rate">40.0%</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="calc-result-label">Target Savings (€)</span>
+                  <span class="calc-result-value" id="r-target-savings">€500</span>
+                </div>
+                <div class="calc-result-item">
+                  <span class="calc-result-label">Projected Annual Savings</span>
+                  <span class="calc-result-value positive" id="r-annual">€12,000</span>
+                </div>
+              </div>
+
+              <!-- Spend breakdown chart -->
+              <div class="calc-panel">
+                <div class="calc-panel-title">📈 Spending Breakdown</div>
+                <div class="calc-chart" id="spend-chart"></div>
+                <div class="savings-indicator" id="savings-indicator">
+                  ✓ On track with your savings target
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         CERTIFICATIONS & IT SKILLS
+    ══════════════════════════════════════════════════════ -->
+    <section class="tool-section">
+      <div class="container">
+        <div class="fade-up" style="margin-bottom:2.5rem">
+          <div class="section-label">Credentials</div>
+          <h2 class="section-title" style="font-size:2rem">Certifications & Training</h2>
+          <p class="section-subtitle">
+            Outside of my degree, I've pursued certifications and training that align
+            with where I want to go — cloud, AI, cybersecurity, and project management.
+          </p>
+        </div>
+
+        <div class="cert-grid fade-up">
+          <div class="cert-card">
+            <div class="cert-issuer">IBM</div>
+            <div class="cert-name">Project Management Fundamentals</div>
+            <div class="cert-desc">Agile and waterfall methodologies, sprint planning, stakeholder management, and project lifecycle.</div>
+            <div class="cert-badge">✓ Completed</div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-issuer">Amazon / AWS</div>
+            <div class="cert-name">Azure Cloud Storage Fundamentals</div>
+            <div class="cert-desc">Cloud storage architecture, deployment models, blob storage, access tiers, and data redundancy.</div>
+            <div class="cert-badge">✓ Completed</div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-issuer">Python Training</div>
+            <div class="cert-name">Introductory Python Programming</div>
+            <div class="cert-desc">Data structures, functions, control flow, and basic scripting. Applied to data manipulation tasks.</div>
+            <div class="cert-badge">✓ Completed</div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-issuer">Short Course</div>
+            <div class="cert-name">Generative AI & Cybersecurity</div>
+            <div class="cert-desc">Introduction to LLMs, prompt engineering, AI risk, cybersecurity fundamentals, and threat awareness.</div>
+            <div class="cert-badge">✓ Completed</div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-issuer">Voluntary Experience</div>
+            <div class="cert-name">School IT Department Support</div>
+            <div class="cert-desc">Hardware troubleshooting, basic network maintenance, device setup and user support in a real IT environment.</div>
+            <div class="cert-badge">✓ Completed</div>
+          </div>
+
+          <div class="cert-card">
+            <div class="cert-issuer">Tech Club · 2021</div>
+            <div class="cert-name">Kotlin Mobile Development</div>
+            <div class="cert-desc">Completed a coding programme covering Kotlin fundamentals for Android development, OOP principles, and app logic.</div>
+            <div class="cert-badge">✓ Completed</div>
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="languages-grid fade-up" style="margin-top:4rem">
+          <div>
+            <div class="section-label" style="margin-bottom:1.25rem">Languages — Fluent</div>
+            <div class="lang-list">
+              <span class="lang-tag fluent">🇬🇧 English</span>
+              <span class="lang-tag fluent">🇮🇳 Hindi</span>
+              <span class="lang-tag fluent">🇧🇩 Bengali</span>
+              <span class="lang-tag fluent">🇵🇰 Urdu</span>
+              <span class="lang-tag fluent">🇮🇳 Malayalam</span>
+              <span class="lang-tag fluent">🇮🇳 Kannada</span>
+            </div>
+          </div>
+          <div>
+            <div class="section-label" style="margin-bottom:1.25rem">Languages — Working Knowledge</div>
+            <div class="lang-list">
+              <span class="lang-tag working">🇪🇸 Spanish</span>
+              <span class="lang-tag working">🇸🇦 Arabic</span>
+              <span class="lang-tag working">🇫🇷 French</span>
+            </div>
+            <p style="font-size:0.8rem;color:var(--text3);margin-top:1rem;font-family:var(--font-mono)">
+              9 languages total · Full driving licence · Dublin, Ireland
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="it-projects.html">IT Lab</a></li>
+        <li><a href="animations.html">Design</a></li>
+        <li><a href="tools.html">Tools</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="privacy-badge">🔒 No cookies · No tracking · No analytics · Privacy by design</div>
+      <p class="footer-copy">© 2026 Aston Tellis · Built by hand, not by template</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+  // ══════════════════════════════════════════════════════════
+  // PRIVACY IQ GAME
+  // ══════════════════════════════════════════════════════════
+  const questions = [
+    {
+      q: "Under GDPR, how long does a company have to respond to a Subject Access Request (SAR)?",
+      answers: ["7 days", "30 days", "90 days", "6 months"],
+      correct: 1,
+      explanation: "Under GDPR Article 12, organisations must respond to a Subject Access Request within 30 calendar days. This can be extended to 3 months for complex requests, but the person must be informed within the first 30 days."
+    },
+    {
+      q: "What did Edward Snowden reveal in 2013?",
+      answers: ["A Facebook data breach", "Mass NSA surveillance programs including PRISM", "Russia hacking US elections", "Apple backdoors in iPhones"],
+      correct: 1,
+      explanation: "Snowden leaked classified NSA documents revealing programs like PRISM, XKeyscore, and MUSCULAR — which showed mass collection of internet communications from major tech companies, often without individual warrants."
+    },
+    {
+      q: "What does 'end-to-end encryption' mean?",
+      answers: ["Data is encrypted only on the sender's device", "Only the sender and recipient can read the message — not even the service provider", "Messages are encrypted in transit but readable by the server", "Encryption that starts and ends at the firewall"],
+      correct: 1,
+      explanation: "E2E encryption means the message is encrypted on your device and can only be decrypted on the recipient's device. Even the platform provider (e.g. WhatsApp, Signal) cannot read it. Signal is considered the gold standard."
+    },
+    {
+      q: "Which of these collects the most personal data about its users?",
+      answers: ["Signal", "ProtonMail", "Facebook/Meta", "DuckDuckGo"],
+      correct: 2,
+      explanation: "Facebook/Meta's entire business model is built on data collection and targeted advertising. Signal and ProtonMail are privacy-first with minimal data collection. DuckDuckGo doesn't track search history."
+    },
+    {
+      q: "What is 'surveillance capitalism'?",
+      answers: ["Government CCTV systems", "The practice of monetising personal behavioural data to predict and influence behaviour", "A type of cryptocurrency mining", "Corporate espionage between companies"],
+      correct: 1,
+      explanation: "Coined by Shoshana Zuboff, surveillance capitalism describes how tech companies commodify personal data — not just to serve you ads, but to predict and modify your behaviour. Google and Facebook are the primary examples."
+    },
+    {
+      q: "What does a VPN actually protect you from?",
+      answers: ["All hackers and malware", "Your ISP and network-level surveillance of which sites you visit", "Websites tracking you with cookies", "Everything — it makes you completely anonymous"],
+      correct: 1,
+      explanation: "A VPN encrypts traffic between you and the VPN server, hiding your activity from your ISP and local network. It does NOT protect against cookies, browser fingerprinting, malware, or make you anonymous — you're trusting the VPN provider instead."
+    },
+    {
+      q: "Under GDPR, which of these is NOT a lawful basis for processing personal data?",
+      answers: ["Legitimate interests", "Consent", "Commercial profit", "Legal obligation"],
+      correct: 2,
+      explanation: "GDPR Article 6 defines 6 lawful bases: consent, contract, legal obligation, vital interests, public task, and legitimate interests. 'Commercial profit' is not one — companies must justify data processing under one of the 6 legitimate bases."
+    },
+    {
+      q: "What is 'browser fingerprinting'?",
+      answers: ["Using fingerprint sensors on laptops", "Tracking users via unique combinations of browser settings without cookies", "A type of phishing attack", "Two-factor authentication method"],
+      correct: 1,
+      explanation: "Browser fingerprinting identifies users by combining data points: screen resolution, fonts, plugins, timezone, language, etc. It's more persistent than cookies and harder to block, making it a major privacy threat."
+    },
+    {
+      q: "Which messaging app is considered most privacy-respecting?",
+      answers: ["WhatsApp", "Telegram", "Signal", "iMessage"],
+      correct: 2,
+      explanation: "Signal is open-source, end-to-end encrypted by default (including metadata), stores minimal data, and is run by a non-profit. WhatsApp shares metadata with Meta. Telegram's chats are NOT E2E encrypted by default. iMessage is E2E but proprietary."
+    },
+    {
+      q: "What is the '50/30/20' budgeting rule in personal finance?",
+      answers: ["50% savings, 30% needs, 20% wants", "50% needs, 30% wants, 20% savings", "50% investment, 30% tax, 20% living", "50% rent, 30% food, 20% everything else"],
+      correct: 1,
+      explanation: "The 50/30/20 rule: 50% of after-tax income on needs (rent, food, transport), 30% on wants (entertainment, dining), 20% on savings and debt repayment. It's a simple framework used widely in personal finance and FinTech apps."
+    }
+  ];
+
+  let current = 0, score = 0, answered = false;
+  const order = [...Array(questions.length).keys()];
+
+  function startGame() {
+    current = 0; score = 0; answered = false;
+    showScreen('screen-question');
+    renderQuestion();
+  }
+
+  function resetGame() {
+    current = 0; score = 0; answered = false;
+    document.getElementById('score-display').textContent = '0';
+    document.getElementById('q-display').textContent = '0';
+    document.getElementById('game-progress').style.width = '0%';
+    showScreen('screen-start');
+  }
+
+  function showScreen(id) {
+    document.querySelectorAll('.game-screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+  }
+
+  function renderQuestion() {
+    const q = questions[current];
+    document.getElementById('question-number').textContent = `Question ${current + 1} of ${questions.length}`;
+    document.getElementById('question-text').textContent = q.q;
+    document.getElementById('q-display').textContent = current + 1;
+    document.getElementById('game-progress').style.width = `${(current / questions.length) * 100}%`;
+
+    const letters = ['A', 'B', 'C', 'D'];
+    const grid = document.getElementById('answer-grid');
+    grid.innerHTML = '';
+    q.answers.forEach((ans, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'answer-btn';
+      btn.innerHTML = `<span class="answer-letter">${letters[i]}</span>${ans}`;
+      btn.onclick = () => selectAnswer(i, btn);
+      grid.appendChild(btn);
+    });
+
+    document.getElementById('feedback-box').className = 'feedback-box';
+    document.getElementById('feedback-box').textContent = '';
+    document.getElementById('next-btn').style.display = 'none';
+    answered = false;
+  }
+
+  function selectAnswer(idx, btn) {
+    if (answered) return;
+    answered = true;
+
+    const q = questions[current];
+    const allBtns = document.querySelectorAll('.answer-btn');
+    allBtns.forEach(b => b.disabled = true);
+
+    const fb = document.getElementById('feedback-box');
+
+    if (idx === q.correct) {
+      score++;
+      btn.classList.add('correct');
+      fb.className = 'feedback-box show correct';
+      fb.innerHTML = `✓ Correct! ${q.explanation}`;
+      document.getElementById('score-display').textContent = score;
+    } else {
+      btn.classList.add('wrong');
+      allBtns[q.correct].classList.add('correct');
+      fb.className = 'feedback-box show wrong';
+      fb.innerHTML = `✗ Not quite. ${q.explanation}`;
+    }
+
+    document.getElementById('next-btn').style.display = 'inline-flex';
+  }
+
+  function nextQuestion() {
+    current++;
+    if (current >= questions.length) {
+      showResults();
+    } else {
+      renderQuestion();
+    }
+  }
+
+  function showResults() {
+    document.getElementById('game-progress').style.width = '100%';
+    const pct = Math.round((score / questions.length) * 100);
+    const wrong = questions.length - score;
+
+    document.getElementById('res-correct').textContent = score;
+    document.getElementById('res-wrong').textContent = wrong;
+    document.getElementById('res-pct').textContent = pct + '%';
+
+    let grade, colour, msg;
+    if (pct >= 90) { grade = 'Privacy Expert 🏆'; colour = 'var(--accent3)'; msg = 'Exceptional. You understand privacy at a deep level — the kind of awareness that matters in FinTech, product roles, and anywhere data decisions are made.'; }
+    else if (pct >= 70) { grade = 'Privacy Aware 🎯'; colour = 'var(--accent)'; msg = 'Strong result. You understand the landscape well. A few gaps worth exploring — particularly around browser fingerprinting and GDPR specifics.'; }
+    else if (pct >= 50) { grade = 'Getting There 📚'; colour = 'var(--gold)'; msg = 'Decent foundation. Privacy is a deep field — keep exploring. Start with Snowden\'s "Permanent Record" and Bruce Schneier\'s "Data and Goliath".'; }
+    else { grade = 'Privacy Rookie 🌱'; colour = 'var(--red)'; msg = 'Everyone starts somewhere. The fact you\'re here is step one. Check out the blog section for a starting point.'; }
+
+    document.getElementById('result-score').style.color = colour;
+    document.getElementById('result-score').textContent = pct + '%';
+    document.getElementById('result-grade').style.color = colour;
+    document.getElementById('result-grade').textContent = grade;
+    document.getElementById('result-message').textContent = msg;
+
+    showScreen('screen-results');
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // FINTECH BUDGET CALCULATOR
+  // ══════════════════════════════════════════════════════════
+  function fmt(n) {
+    return '€' + Math.abs(n).toLocaleString('en-IE', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+  }
+
+  function updateSavingsLabel() {
+    document.getElementById('savings-target-label').textContent =
+      document.getElementById('savings-target').value + '%';
+  }
+
+  function calculate() {
+    const income    = parseFloat(document.getElementById('income').value) || 0;
+    const rent      = parseFloat(document.getElementById('rent').value) || 0;
+    const food      = parseFloat(document.getElementById('food').value) || 0;
+    const transport = parseFloat(document.getElementById('transport').value) || 0;
+    const subs      = parseFloat(document.getElementById('subs').value) || 0;
+    const other     = parseFloat(document.getElementById('other').value) || 0;
+    const targetPct = parseFloat(document.getElementById('savings-target').value) / 100;
+
+    const expenses  = rent + food + transport + subs + other;
+    const surplus   = income - expenses;
+    const savingsRate = income > 0 ? (surplus / income) * 100 : 0;
+    const targetSavings = income * targetPct;
+    const annual    = surplus * 12;
+
+    // Update results
+    document.getElementById('r-income').textContent = fmt(income);
+    document.getElementById('r-expenses').textContent = '-' + fmt(expenses);
+    document.getElementById('r-surplus').textContent = (surplus >= 0 ? '+' : '-') + fmt(surplus);
+    document.getElementById('r-surplus').className = 'calc-result-value ' + (surplus >= 0 ? 'positive' : 'negative');
+    document.getElementById('r-savings-rate').textContent = savingsRate.toFixed(1) + '%';
+    document.getElementById('r-savings-rate').className = 'calc-result-value ' + (savingsRate >= targetPct*100 ? 'positive' : 'warning');
+    document.getElementById('r-target-savings').textContent = fmt(targetSavings);
+    document.getElementById('r-annual').textContent = (annual >= 0 ? '+' : '') + fmt(annual);
+    document.getElementById('r-annual').className = 'calc-result-value ' + (annual >= 0 ? 'positive' : 'negative');
+
+    // Spending breakdown chart
+    const items = [
+      { label: 'Rent', val: rent, color: '#7b61ff' },
+      { label: 'Food', val: food, color: '#00d4ff' },
+      { label: 'Transport', val: transport, color: '#00ffaa' },
+      { label: 'Subscriptions', val: subs, color: '#f4a261' },
+      { label: 'Other', val: other, color: '#ff4d6d' },
+    ];
+
+    const chart = document.getElementById('spend-chart');
+    chart.innerHTML = '';
+    items.forEach(item => {
+      const pct = income > 0 ? Math.min((item.val / income) * 100, 100) : 0;
+      chart.innerHTML += `
+        <div class="chart-bar-row">
+          <div class="chart-bar-label">${item.label}</div>
+          <div class="chart-bar-track">
+            <div class="chart-bar-fill" style="width:${pct}%;background:${item.color}"></div>
+          </div>
+          <div class="chart-bar-val">${fmt(item.val)}</div>
+        </div>`;
+    });
+
+    // Savings indicator
+    const ind = document.getElementById('savings-indicator');
+    if (surplus < 0) {
+      ind.className = 'savings-indicator bad';
+      ind.textContent = '⚠ You\'re spending more than you earn — review your expenses.';
+    } else if (savingsRate >= targetPct * 100) {
+      ind.className = 'savings-indicator good';
+      ind.textContent = `✓ On track — saving ${savingsRate.toFixed(1)}% vs your ${(targetPct*100).toFixed(0)}% target.`;
+    } else {
+      ind.className = 'savings-indicator ok';
+      ind.textContent = `↑ Saving ${savingsRate.toFixed(1)}% — ${((targetPct*100)-savingsRate).toFixed(1)}% below your target.`;
+    }
+  }
+
+  // Init calculator
+  calculate();
+  </script>
+</body>
+</html>
