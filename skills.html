@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Skills &amp; Training — Aston Tellis</title>
+  <title>Projects — Aston Tellis</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
     .page-hero {
@@ -12,357 +12,290 @@
       border-bottom: 1px solid var(--border);
     }
 
-    /* ── Skill Categories ──────────────────────────────────── */
-    .skills-section { padding: 5rem 0; border-bottom: 1px solid var(--border); }
-
-    .skills-category {
-      margin-bottom: 3.5rem;
-    }
-
-    .category-label {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.75rem;
+    /* ── Project Section ───────────────────────────────────── */
+    .project-block {
+      padding: 5rem 0;
       border-bottom: 1px solid var(--border);
     }
 
-    .skill-bars {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .skill-row {
+    .project-header {
       display: grid;
-      grid-template-columns: 180px 1fr 60px;
-      align-items: center;
-      gap: 1rem;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: 2rem;
+      margin-bottom: 3rem;
     }
 
-    .skill-name {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
+    .project-meta {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
       color: var(--text);
-      font-weight: 600;
+      margin-bottom: 0.75rem;
     }
 
-    .skill-bar-track {
-      height: 6px;
+    .project-desc {
+      color: var(--text2);
+      max-width: 580px;
+      line-height: 1.8;
+    }
+
+    /* ── SQL Query Cards ───────────────────────────────────── */
+    .query-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .query-card {
+      background: #060910;
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .query-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+
+    .query-card-header {
+      background: #0f1420;
+      padding: 0.75rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .query-card-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+
+    .query-card-body {
+      padding: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      line-height: 1.9;
+      color: #8a9ab5;
+      overflow-x: auto;
+    }
+
+    .query-card-footer {
+      padding: 0.75rem 1.25rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text3);
+      font-style: italic;
+    }
+
+    .kw  { color: #7b61ff; }
+    .fn  { color: #00d4ff; }
+    .str { color: #00ffaa; }
+    .cm  { color: #4a5a7a; }
+    .num { color: #f4a261; }
+    .op  { color: #ff4d6d; }
+
+    /* ── Schema Diagram ────────────────────────────────────── */
+    .schema-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .schema-table {
       background: var(--surface);
-      border-radius: 3px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
       overflow: hidden;
     }
 
-    .skill-bar-fill {
-      height: 100%;
-      border-radius: 3px;
-      width: 0;
-      transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .skill-bar-fill.blue   { background: linear-gradient(90deg, #00d4ff, #7b61ff); }
-    .skill-bar-fill.green  { background: linear-gradient(90deg, #00ffaa, #00d4ff); }
-    .skill-bar-fill.gold   { background: linear-gradient(90deg, #f4a261, #e76f51); }
-    .skill-bar-fill.purple { background: linear-gradient(90deg, #7b61ff, #00d4ff); }
-
-    .skill-pct {
+    .schema-table-header {
+      background: var(--bg2);
+      padding: 0.6rem 1rem;
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text3);
-      text-align: right;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
-    /* ── Tools Grid ────────────────────────────────────────── */
-    .tools-grid {
+    .schema-field {
+      padding: 0.35rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .schema-field:last-child { border-bottom: none; }
+    .schema-field .field-type { color: var(--text3); }
+    .schema-field.pk { color: var(--gold); }
+    .schema-field.fk { color: var(--accent2); }
+
+    /* ── Findings Cards ────────────────────────────────────── */
+    .findings-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
+      margin-top: 2rem;
     }
 
-    .tool-card {
+    .finding-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 1.25rem;
-      text-align: center;
-      transition: var(--transition);
     }
 
-    .tool-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-3px);
-      box-shadow: var(--glow);
-    }
-
-    .tool-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
-
-    .tool-name {
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 0.25rem;
-    }
-
-    .tool-level {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--text3);
-    }
-
-    /* ── GitHub Section ────────────────────────────────────── */
-    .github-section {
-      padding: 5rem 0;
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-    }
-
-    .github-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius2);
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      margin-bottom: 2rem;
-      transition: var(--transition);
-    }
-
-    .github-card:hover {
-      border-color: var(--accent);
-      box-shadow: var(--glow);
-    }
-
-    .github-avatar {
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .finding-number {
       font-family: var(--font-display);
-      font-size: 1.75rem;
+      font-size: 2.2rem;
       font-weight: 800;
-      color: var(--bg);
-      flex-shrink: 0;
-    }
-
-    .github-info h3 {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--text);
+      color: var(--accent);
+      line-height: 1;
       margin-bottom: 0.3rem;
     }
 
-    .github-info p {
-      font-size: 0.9rem;
-      color: var(--text2);
-      margin-bottom: 0.75rem;
-    }
-
-    .github-stats {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .g-stat {
-      text-align: center;
-    }
-
-    .g-stat-num {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: var(--accent);
-    }
-
-    .g-stat-label {
-      font-family: var(--font-mono);
-      font-size: 0.62rem;
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .repo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.25rem;
-    }
-
-    .repo-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      transition: var(--transition);
-    }
-
-    .repo-card:hover {
-      border-color: var(--border2);
-      transform: translateY(-2px);
-    }
-
-    .repo-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 0.6rem;
-    }
-
-    .repo-name {
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--accent);
-    }
-
-    .repo-desc {
-      font-size: 0.82rem;
-      color: var(--text2);
-      line-height: 1.6;
-      margin-bottom: 1rem;
-    }
-
-    .repo-footer {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+    .finding-label {
       font-family: var(--font-mono);
       font-size: 0.68rem;
       color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.6rem;
     }
 
-    .repo-lang-dot {
-      display: inline-block;
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      margin-right: 4px;
+    .finding-desc {
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.6;
     }
 
-    /* ── Contribution Heatmap (simplified visual) ──────────── */
-    .heatmap-wrapper {
-      overflow-x: auto;
-      margin-top: 1.5rem;
-    }
-
-    .heatmap {
-      display: flex;
-      gap: 3px;
-      font-family: var(--font-mono);
-      font-size: 0;
-    }
-
-    .heatmap-col { display: flex; flex-direction: column; gap: 3px; }
-
-    .heatmap-cell {
-      width: 11px; height: 11px;
-      border-radius: 2px;
-      background: var(--surface);
-      transition: var(--transition);
-    }
-
-    .heatmap-cell:hover { transform: scale(1.4); }
-    .heatmap-cell.l1 { background: #00ffaa30; }
-    .heatmap-cell.l2 { background: #00ffaa60; }
-    .heatmap-cell.l3 { background: #00ffaa90; }
-    .heatmap-cell.l4 { background: #00ffaacc; }
-
-    .heatmap-label {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      color: var(--text3);
-      margin-top: 0.75rem;
-      text-align: right;
-    }
-
-    /* ── Learning Section ──────────────────────────────────── */
-    .learning-section {
-      padding: 5rem 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .currently-learning {
+    /* ── Excel Section ─────────────────────────────────────── */
+    .sheets-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
-    .learning-card {
+    .sheet-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.5rem;
-      position: relative;
-      overflow: hidden;
+      padding: 1.25rem;
+      transition: var(--transition);
     }
 
-    .learning-card::before {
-      content: 'IN PROGRESS';
-      position: absolute;
-      top: 1rem; right: -1.5rem;
+    .sheet-card:hover {
+      border-color: var(--accent3);
+      box-shadow: 0 0 30px #00ffaa12;
+    }
+
+    .sheet-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .sheet-name {
       font-family: var(--font-mono);
-      font-size: 0.58rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      color: var(--bg);
-      background: var(--accent3);
-      padding: 0.2rem 2rem;
-      transform: rotate(45deg);
-      letter-spacing: 0.1em;
-    }
-
-    .learning-card h4 {
-      font-family: var(--font-display);
-      font-size: 0.95rem;
-      font-weight: 700;
       color: var(--text);
       margin-bottom: 0.4rem;
     }
 
-    .learning-card p {
-      font-size: 0.82rem;
-      color: var(--text2);
-      line-height: 1.6;
+    .sheet-desc {
+      font-size: 0.8rem;
+      color: var(--text3);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
     }
 
-    .learning-progress {
-      margin-top: 1rem;
-    }
-
-    .learning-bar-track {
-      height: 4px;
-      background: var(--bg2);
-      border-radius: 2px;
-      overflow: hidden;
-      margin-top: 0.5rem;
-    }
-
-    .learning-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent3), var(--accent));
-      border-radius: 2px;
-      width: 0;
-      transition: width 1.4s ease;
-    }
-
-    .learning-pct {
+    .sheet-formulas {
       font-family: var(--font-mono);
       font-size: 0.65rem;
-      color: var(--text3);
-      margin-top: 0.3rem;
+      color: var(--accent2);
+    }
+
+    /* ── Formula Showcase ──────────────────────────────────── */
+    .formula-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    .formula-table th {
+      background: var(--bg2);
+      color: var(--text2);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .formula-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text2);
+      vertical-align: top;
+    }
+
+    .formula-table tr:hover td { background: var(--surface); }
+
+    .formula-table td:first-child {
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .formula-table td:nth-child(2) { color: var(--accent2); }
+
+    /* ── Disclaimer ────────────────────────────────────────── */
+    .disclaimer-bar {
+      background: #fff3cd1a;
+      border: 1px solid #f4a26130;
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--gold);
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
     }
 
     @media (max-width: 768px) {
-      .skill-row { grid-template-columns: 1fr 1fr 40px; }
-      .tools-grid { grid-template-columns: 1fr 1fr; }
-      .repo-grid { grid-template-columns: 1fr; }
-      .currently-learning { grid-template-columns: 1fr; }
+      .query-grid, .schema-grid, .findings-grid,
+      .sheets-grid { grid-template-columns: 1fr; }
+      .project-header { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -386,11 +319,11 @@
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="projects.html">Projects</a></li>
+      <li><a href="projects.html" class="active">Projects</a></li>
       <li><a href="it-projects.html">IT Lab</a></li>
       <li><a href="animations.html">Design</a></li>
       <li><a href="tools.html">Tools</a></li>
-      <li><a href="skills.html" class="active">Skills &amp; Training</a></li>
+      <li><a href="skills.html">Skills &amp; Training</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html" class="nav-cta">Contact</a></li>
     </ul>
@@ -399,315 +332,359 @@
   <div class="page">
     <div class="page-hero">
       <div class="container fade-up">
-        <div class="section-label">Capabilities</div>
-        <h1 class="section-title">Skills & Tools</h1>
+        <div class="section-label">My Work</div>
+        <h1 class="section-title">Projects</h1>
         <p class="section-subtitle">
-          Built through coursework, self-study, and projects. The goal is always the same:
-          be useful on day one.
+          Everything here is built from scratch — real databases, real formulas, real analysis.
+          Not exercises to tick a box, but work I can talk through in any interview.
         </p>
       </div>
     </div>
 
-    <!-- ── Skills Bars ───────────────────────────────────────── -->
-    <section class="skills-section">
+    <!-- ════ SQL PROJECT ════════════════════════════════════════ -->
+    <div id="sql" class="project-block">
       <div class="container">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem">
 
-          <div class="fade-up">
-            <div class="skills-category">
-              <div class="category-label">Data & Analysis</div>
-              <div class="skill-bars" id="skill-bars-data">
-                <div class="skill-row"><span class="skill-name">SQL (MySQL)</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-pct="82"></div></div><span class="skill-pct">82%</span></div>
-                <div class="skill-row"><span class="skill-name">Excel / Modelling</span><div class="skill-bar-track"><div class="skill-bar-fill green" data-pct="85"></div></div><span class="skill-pct">85%</span></div>
-                <div class="skill-row"><span class="skill-name">Data Visualisation</span><div class="skill-bar-track"><div class="skill-bar-fill gold" data-pct="70"></div></div><span class="skill-pct">70%</span></div>
-                <div class="skill-row"><span class="skill-name">Python (basics)</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-pct="45"></div></div><span class="skill-pct">45%</span></div>
-                <div class="skill-row"><span class="skill-name">Financial Modelling</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-pct="72"></div></div><span class="skill-pct">72%</span></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="fade-up" style="transition-delay:0.2s">
-            <div class="skills-category">
-              <div class="category-label">Business & Strategy</div>
-              <div class="skill-bars">
-                <div class="skill-row"><span class="skill-name">Business Analysis</span><div class="skill-bar-track"><div class="skill-bar-fill green" data-pct="80"></div></div><span class="skill-pct">80%</span></div>
-                <div class="skill-row"><span class="skill-name">Product Thinking</span><div class="skill-bar-track"><div class="skill-bar-fill gold" data-pct="75"></div></div><span class="skill-pct">75%</span></div>
-                <div class="skill-row"><span class="skill-name">Stakeholder Comms</span><div class="skill-bar-track"><div class="skill-bar-fill blue" data-pct="78"></div></div><span class="skill-pct">78%</span></div>
-                <div class="skill-row"><span class="skill-name">Case Study Analysis</span><div class="skill-bar-track"><div class="skill-bar-fill purple" data-pct="70"></div></div><span class="skill-pct">70%</span></div>
-                <div class="skill-row"><span class="skill-name">Presentation Design</span><div class="skill-bar-track"><div class="skill-bar-fill green" data-pct="74"></div></div><span class="skill-pct">74%</span></div>
-              </div>
-            </div>
-          </div>
-
+        <div class="disclaimer-bar fade-up">
+          <span>⚠</span>
+          <span>
+            <strong>Fictional Project Disclaimer:</strong> Hartwell Bank is a completely fictional
+            organisation created for portfolio and educational purposes only. All data —
+            customer names, account details, financial figures — is entirely fabricated.
+            No real individuals or institutions are represented. No real data was collected
+            at any stage. Privacy by design.
+          </span>
         </div>
 
-        <!-- Tools Grid -->
-        <div class="fade-up" style="margin-top:4rem">
-          <div class="section-label" style="margin-bottom:1.5rem">Tools & Platforms</div>
-          <div class="tools-grid">
-            <div class="tool-card"><div class="tool-icon">🗄️</div><div class="tool-name">MySQL</div><div class="tool-level">Intermediate–Advanced</div></div>
-            <div class="tool-card"><div class="tool-icon">📊</div><div class="tool-name">Microsoft Excel</div><div class="tool-level">Advanced</div></div>
-            <div class="tool-card"><div class="tool-icon">🐍</div><div class="tool-name">Python</div><div class="tool-level">Beginner–Intermediate</div></div>
-            <div class="tool-card"><div class="tool-icon">🐙</div><div class="tool-name">GitHub</div><div class="tool-level">Intermediate</div></div>
-            <div class="tool-card"><div class="tool-icon">📋</div><div class="tool-name">Notion</div><div class="tool-level">Proficient</div></div>
-            <div class="tool-card"><div class="tool-icon">🌐</div><div class="tool-name">HTML / CSS</div><div class="tool-level">Intermediate</div></div>
-            <div class="tool-card"><div class="tool-icon">🔒</div><div class="tool-name">Privacy Tools</div><div class="tool-level">Enthusiast</div></div>
-            <div class="tool-card"><div class="tool-icon">📈</div><div class="tool-name">Power BI</div><div class="tool-level">Beginner</div></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── GitHub Section ────────────────────────────────────── -->
-    <section class="github-section">
-      <div class="container">
-        <div class="section-label fade-up">Open Source</div>
-        <h2 class="section-title fade-up">GitHub</h2>
-        <p class="section-subtitle fade-up" style="margin-bottom:2.5rem">
-          My work lives here. Real commits, real projects, real version history.
-          <a href="https://github.com/AstonTellis" target="_blank"
-             style="color:var(--accent);text-decoration:none;font-family:var(--font-mono);font-size:0.85rem">
-            → github.com/AstonTellis
-          </a>
-        </p>
-
-        <!-- Profile Card -->
-        <div class="github-card fade-up">
-          <div class="github-avatar">AT</div>
-          <div class="github-info" style="flex:1">
-            <h3>Aston Tellis</h3>
-            <p>CS & Business Student · FinTech · Data Analytics · Privacy Advocate</p>
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+        <div class="project-header fade-up">
+          <div>
+            <div class="project-meta">
               <span class="tag tag-blue">SQL</span>
-              <span class="tag tag-green">Excel</span>
-              <span class="tag tag-purple">Python</span>
+              <span class="tag tag-purple">MySQL 8.x</span>
               <span class="tag tag-gold">FinTech</span>
+              <span class="tag tag-green">Data Analysis</span>
             </div>
+            <h2 class="project-title">Hartwell Bank — SQL Analytics Engine</h2>
+            <p class="project-desc">
+              Designed and built a relational banking database from scratch. Wrote 15+ analytical
+              queries across three business domains: customer segmentation, fraud detection,
+              and revenue trend analysis. Demonstrates database design, complex SQL, and
+              the ability to translate data into business insight.
+            </p>
           </div>
-          <div class="github-stats">
-            <div class="g-stat"><div class="g-stat-num">4+</div><div class="g-stat-label">Repos</div></div>
-            <div class="g-stat"><div class="g-stat-num">100+</div><div class="g-stat-label">Commits</div></div>
-            <div class="g-stat"><div class="g-stat-num">2026</div><div class="g-stat-label">Active</div></div>
-          </div>
+          <a href="#" class="btn btn-ghost" style="white-space:nowrap">
+            ↓ Download SQL Files
+          </a>
         </div>
 
-        <!-- Repos -->
-        <div class="repo-grid fade-up">
-          <div class="repo-card">
-            <div class="repo-header">
-              <span class="repo-name">📁 hartwell-bank-sql</span>
-              <span class="tag tag-blue">Public</span>
+        <!-- Database Schema -->
+        <div class="fade-up">
+          <div class="section-label" style="margin-bottom:1.25rem">Database Schema — 6 Tables</div>
+          <div class="schema-grid">
+            <div class="schema-table">
+              <div class="schema-table-header">🧑 customers</div>
+              <div class="schema-field pk"><span>customer_id</span><span class="field-type">INT PK</span></div>
+              <div class="schema-field"><span>first_name</span><span class="field-type">VARCHAR</span></div>
+              <div class="schema-field"><span>country</span><span class="field-type">VARCHAR</span></div>
+              <div class="schema-field"><span>email_domain</span><span class="field-type">VARCHAR</span></div>
+              <div class="schema-field"><span>customer_tier</span><span class="field-type">ENUM</span></div>
+              <div class="schema-field"><span>join_date</span><span class="field-type">DATE</span></div>
             </div>
-            <p class="repo-desc">
-              Full MySQL database for a fictional bank. 6 tables, 15+ analytical queries
-              across fraud detection, customer segmentation, and revenue trends.
-            </p>
-            <div class="repo-footer">
-              <span><span class="repo-lang-dot" style="background:#e38c00"></span>SQL</span>
-              <span>⭐ Portfolio Project</span>
-              <span>2024</span>
+            <div class="schema-table">
+              <div class="schema-table-header">🏦 accounts</div>
+              <div class="schema-field pk"><span>account_id</span><span class="field-type">INT PK</span></div>
+              <div class="schema-field fk"><span>customer_id</span><span class="field-type">INT FK</span></div>
+              <div class="schema-field"><span>account_type</span><span class="field-type">ENUM</span></div>
+              <div class="schema-field"><span>currency</span><span class="field-type">ENUM</span></div>
+              <div class="schema-field"><span>balance</span><span class="field-type">DECIMAL</span></div>
             </div>
-          </div>
-          <div class="repo-card">
-            <div class="repo-header">
-              <span class="repo-name">📁 hartwell-bank-excel</span>
-              <span class="tag tag-green">Public</span>
+            <div class="schema-table">
+              <div class="schema-table-header">💳 transactions</div>
+              <div class="schema-field pk"><span>transaction_id</span><span class="field-type">INT PK</span></div>
+              <div class="schema-field fk"><span>account_id</span><span class="field-type">INT FK</span></div>
+              <div class="schema-field fk"><span>merchant_id</span><span class="field-type">INT FK</span></div>
+              <div class="schema-field"><span>amount</span><span class="field-type">DECIMAL</span></div>
+              <div class="schema-field"><span>transaction_date</span><span class="field-type">DATETIME</span></div>
             </div>
-            <p class="repo-desc">
-              9-sheet Excel workbook with financial modelling, PMT/amortisation,
-              risk scoring, fraud monitor, and executive dashboard.
-            </p>
-            <div class="repo-footer">
-              <span><span class="repo-lang-dot" style="background:#217346"></span>Excel</span>
-              <span>⭐ Portfolio Project</span>
-              <span>2024</span>
+            <div class="schema-table">
+              <div class="schema-table-header">🏪 merchants</div>
+              <div class="schema-field pk"><span>merchant_id</span><span class="field-type">INT PK</span></div>
+              <div class="schema-field"><span>merchant_name</span><span class="field-type">VARCHAR</span></div>
+              <div class="schema-field"><span>category</span><span class="field-type">ENUM</span></div>
+              <div class="schema-field"><span>country</span><span class="field-type">VARCHAR</span></div>
             </div>
-          </div>
-          <div class="repo-card">
-            <div class="repo-header">
-              <span class="repo-name">📁 portfolio-site</span>
-              <span class="tag tag-purple">Public</span>
+            <div class="schema-table">
+              <div class="schema-table-header">⚠ fraud_flags</div>
+              <div class="schema-field pk"><span>flag_id</span><span class="field-type">INT PK</span></div>
+              <div class="schema-field fk"><span>transaction_id</span><span class="field-type">INT FK</span></div>
+              <div class="schema-field"><span>flag_reason</span><span class="field-type">ENUM</span></div>
+              <div class="schema-field"><span>reviewed_status</span><span class="field-type">ENUM</span></div>
             </div>
-            <p class="repo-desc">
-              This website. Built from scratch in HTML, CSS, and vanilla JS.
-              No frameworks, no templates, no tracking.
-            </p>
-            <div class="repo-footer">
-              <span><span class="repo-lang-dot" style="background:#e34c26"></span>HTML/CSS/JS</span>
-              <span>🔒 Privacy-first</span>
-              <span>2024</span>
-            </div>
-          </div>
-          <div class="repo-card">
-            <div class="repo-header">
-              <span class="repo-name">📁 python-data-basics</span>
-              <span class="tag tag-gold">In Progress</span>
-            </div>
-            <p class="repo-desc">
-              Learning Python for data analysis — pandas, matplotlib, and eventually
-              connecting Python to SQL databases.
-            </p>
-            <div class="repo-footer">
-              <span><span class="repo-lang-dot" style="background:#3572A5"></span>Python</span>
-              <span>🔄 Ongoing</span>
-              <span>2024</span>
+            <div class="schema-table">
+              <div class="schema-table-header">📅 monthly_snapshots</div>
+              <div class="schema-field pk"><span>snapshot_id</span><span class="field-type">INT PK</span></div>
+              <div class="schema-field fk"><span>account_id</span><span class="field-type">INT FK</span></div>
+              <div class="schema-field"><span>closing_balance</span><span class="field-type">DECIMAL</span></div>
+              <div class="schema-field"><span>total_debits</span><span class="field-type">DECIMAL</span></div>
             </div>
           </div>
         </div>
 
-        <!-- Contribution heatmap (visual representation) -->
-        <div class="fade-up" style="margin-top:2.5rem">
-          <div class="section-label" style="margin-bottom:1rem">Contribution Activity (2024)</div>
-          <div class="heatmap-wrapper">
-            <div class="heatmap" id="heatmap-grid"></div>
+        <!-- SQL Queries Showcase -->
+        <div class="fade-up" style="margin-top:3rem">
+          <div class="section-label" style="margin-bottom:1.25rem">Featured Queries</div>
+          <div class="query-grid">
+
+            <!-- Query 1 -->
+            <div class="query-card">
+              <div class="query-card-header">
+                <span class="query-card-title">A2 — TOP CUSTOMERS BY BALANCE</span>
+                <span class="tag tag-blue">JOIN</span>
+              </div>
+              <div class="query-card-body"><pre><span class="kw">SELECT</span>
+  <span class="fn">CONCAT</span>(c.first_name, <span class="str">' '</span>, c.last_name) <span class="kw">AS</span> customer,
+  c.customer_tier,
+  <span class="fn">COUNT</span>(a.account_id)          <span class="kw">AS</span> accounts,
+  <span class="fn">SUM</span>(a.balance)               <span class="kw">AS</span> total_balance
+<span class="kw">FROM</span> customers c
+<span class="kw">JOIN</span> accounts a <span class="kw">ON</span> c.customer_id = a.customer_id
+<span class="kw">WHERE</span> a.is_active = <span class="num">1</span>
+<span class="kw">GROUP BY</span> c.customer_id
+<span class="kw">ORDER BY</span> total_balance <span class="kw">DESC</span>
+<span class="kw">LIMIT</span> <span class="num">10</span>;</pre></div>
+              <div class="query-card-footer">↳ Multi-account JOIN · GROUP BY · SUM · ORDER DESC</div>
+            </div>
+
+            <!-- Query 2 -->
+            <div class="query-card">
+              <div class="query-card-header">
+                <span class="query-card-title">B2 — ANOMALY DETECTION</span>
+                <span class="tag tag-red">Fraud</span>
+              </div>
+              <div class="query-card-body"><pre><span class="kw">SELECT</span> t.transaction_id, t.amount,
+  <span class="fn">ROUND</span>(avg_data.avg_spend, <span class="num">2</span>) <span class="kw">AS</span> cust_avg,
+  <span class="fn">ROUND</span>(t.amount / avg_data.avg_spend, <span class="num">2</span>)
+    <span class="kw">AS</span> multiple_of_average
+<span class="kw">FROM</span> transactions t
+<span class="kw">JOIN</span> accounts a <span class="kw">ON</span> t.account_id = a.account_id
+<span class="kw">JOIN</span> (
+  <span class="kw">SELECT</span> a2.customer_id,
+         <span class="fn">AVG</span>(t2.amount) <span class="kw">AS</span> avg_spend
+  <span class="kw">FROM</span> transactions t2
+  <span class="kw">JOIN</span> accounts a2 <span class="kw">ON</span> t2.account_id = a2.account_id
+  <span class="kw">WHERE</span> t2.transaction_type = <span class="str">'Debit'</span>
+  <span class="kw">GROUP BY</span> a2.customer_id
+) <span class="kw">AS</span> avg_data <span class="kw">ON</span> a.customer_id = avg_data.customer_id
+<span class="kw">WHERE</span> t.amount > (avg_data.avg_spend * <span class="num">2</span>)
+<span class="kw">ORDER BY</span> multiple_of_average <span class="kw">DESC</span>;</pre></div>
+              <div class="query-card-footer">↳ Subquery · Personalised baseline · Fraud signal logic</div>
+            </div>
+
+            <!-- Query 3 -->
+            <div class="query-card">
+              <div class="query-card-header">
+                <span class="query-card-title">C2 — MoM GROWTH (WINDOW FUNCTION)</span>
+                <span class="tag tag-purple">Advanced</span>
+              </div>
+              <div class="query-card-body"><pre><span class="kw">WITH</span> monthly_totals <span class="kw">AS</span> (
+  <span class="kw">SELECT</span>
+    <span class="fn">DATE_FORMAT</span>(transaction_date,
+      <span class="str">'%Y-%m'</span>)     <span class="kw">AS</span> month,
+    <span class="fn">ROUND</span>(<span class="fn">SUM</span>(amount), <span class="num">2</span>) <span class="kw">AS</span> total_volume
+  <span class="kw">FROM</span> transactions
+  <span class="kw">WHERE</span> status = <span class="str">'Completed'</span>
+  <span class="kw">GROUP BY</span> <span class="fn">DATE_FORMAT</span>(transaction_date, <span class="str">'%Y-%m'</span>)
+)
+<span class="kw">SELECT</span> month, total_volume,
+  <span class="fn">LAG</span>(total_volume) <span class="kw">OVER</span>
+    (<span class="kw">ORDER BY</span> month)  <span class="kw">AS</span> prev_month,
+  <span class="fn">ROUND</span>((total_volume
+    - <span class="fn">LAG</span>(total_volume) <span class="kw">OVER</span>
+        (<span class="kw">ORDER BY</span> month))
+    / <span class="fn">LAG</span>(total_volume) <span class="kw">OVER</span>
+        (<span class="kw">ORDER BY</span> month) * <span class="num">100</span>, <span class="num">1</span>)
+    <span class="kw">AS</span> mom_growth_pct
+<span class="kw">FROM</span> monthly_totals;</pre></div>
+              <div class="query-card-footer">↳ CTE · LAG() window function · Growth rate formula</div>
+            </div>
+
+            <!-- Query 4 -->
+            <div class="query-card">
+              <div class="query-card-header">
+                <span class="query-card-title">B3 — RAPID SUCCESSION DETECTION</span>
+                <span class="tag tag-red">Fraud</span>
+              </div>
+              <div class="query-card-body"><pre><span class="kw">SELECT</span>
+  t1.transaction_id     <span class="kw">AS</span> first_txn,
+  t2.transaction_id     <span class="kw">AS</span> second_txn,
+  <span class="fn">TIMESTAMPDIFF</span>(<span class="kw">MINUTE</span>,
+    t1.transaction_date,
+    t2.transaction_date) <span class="kw">AS</span> minutes_apart,
+  t1.amount + t2.amount <span class="kw">AS</span> combined_value
+<span class="kw">FROM</span> transactions t1
+<span class="kw">JOIN</span> transactions t2
+  <span class="kw">ON</span>  t1.account_id = t2.account_id
+  <span class="kw">AND</span> t2.transaction_id > t1.transaction_id
+  <span class="kw">AND</span> <span class="fn">TIMESTAMPDIFF</span>(<span class="kw">MINUTE</span>,
+        t1.transaction_date,
+        t2.transaction_date)
+      <span class="kw">BETWEEN</span> <span class="num">0</span> <span class="kw">AND</span> <span class="num">10</span>
+<span class="kw">WHERE</span> t1.transaction_type = <span class="str">'Debit'</span>
+<span class="kw">ORDER BY</span> combined_value <span class="kw">DESC</span>;</pre></div>
+              <div class="query-card-footer">↳ Self-JOIN · TIMESTAMPDIFF · Card skimming pattern</div>
+            </div>
+
           </div>
-          <div class="heatmap-label">Less ▢▢▢▢▢ More</div>
+        </div>
+
+        <!-- Key Findings -->
+        <div class="fade-up" style="margin-top:2rem">
+          <div class="section-label" style="margin-bottom:1rem">Key Findings</div>
+          <div class="findings-grid">
+            <div class="finding-card">
+              <div class="finding-number">2</div>
+              <div class="finding-label">Confirmed Fraud Cases</div>
+              <div class="finding-desc">Both flagged by statistical anomaly detection — 2AM transactions at 4 minutes apart, 3–5× customer average spend.</div>
+            </div>
+            <div class="finding-card">
+              <div class="finding-number">20%</div>
+              <div class="finding-label">False Positive Rate</div>
+              <div class="finding-desc">1 of 5 fraud flags was legitimate. Reducing this is a core focus — every false positive is friction for a real customer.</div>
+            </div>
+            <div class="finding-card">
+              <div class="finding-number">17%</div>
+              <div class="finding-label">Platinum Customers</div>
+              <div class="finding-desc">Represent a disproportionate share of total portfolio value — a classic long-tail distribution in retail banking.</div>
+            </div>
+          </div>
         </div>
 
       </div>
-    </section>
+    </div><!-- end SQL project -->
 
-    <!-- ── Currently Learning ─────────────────────────────────── -->
-    <section class="learning-section">
+    <!-- ════ EXCEL PROJECT ══════════════════════════════════════ -->
+    <div id="excel" class="project-block">
       <div class="container">
-        <div class="section-label fade-up">Growth</div>
-        <h2 class="section-title fade-up">Currently Learning</h2>
-        <p class="section-subtitle fade-up" style="margin-bottom:2.5rem">
-          Skills I'm actively building right now — not on the CV yet, but coming.
-        </p>
 
-        <div class="currently-learning fade-up">
-          <div class="learning-card">
-            <h4>🐍 Python for Data</h4>
-            <p>Learning pandas and NumPy to replicate my Excel analyses programmatically. Next: connecting Python to MySQL.</p>
-            <div class="learning-progress">
-              <div class="learning-bar-track">
-                <div class="learning-bar-fill" data-pct="45"></div>
-              </div>
-              <div class="learning-pct">~45% through planned curriculum</div>
-            </div>
-          </div>
-          <div class="learning-card">
-            <h4>📊 Power BI</h4>
-            <p>Building dashboards from SQL data sources. Connecting to MySQL, writing DAX measures, publishing reports.</p>
-            <div class="learning-progress">
-              <div class="learning-bar-track">
-                <div class="learning-bar-fill" data-pct="30"></div>
-              </div>
-              <div class="learning-pct">~30% through Microsoft Learn path</div>
-            </div>
-          </div>
-          <div class="learning-card">
-            <h4>🔐 Privacy Engineering</h4>
-            <p>GDPR compliance in practice, differential privacy concepts, privacy-by-design architecture patterns.</p>
-            <div class="learning-progress">
-              <div class="learning-bar-track">
-                <div class="learning-bar-fill" data-pct="60"></div>
-              </div>
-              <div class="learning-pct">~60% — ongoing personal interest</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-
-    <!-- ══════════════════════════════════════════════════════
-         CERTIFICATIONS & LANGUAGES
-    ══════════════════════════════════════════════════════ -->
-    <section style="padding:5rem 0;background:var(--bg2);border-top:1px solid var(--border)">
-      <div class="container">
-        <div class="fade-up" style="margin-bottom:2.5rem">
-          <div class="section-label">Credentials</div>
-          <h2 class="section-title" style="font-size:2rem">Certifications & Training</h2>
-          <p class="section-subtitle">
-            Outside of my degree, I've pursued certifications and training that align
-            with where I want to go — cloud, AI, cybersecurity, and project management.
-          </p>
+        <div class="disclaimer-bar fade-up">
+          <span>⚠</span>
+          <span>
+            <strong>Fictional Project Disclaimer:</strong> This workbook is an extension of the
+            Hartwell Bank SQL project. All data, figures, and scenarios are entirely fictional
+            and created for educational purposes only. No real financial data was used.
+          </span>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem" class="fade-up">
-
-          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:1.5rem;position:relative;overflow:hidden;transition:var(--transition)" class="card">
-            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
-            <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.5rem">IBM</div>
-            <div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text);margin-bottom:0.5rem">Project Management Fundamentals</div>
-            <div style="font-size:0.8rem;color:var(--text2);line-height:1.6;margin-bottom:0.75rem">Agile and waterfall methodologies, sprint planning, stakeholder management, and project lifecycle.</div>
-            <span style="display:inline-flex;align-items:center;gap:0.3rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent3);background:#00ffaa0a;border:1px solid #00ffaa20;padding:0.2rem 0.6rem;border-radius:3px">✓ Completed</span>
-          </div>
-
-          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:1.5rem;position:relative;overflow:hidden;transition:var(--transition)" class="card">
-            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
-            <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.5rem">Amazon / AWS</div>
-            <div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text);margin-bottom:0.5rem">Azure Cloud Storage Fundamentals</div>
-            <div style="font-size:0.8rem;color:var(--text2);line-height:1.6;margin-bottom:0.75rem">Cloud storage architecture, deployment models, blob storage, access tiers, and data redundancy.</div>
-            <span style="display:inline-flex;align-items:center;gap:0.3rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent3);background:#00ffaa0a;border:1px solid #00ffaa20;padding:0.2rem 0.6rem;border-radius:3px">✓ Completed</span>
-          </div>
-
-          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:1.5rem;position:relative;overflow:hidden;transition:var(--transition)" class="card">
-            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
-            <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.5rem">Python Training</div>
-            <div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text);margin-bottom:0.5rem">Introductory Python Programming</div>
-            <div style="font-size:0.8rem;color:var(--text2);line-height:1.6;margin-bottom:0.75rem">Data structures, functions, control flow, and basic scripting. Applied to data manipulation tasks.</div>
-            <span style="display:inline-flex;align-items:center;gap:0.3rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent3);background:#00ffaa0a;border:1px solid #00ffaa20;padding:0.2rem 0.6rem;border-radius:3px">✓ Completed</span>
-          </div>
-
-          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:1.5rem;position:relative;overflow:hidden;transition:var(--transition)" class="card">
-            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
-            <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.5rem">Short Course</div>
-            <div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text);margin-bottom:0.5rem">Generative AI &amp; Cybersecurity</div>
-            <div style="font-size:0.8rem;color:var(--text2);line-height:1.6;margin-bottom:0.75rem">Introduction to LLMs, prompt engineering, AI risk, cybersecurity fundamentals, and threat awareness.</div>
-            <span style="display:inline-flex;align-items:center;gap:0.3rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent3);background:#00ffaa0a;border:1px solid #00ffaa20;padding:0.2rem 0.6rem;border-radius:3px">✓ Completed</span>
-          </div>
-
-          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:1.5rem;position:relative;overflow:hidden;transition:var(--transition)" class="card">
-            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
-            <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.5rem">Voluntary Experience</div>
-            <div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text);margin-bottom:0.5rem">School IT Department Support</div>
-            <div style="font-size:0.8rem;color:var(--text2);line-height:1.6;margin-bottom:0.75rem">Hardware troubleshooting, basic network maintenance, device setup and user support in a real IT environment.</div>
-            <span style="display:inline-flex;align-items:center;gap:0.3rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent3);background:#00ffaa0a;border:1px solid #00ffaa20;padding:0.2rem 0.6rem;border-radius:3px">✓ Completed</span>
-          </div>
-
-          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:1.5rem;position:relative;overflow:hidden;transition:var(--transition)" class="card">
-            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
-            <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.5rem">Tech Club · 2021</div>
-            <div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--text);margin-bottom:0.5rem">Kotlin Mobile Development</div>
-            <div style="font-size:0.8rem;color:var(--text2);line-height:1.6;margin-bottom:0.75rem">Completed a coding programme covering Kotlin fundamentals for Android development, OOP principles, and app logic.</div>
-            <span style="display:inline-flex;align-items:center;gap:0.3rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent3);background:#00ffaa0a;border:1px solid #00ffaa20;padding:0.2rem 0.6rem;border-radius:3px">✓ Completed</span>
-          </div>
-
-        </div>
-
-        <!-- Languages -->
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:4rem" class="fade-up">
+        <div class="project-header fade-up">
           <div>
-            <div class="section-label" style="margin-bottom:1.25rem">Languages — Fluent</div>
-            <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
-              <span style="font-family:var(--font-mono);font-size:0.72rem;padding:0.3rem 0.75rem;border-radius:4px;background:#00d4ff12;color:var(--accent);border:1px solid #00d4ff30">🇬🇧 English</span>
-              <span style="font-family:var(--font-mono);font-size:0.72rem;padding:0.3rem 0.75rem;border-radius:4px;background:#00d4ff12;color:var(--accent);border:1px solid #00d4ff30">🇮🇳 Hindi</span>
-              <span style="font-family:var(--font-mono);font-size:0.72rem;padding:0.3rem 0.75rem;border-radius:4px;background:#00d4ff12;color:var(--accent);border:1px solid #00d4ff30">🇧🇩 Bengali</span>
-              <span style="font-family:var(--font-mono);font-size:0.72rem;padding:0.3rem 0.75rem;border-radius:4px;background:#00d4ff12;color:var(--accent);border:1px solid #00d4ff30">🇵🇰 Urdu</span>
-              <span style="font-family:var(--font-mono);font-size:0.72rem;padding:0.3rem 0.75rem;border-radius:4px;background:#00d4ff12;color:var(--accent);border:1px solid #00d4ff30">🇮🇳 Malayalam</span>
-              <span style="font-family:var(--font-mono);font-size:0.72rem;padding:0.3rem 0.75rem;border-radius:4px;background:#00d4ff12;color:var(--accent);border:1px solid #00d4ff30">🇮🇳 Kannada</span>
+            <div class="project-meta">
+              <span class="tag tag-green">Excel</span>
+              <span class="tag tag-gold">Financial Modelling</span>
+              <span class="tag tag-blue">Dashboard</span>
+              <span class="tag tag-purple">Risk Scoring</span>
             </div>
-          </div>
-          <div>
-            <div class="section-label" style="margin-bottom:1.25rem">Languages — Working Knowledge</div>
-            <div style="display:flex;flex-wrap:wrap;gap:0.5rem">
-              <span style="font-family:var(--font-mono);font-size:0.72rem;padding:0.3rem 0.75rem;border-radius:4px;background:#f4a26112;color:var(--gold);border:1px solid #f4a26130">🇪🇸 Spanish</span>
-              <span style="font-family:var(--font-mono);font-size:0.72rem;padding:0.3rem 0.75rem;border-radius:4px;background:#f4a26112;color:var(--gold);border:1px solid #f4a26130">🇸🇦 Arabic</span>
-              <span style="font-family:var(--font-mono);font-size:0.72rem;padding:0.3rem 0.75rem;border-radius:4px;background:#f4a26112;color:var(--gold);border:1px solid #f4a26130">🇫🇷 French</span>
-            </div>
-            <p style="font-size:0.8rem;color:var(--text3);margin-top:1rem;font-family:var(--font-mono)">
-              9 languages total · Full driving licence · Dublin, Ireland
+            <h2 class="project-title">Hartwell Bank — Excel Analytics Workbook</h2>
+            <p class="project-desc">
+              A 9-sheet professional workbook continuing the Hartwell Bank story. Includes a
+              full financial model driven by a central Assumptions sheet, loan amortisation
+              schedule, weighted risk scoring model, fraud tracker, and executive dashboard
+              with 4 charts. 505 live formulas. Zero errors.
             </p>
           </div>
+          <a href="#" class="btn btn-ghost" style="white-space:nowrap">↓ Download .xlsx</a>
+        </div>
+
+        <!-- Sheet Overview -->
+        <div class="fade-up">
+          <div class="section-label" style="margin-bottom:1.25rem">Workbook Structure — 9 Sheets</div>
+          <div class="sheets-grid">
+            <div class="sheet-card">
+              <div class="sheet-icon">📋</div>
+              <div class="sheet-name">README</div>
+              <div class="sheet-desc">Formula index, project overview, privacy statement.</div>
+              <div class="sheet-formulas">Documentation + colour-coding guide</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">🔧</div>
+              <div class="sheet-name">Assumptions</div>
+              <div class="sheet-desc">Central hub. Change one cell → entire model updates.</div>
+              <div class="sheet-formulas">All hardcoded inputs in blue</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">👥</div>
+              <div class="sheet-name">Customers</div>
+              <div class="sheet-desc">30 customers, tier breakdown, privacy-email analysis.</div>
+              <div class="sheet-formulas">COUNTIFS · AVERAGEIF · VLOOKUP</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">💳</div>
+              <div class="sheet-name">Transactions</div>
+              <div class="sheet-desc">Full ledger, colour-coded debits/credits, category SUMIF.</div>
+              <div class="sheet-formulas">SUMIF · TEXT() · IF · MIN(IF)</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">📈</div>
+              <div class="sheet-name">Revenue Model</div>
+              <div class="sheet-desc">12-month P&L. MoM growth formula, variance to target.</div>
+              <div class="sheet-formulas">Cross-sheet refs · % growth · IFERROR</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">🏦</div>
+              <div class="sheet-name">Loan Analysis</div>
+              <div class="sheet-desc">12-loan portfolio + full amortisation schedule.</div>
+              <div class="sheet-formulas">PMT · IPMT · PPMT · SUMPRODUCT</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">⚠</div>
+              <div class="sheet-name">Fraud Monitor</div>
+              <div class="sheet-desc">Flag tracker with auto risk score and action recommendation.</div>
+              <div class="sheet-formulas">IF(AND()) · COUNTIF · RANK</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">📉</div>
+              <div class="sheet-name">Risk Scoring</div>
+              <div class="sheet-desc">5-factor weighted customer risk model → loan grade.</div>
+              <div class="sheet-formulas">Weighted sum · INDEX/MATCH · Nested IF</div>
+            </div>
+            <div class="sheet-card">
+              <div class="sheet-icon">📊</div>
+              <div class="sheet-name">Dashboard</div>
+              <div class="sheet-desc">KPI cards + 4 charts pulling live from all sheets.</div>
+              <div class="sheet-formulas">Cross-sheet · SUMIF · Bar · Line · Pie</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formula Showcase Table -->
+        <div class="fade-up" style="margin-top:2rem">
+          <div class="section-label" style="margin-bottom:1.25rem">Formula Showcase</div>
+          <div style="background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius2);overflow:hidden">
+            <table class="formula-table">
+              <thead>
+                <tr>
+                  <th>Formula</th>
+                  <th>Sheet</th>
+                  <th>What It Does</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>=PMT(rate/12, term, -amount)</td><td>Loan Analysis</td><td>Calculates fixed monthly loan repayment</td></tr>
+                <tr><td>=IPMT(rate/12, period, term, -pv)</td><td>Loan Analysis</td><td>Extracts the interest portion of each payment</td></tr>
+                <tr><td>=SUMPRODUCT(scores, weights)</td><td>Risk Scoring</td><td>Calculates weighted risk score for each customer</td></tr>
+                <tr><td>=INDEX(range, MATCH(val, col, 0))</td><td>Risk Scoring</td><td>Two-way flexible lookup — more powerful than VLOOKUP</td></tr>
+                <tr><td>=IFERROR((B-A)/A, 0)</td><td>Revenue Model</td><td>Month-on-month growth rate, safe against divide-by-zero</td></tr>
+                <tr><td>=SUMIFS(range, col1, crit1, col2, crit2)</td><td>Dashboard</td><td>Sum with multiple simultaneous filters</td></tr>
+                <tr><td>=AVERAGEIF(tier_col, "Platinum", balance_col)</td><td>Customers</td><td>Average balance for a specific customer tier only</td></tr>
+                <tr><td>=IF(AND(H5="Fraud", I5&lt;&gt;""), "Closed", "Escalate")</td><td>Fraud Monitor</td><td>Nested logic: auto-generates action recommendation</td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
       </div>
-    </section>
+    </div><!-- end Excel project -->
+
+  </div><!-- end .page -->
 
   <footer>
     <div class="footer-inner">
@@ -728,44 +705,5 @@
   </footer>
 
   <script src="script.js"></script>
-  <script>
-    // Animate skill bars on scroll
-    const barObserver = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.querySelectorAll('.skill-bar-fill, .learning-bar-fill').forEach(bar => {
-            const pct = bar.dataset.pct;
-            if (pct) bar.style.width = pct + '%';
-          });
-        }
-      });
-    }, { threshold: 0.3 });
-
-    document.querySelectorAll('.skills-category, .currently-learning').forEach(el => {
-      barObserver.observe(el);
-    });
-
-    // Generate contribution heatmap
-    const heatmap = document.getElementById('heatmap-grid');
-    const levels = ['', 'l1', 'l2', 'l3', 'l4'];
-
-    for (let week = 0; week < 52; week++) {
-      const col = document.createElement('div');
-      col.className = 'heatmap-col';
-      for (let day = 0; day < 7; day++) {
-        const cell = document.createElement('div');
-        // Simulate realistic activity (more recent = more active)
-        const activityChance = week > 35 ? 0.6 : week > 20 ? 0.4 : 0.25;
-        const rand = Math.random();
-        if (rand < activityChance * 0.15) cell.className = 'heatmap-cell l4';
-        else if (rand < activityChance * 0.35) cell.className = 'heatmap-cell l3';
-        else if (rand < activityChance * 0.6) cell.className = 'heatmap-cell l2';
-        else if (rand < activityChance) cell.className = 'heatmap-cell l1';
-        else cell.className = 'heatmap-cell';
-        col.appendChild(cell);
-      }
-      heatmap.appendChild(col);
-    }
-  </script>
 </body>
 </html>
