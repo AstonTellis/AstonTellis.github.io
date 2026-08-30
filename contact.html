@@ -238,6 +238,110 @@
       color: var(--text2);
     }
 
+
+    /* ── Contact Form Styling ───────────────────────────────── */
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 0;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      display: block;
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 0.8rem 1.1rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
+      line-height: 1.5;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--text3);
+      font-size: 0.8rem;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px #00d4ff18;
+      background: var(--bg2);
+    }
+
+    .form-textarea {
+      min-height: 130px;
+      resize: vertical;
+      font-family: var(--font-mono);
+    }
+
+    .form-submit {
+      display: block;
+      width: 100%;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.9rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      margin-top: 0.25rem;
+      text-align: center;
+    }
+
+    .form-submit:hover:not(:disabled) {
+      background: #33ddff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px #00d4ff30;
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-note {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text3);
+      text-align: center;
+      line-height: 1.6;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
     @media (max-width: 768px) {
       .contact-layout { grid-template-columns: 1fr; }
       .cv-layout { grid-template-columns: 1fr; }
