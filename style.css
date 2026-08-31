@@ -781,18 +781,44 @@ html, body {
   margin-top: 2rem;
 }
 
-/* ── Show hamburger on mobile, hide nav-links ─────────────── */
+/* ── Desktop: hide hamburger, hide drawer elements ────────── */
+.nav-hamburger { display: none; }
+.nav-overlay   { display: none; }
+.nav-drawer    { display: none; }
+
+
+/* ── Drawer links never visible outside drawer on desktop ─── */
+.nav-drawer .drawer-links {
+  list-style: none;
+}
+
+/* Safety: if drawer is display:none, its contents are hidden too */
+/* This is guaranteed by CSS but we make it explicit */
+.nav-overlay:not(.open) { pointer-events: none; }
+
+/* ── Mobile (≤768px): show hamburger, hide desktop nav ───── */
 @media (max-width: 768px) {
   .nav-links {
-    display: none !important; /* hidden — drawer replaces it */
+    display: none !important;
   }
 
   .nav-hamburger {
-    display: flex; /* show the button */
+    display: flex;
   }
 
-  .nav-overlay,
+  /* Drawer and overlay become available — JS controls open/close */
+  .nav-overlay {
+    display: block;
+    pointer-events: none; /* not clickable until open */
+    opacity: 0;
+  }
+
+  .nav-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
   .nav-drawer {
-    display: block; /* make them available in DOM */
+    display: block;
   }
 }
