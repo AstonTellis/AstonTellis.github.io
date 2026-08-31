@@ -605,3 +605,194 @@ body.light-mode .code-block {
 body.keyboard-nav * { cursor: auto !important; }
 body.keyboard-nav .cursor,
 body.keyboard-nav .cursor-ring { display: none; }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE NAVIGATION — Hamburger + Drawer
+   Desktop (>768px): hamburger hidden, nav-links shown as normal
+   Mobile (≤768px):  nav-links hidden, hamburger + drawer shown
+   ═══════════════════════════════════════════════════════════ */
+
+/* Fix horizontal overflow on all screen sizes */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* ── Hamburger Button ─────────────────────────────────────── */
+.nav-hamburger {
+  display: none; /* hidden on desktop */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  background: none;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 0.45rem 0.75rem 0.4rem;
+  cursor: pointer;
+  color: var(--text);
+  transition: var(--transition);
+  z-index: 600;
+  position: relative;
+}
+
+.nav-hamburger:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* The three bars */
+.nav-hamburger .bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+/* "Menu" label under the bars */
+.nav-hamburger .menu-label {
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: currentColor;
+  margin-top: 1px;
+  line-height: 1;
+}
+
+/* Animate bars into X when open */
+.nav-hamburger.open .bar:nth-child(1) {
+  transform: translateY(5px) rotate(45deg);
+}
+.nav-hamburger.open .bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav-hamburger.open .bar:nth-child(3) {
+  transform: translateY(-5px) rotate(-45deg);
+}
+.nav-hamburger.open .menu-label {
+  opacity: 0;
+}
+
+/* ── Mobile Drawer Overlay ────────────────────────────────── */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 498;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.nav-overlay.open {
+  opacity: 1;
+}
+
+/* ── Mobile Drawer Panel ──────────────────────────────────── */
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(320px, 85vw);
+  background: var(--bg2);
+  border-left: 1px solid var(--border);
+  z-index: 499;
+  padding: 5rem 2rem 2rem;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+}
+
+.nav-drawer.open {
+  transform: translateX(0);
+}
+
+/* Drawer nav links */
+.nav-drawer .drawer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nav-drawer .drawer-links a {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text2);
+  text-decoration: none;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius);
+  letter-spacing: 0.04em;
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.nav-drawer .drawer-links a:hover,
+.nav-drawer .drawer-links a.active {
+  color: var(--accent);
+  background: #00d4ff08;
+  border-color: var(--border);
+}
+
+.nav-drawer .drawer-links a.active {
+  font-weight: 600;
+}
+
+/* Contact CTA in drawer */
+.nav-drawer .drawer-links a.drawer-cta {
+  color: var(--accent);
+  border-color: var(--accent);
+  text-align: center;
+  margin-top: 0.75rem;
+  font-weight: 600;
+}
+
+.nav-drawer .drawer-links a.drawer-cta:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Drawer divider */
+.drawer-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 1rem 0;
+}
+
+/* Drawer privacy badge */
+.drawer-footer {
+  margin-top: auto;
+  padding-top: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text3);
+  line-height: 1.7;
+  border-top: 1px solid var(--border);
+  margin-top: 2rem;
+}
+
+/* ── Show hamburger on mobile, hide nav-links ─────────────── */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none !important; /* hidden — drawer replaces it */
+  }
+
+  .nav-hamburger {
+    display: flex; /* show the button */
+  }
+
+  .nav-overlay,
+  .nav-drawer {
+    display: block; /* make them available in DOM */
+  }
+}
