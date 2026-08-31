@@ -94,7 +94,7 @@ function initTerminal(terminalEl) {
 
   const lines = [
     { delay: 400,  text: '$ whoami',                          type: 'cmd' },
-    { delay: 900,  text: 'Aston Tellis — CS & Business Student', type: 'out' },
+    { delay: 900,  text: '[Your Name] — CS & Business Student', type: 'out' },
     { delay: 1400, text: '$ cat interests.txt',               type: 'cmd' },
     { delay: 1900, text: 'FinTech · Product Management · Privacy · Data Analytics', type: 'out' },
     { delay: 2400, text: '$ ls projects/',                    type: 'cmd' },
@@ -440,3 +440,50 @@ async function logCVDownload() {
 document.querySelectorAll('.cv-download-btn').forEach(btn => {
   btn.addEventListener('click', () => logCVDownload());
 });
+
+// ═══════════════════════════════════════════════════════════
+// MOBILE NAVIGATION — Hamburger Menu
+// ═══════════════════════════════════════════════════════════
+(function () {
+  const hamburger = document.querySelector('.nav-hamburger');
+  const drawer    = document.querySelector('.nav-drawer');
+  const overlay   = document.querySelector('.nav-overlay');
+
+  if (!hamburger || !drawer || !overlay) return;
+
+  function openMenu() {
+    hamburger.classList.add('open');
+    drawer.classList.add('open');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden'; // prevent background scroll
+    hamburger.setAttribute('aria-expanded', 'true');
+  }
+
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+    hamburger.setAttribute('aria-expanded', 'false');
+  }
+
+  function toggleMenu() {
+    hamburger.classList.contains('open') ? closeMenu() : openMenu();
+  }
+
+  // Toggle on button click
+  hamburger.addEventListener('click', toggleMenu);
+
+  // Close when tapping the dark overlay
+  overlay.addEventListener('click', closeMenu);
+
+  // Close when any drawer link is clicked (navigating away)
+  drawer.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
+})();
