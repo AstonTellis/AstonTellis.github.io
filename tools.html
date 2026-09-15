@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Tools & Games — Aston Tellis</title>
+  <title>Built by Me — Aston Tellis</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
     .page-hero {
@@ -499,6 +499,78 @@
       border-color: #f4a26130;
     }
 
+
+    /* ── Password Analyser Styles ───────────────────────────── */
+    .pw-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius2);
+      overflow: hidden;
+    }
+    .pw-header {
+      background: #0f1420;
+      padding: 1rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
+      border-bottom: 1px solid var(--border);
+    }
+    .pw-body { padding: 2rem; }
+    .pw-input-wrap { position: relative; margin-bottom: 1.5rem; }
+    .pw-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.85rem 3rem 0.85rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--text);
+      letter-spacing: 0.1em;
+      outline: none;
+      transition: border-color 0.2s ease;
+      box-sizing: border-box;
+    }
+    .pw-input:focus { border-color: var(--accent); }
+    .pw-toggle {
+      position: absolute; right: 0.75rem; top: 50%;
+      transform: translateY(-50%);
+      background: none; border: none; cursor: pointer;
+      font-size: 1rem; color: var(--text3); transition: color 0.2s;
+    }
+    .pw-toggle:hover { color: var(--accent); }
+    .strength-meter {
+      display: grid; grid-template-columns: repeat(5,1fr);
+      gap: 4px; margin-bottom: 0.6rem;
+    }
+    .strength-bar { height: 6px; border-radius: 3px; background: var(--surface); transition: background 0.3s ease; }
+    .strength-label { font-family: var(--font-mono); font-size: 0.72rem; margin-bottom: 1.5rem; color: var(--text3); }
+    .pw-criteria { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .criterion {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-mono); font-size: 0.72rem;
+      color: var(--text3); transition: color 0.2s ease;
+    }
+    .criterion.met { color: var(--accent3); }
+    .criterion-icon {
+      width: 18px; height: 18px; border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.6rem; flex-shrink: 0; transition: all 0.2s ease;
+    }
+    .criterion.met .criterion-icon { background: var(--accent3); border-color: var(--accent3); color: var(--bg); }
+    .crack-time {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem 1.25rem;
+      font-family: var(--font-mono); font-size: 0.78rem;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem;
+    }
+    .crack-time-label { color: var(--text2); }
+    .crack-time-value { font-weight: 700; color: var(--accent); }
+    .pw-suggestions { font-size: 0.82rem; color: var(--text2); line-height: 1.7; }
+    @media (max-width: 768px) { .pw-criteria { grid-template-columns: 1fr; } }
+
     @media (max-width: 768px) {
       .answer-grid { grid-template-columns: 1fr; }
       .calc-grid { grid-template-columns: 1fr; }
@@ -526,10 +598,10 @@
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="projects.html">Projects</a></li>
+      <li><a href="projects.html">Business &amp; Data</a></li>
       <li><a href="it-projects.html">IT Lab</a></li>
       <li><a href="animations.html">Design</a></li>
-      <li><a href="tools.html" class="active">Tools</a></li>
+      <li><a href="tools.html" class="active">Built by Me</a></li>
       <li><a href="skills.html">Skills &amp; Training</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html" class="nav-cta">Contact</a></li>
@@ -550,10 +622,10 @@
     <ul class="drawer-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="projects.html">Projects</a></li>
+          <li><a href="projects.html">Business &amp; Data</a></li>
           <li><a href="it-projects.html">IT Lab</a></li>
           <li><a href="animations.html">Design</a></li>
-          <li><a href="tools.html" class="active">Tools</a></li>
+          <li><a href="tools.html" class="active">Built by Me</a></li>
           <li><a href="skills.html">Skills &amp; Training</a></li>
           <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html" class="drawer-cta">Contact</a></li>
@@ -568,11 +640,11 @@
     <div class="page-hero">
       <div class="container fade-up">
         <div class="section-label">Interactive</div>
-        <h1 class="section-title">Tools & Games</h1>
+        <h1 class="section-title">Built by Me</h1>
         <p class="section-subtitle">
-          Things I built that you can actually use. A privacy awareness game,
-          a FinTech budget calculator, and a showcase of my certifications and languages.
-          Everything runs in your browser — nothing is tracked or stored.
+          Things I built that actually work. A privacy awareness game, a FinTech budget calculator,
+          and a password strength analyser — all running in your browser.
+          No downloads, no accounts, no tracking.
         </p>
       </div>
     </div>
@@ -769,15 +841,76 @@
       </div>
     </section></div>
 
+
+    <!-- ══════════════════════════════════════════════════════
+         PASSWORD STRENGTH ANALYSER
+    ══════════════════════════════════════════════════════ -->
+    <section class="tool-section">
+      <div class="container">
+        <div class="fade-up" style="margin-bottom:2.5rem">
+          <div class="section-label">Tool 03 — Web App · HTML/CSS/JavaScript</div>
+          <h2 class="section-title" style="font-size:2rem">Password Strength Analyser</h2>
+          <p class="section-subtitle">
+            A real-time password analyser that checks entropy, character variety, common patterns,
+            and estimates crack time. Entirely client-side — your password never leaves your browser.
+          </p>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+            <span class="tag tag-blue">JavaScript</span>
+            <span class="tag tag-green">Cybersecurity</span>
+            <span class="tag tag-purple">HTML/CSS</span>
+            <span class="tag tag-red">Privacy-First</span>
+          </div>
+        </div>
+        <div class="pw-container fade-up">
+          <div class="pw-card">
+            <div class="pw-header">
+              🔐 Password Strength Analyser · Client-side only · Zero data sent anywhere
+            </div>
+            <div class="pw-body">
+              <div class="pw-input-wrap">
+                <input type="password" class="pw-input" id="pw-input"
+                  placeholder="Type a password to analyse..."
+                  oninput="analysePassword(this.value)" autocomplete="off">
+                <button class="pw-toggle" id="pw-toggle" onclick="togglePwVisibility()">👁</button>
+              </div>
+              <div class="strength-meter" id="strength-meter">
+                <div class="strength-bar" id="sb1"></div>
+                <div class="strength-bar" id="sb2"></div>
+                <div class="strength-bar" id="sb3"></div>
+                <div class="strength-bar" id="sb4"></div>
+                <div class="strength-bar" id="sb5"></div>
+              </div>
+              <div class="strength-label" id="strength-label">Enter a password to begin analysis</div>
+              <div class="pw-criteria">
+                <div class="criterion" id="c-length"><div class="criterion-icon">✓</div> 12+ characters</div>
+                <div class="criterion" id="c-upper"><div class="criterion-icon">✓</div> Uppercase letters</div>
+                <div class="criterion" id="c-lower"><div class="criterion-icon">✓</div> Lowercase letters</div>
+                <div class="criterion" id="c-number"><div class="criterion-icon">✓</div> Numbers</div>
+                <div class="criterion" id="c-symbol"><div class="criterion-icon">✓</div> Special symbols</div>
+                <div class="criterion" id="c-nocommon"><div class="criterion-icon">✓</div> No common words</div>
+              </div>
+              <div class="crack-time">
+                <span class="crack-time-label">Estimated time to crack (offline attack)</span>
+                <span class="crack-time-value" id="crack-time">—</span>
+              </div>
+              <div class="pw-suggestions" id="pw-suggestions">
+                Start typing a password above to see your security analysis.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   <footer>
     <div class="footer-inner">
       <ul class="footer-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
+        <li><a href="projects.html">Business &amp; Data</a></li>
         <li><a href="it-projects.html">IT Lab</a></li>
         <li><a href="animations.html">Design</a></li>
-        <li><a href="tools.html">Tools</a></li>
+        <li><a href="tools.html">Built by Me</a></li>
         <li><a href="skills.html">Skills &amp; Training</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -1037,6 +1170,106 @@
 
   // Init calculator
   calculate();
+
+  // ══════════════════════════════════════════════════════════
+  // PASSWORD STRENGTH ANALYSER (moved from IT Lab)
+  // ══════════════════════════════════════════════════════════
+  const common = ['password','123456','qwerty','abc123','letmein','monkey','dragon','master','sunshine','princess','welcome','shadow','superman','michael','football'];
+
+  function analysePassword(pw) {
+    const len = pw.length;
+    if (len === 0) { resetPw(); return; }
+    const hasUpper  = /[A-Z]/.test(pw);
+    const hasLower  = /[a-z]/.test(pw);
+    const hasNum    = /[0-9]/.test(pw);
+    const hasSym    = /[^A-Za-z0-9]/.test(pw);
+    const longEnough = len >= 12;
+    const noCommon  = !common.some(w => pw.toLowerCase().includes(w));
+    setCriterion('c-length',   longEnough);
+    setCriterion('c-upper',    hasUpper);
+    setCriterion('c-lower',    hasLower);
+    setCriterion('c-number',   hasNum);
+    setCriterion('c-symbol',   hasSym);
+    setCriterion('c-nocommon', noCommon);
+    let score = 0;
+    if (longEnough) score++;
+    if (hasUpper && hasLower) score++;
+    if (hasNum) score++;
+    if (hasSym) score++;
+    if (noCommon && len >= 16) score++;
+    let charSpace = 0;
+    if (hasLower) charSpace += 26;
+    if (hasUpper) charSpace += 26;
+    if (hasNum)   charSpace += 10;
+    if (hasSym)   charSpace += 32;
+    const entropy = charSpace > 0 ? len * Math.log2(charSpace) : 0;
+    const guesses = Math.pow(2, entropy);
+    const seconds = guesses / 1e10;
+    document.getElementById('crack-time').textContent = formatTime(seconds);
+    const barColors = ['var(--bg)','#ff4d6d','#f4a261','#f4a261','#00d4ff','#00ffaa'];
+    const labels = ['','Very Weak','Weak','Fair','Strong','Very Strong'];
+    for (let i = 1; i <= 5; i++) {
+      document.getElementById('sb'+i).style.background = i <= score ? barColors[score] : 'var(--surface)';
+    }
+    const label = document.getElementById('strength-label');
+    label.textContent = score > 0 ? labels[score] : 'Very Weak';
+    label.style.color = barColors[score] || 'var(--text3)';
+    const suggestions = [];
+    if (!longEnough) suggestions.push('Use at least 12 characters.');
+    if (!hasUpper || !hasLower) suggestions.push('Mix uppercase and lowercase letters.');
+    if (!hasNum) suggestions.push('Add numbers.');
+    if (!hasSym) suggestions.push('Add special characters like !@#$%^&*');
+    if (!noCommon) suggestions.push('Avoid common words like "password" or "123456".');
+    if (len >= 12 && score >= 4) suggestions.push('Strong password. Use a password manager to store it.');
+    document.getElementById('pw-suggestions').innerHTML = suggestions.length
+      ? suggestions.map(s => '<div style="margin-bottom:0.4rem">→ ' + s + '</div>').join('')
+      : '<div style="color:var(--accent3)">✓ Excellent password.</div>';
+  }
+
+  function setCriterion(id, met) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.classList.toggle('met', met);
+    el.querySelector('.criterion-icon').textContent = met ? '✓' : '✗';
+  }
+
+  function resetPw() {
+    for (let i = 1; i <= 5; i++) {
+      const bar = document.getElementById('sb'+i);
+      if (bar) bar.style.background = 'var(--surface)';
+    }
+    const label = document.getElementById('strength-label');
+    if (label) { label.textContent = 'Enter a password to begin analysis'; label.style.color = 'var(--text3)'; }
+    const ct = document.getElementById('crack-time');
+    if (ct) ct.textContent = '—';
+    const sug = document.getElementById('pw-suggestions');
+    if (sug) sug.textContent = 'Start typing a password above to see your security analysis.';
+    ['c-length','c-upper','c-lower','c-number','c-symbol','c-nocommon'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) { el.classList.remove('met'); el.querySelector('.criterion-icon').textContent = '✓'; }
+    });
+  }
+
+  function formatTime(seconds) {
+    if (seconds < 1) return 'Instant';
+    if (seconds < 60) return Math.round(seconds) + ' seconds';
+    if (seconds < 3600) return Math.round(seconds/60) + ' minutes';
+    if (seconds < 86400) return Math.round(seconds/3600) + ' hours';
+    if (seconds < 31536000) return Math.round(seconds/86400) + ' days';
+    if (seconds < 3.15e9) return Math.round(seconds/31536000) + ' years';
+    if (seconds < 3.15e13) return Math.round(seconds/3.15e9) + ' thousand years';
+    if (seconds < 3.15e16) return Math.round(seconds/3.15e13) + ' million years';
+    return 'Longer than the universe';
+  }
+
+  function togglePwVisibility() {
+    const input = document.getElementById('pw-input');
+    const btn   = document.getElementById('pw-toggle');
+    if (!input) return;
+    if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
+    else { input.type = 'password'; btn.textContent = '👁'; }
+  }
+
   </script>
 </body>
 </html>
