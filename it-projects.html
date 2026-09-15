@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IT Lab — Aston Tellis</title>
+  <title>IT Lab Projects — Aston Tellis</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
     .page-hero {
@@ -397,10 +397,10 @@
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="projects.html">Projects</a></li>
+      <li><a href="projects.html">Business &amp; Data</a></li>
       <li><a href="it-projects.html" class="active">IT Lab</a></li>
       <li><a href="animations.html">Design</a></li>
-      <li><a href="tools.html">Tools</a></li>
+      <li><a href="tools.html">Built by Me</a></li>
       <li><a href="skills.html">Skills &amp; Training</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html" class="nav-cta">Contact</a></li>
@@ -421,10 +421,10 @@
     <ul class="drawer-links">
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="projects.html">Projects</a></li>
+          <li><a href="projects.html">Business &amp; Data</a></li>
           <li><a href="it-projects.html" class="active">IT Lab</a></li>
           <li><a href="animations.html">Design</a></li>
-          <li><a href="tools.html">Tools</a></li>
+          <li><a href="tools.html">Built by Me</a></li>
           <li><a href="skills.html">Skills &amp; Training</a></li>
           <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html" class="drawer-cta">Contact</a></li>
@@ -447,71 +447,6 @@
         </p>
       </div>
     </div>
-
-    <!-- ══════════════════════════════════════════════════════
-         PASSWORD STRENGTH CHECKER
-    ══════════════════════════════════════════════════════════ -->
-    <section class="it-section">
-      <div class="container">
-        <div class="fade-up" style="margin-bottom:2.5rem">
-          <div class="section-label">Project 01 — Web App · HTML/CSS/JavaScript</div>
-          <h2 class="section-title" style="font-size:2rem">Password Strength Analyser</h2>
-          <p class="section-subtitle">
-            A real-time password analyser that checks entropy, character variety, common patterns,
-            and estimates crack time. Entirely client-side — your password never leaves your browser.
-          </p>
-          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
-            <span class="tag tag-blue">JavaScript</span>
-            <span class="tag tag-green">Cybersecurity</span>
-            <span class="tag tag-purple">HTML/CSS</span>
-            <span class="tag tag-red">Privacy-First</span>
-          </div>
-        </div>
-
-        <div class="pw-container fade-up">
-          <div class="pw-card">
-            <div class="pw-header">
-              🔐 Password Strength Analyser · Client-side only · Zero data sent anywhere
-            </div>
-            <div class="pw-body">
-              <div class="pw-input-wrap">
-                <input type="password" class="pw-input" id="pw-input"
-                  placeholder="Type a password to analyse..."
-                  oninput="analysePassword(this.value)" autocomplete="off">
-                <button class="pw-toggle" id="pw-toggle" onclick="togglePwVisibility()">👁</button>
-              </div>
-
-              <div class="strength-meter" id="strength-meter">
-                <div class="strength-bar" id="sb1"></div>
-                <div class="strength-bar" id="sb2"></div>
-                <div class="strength-bar" id="sb3"></div>
-                <div class="strength-bar" id="sb4"></div>
-                <div class="strength-bar" id="sb5"></div>
-              </div>
-              <div class="strength-label" id="strength-label">Enter a password to begin analysis</div>
-
-              <div class="pw-criteria">
-                <div class="criterion" id="c-length"><div class="criterion-icon">✓</div> 12+ characters</div>
-                <div class="criterion" id="c-upper"><div class="criterion-icon">✓</div> Uppercase letters</div>
-                <div class="criterion" id="c-lower"><div class="criterion-icon">✓</div> Lowercase letters</div>
-                <div class="criterion" id="c-number"><div class="criterion-icon">✓</div> Numbers</div>
-                <div class="criterion" id="c-symbol"><div class="criterion-icon">✓</div> Special symbols</div>
-                <div class="criterion" id="c-nocommon"><div class="criterion-icon">✓</div> No common words</div>
-              </div>
-
-              <div class="crack-time">
-                <span class="crack-time-label">Estimated time to crack (offline attack)</span>
-                <span class="crack-time-value" id="crack-time">—</span>
-              </div>
-
-              <div class="pw-suggestions" id="pw-suggestions">
-                Start typing a password above to see your security analysis.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ══════════════════════════════════════════════════════
          HTTPS EXPLAINER
@@ -805,15 +740,331 @@
 
   </div>
 
+
+    <!-- ══════════════════════════════════════════════════════
+         JAVA OOP PROJECT
+    ══════════════════════════════════════════════════════ -->
+    <section class="it-section">
+      <div class="container">
+        <div class="fade-up" style="margin-bottom:2.5rem">
+          <div class="section-label">Project 04 — Java · OOP · JUnit 5</div>
+          <h2 class="section-title" style="font-size:2rem">BankAccount — Java OOP System</h2>
+          <p class="section-subtitle">
+            A fully object-oriented Java implementation of a banking system demonstrating
+            encapsulation, constructor overloading, custom exceptions, method chaining,
+            and a full JUnit 5 test suite with 30+ test cases.
+          </p>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+            <span class="tag tag-blue">Java</span>
+            <span class="tag tag-purple">OOP</span>
+            <span class="tag tag-green">JUnit 5</span>
+            <span class="tag tag-gold">FinTech</span>
+            <span class="tag tag-red">Exception Handling</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start" class="fade-up">
+          <div>
+            <h3 style="font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:1rem">What It Demonstrates</h3>
+            <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem">
+              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Encapsulation — private fields, public getters</div>
+              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Constructor overloading — zero and opening balance</div>
+              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Custom exceptions — InsufficientFundsException with context</div>
+              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Method chaining — fluent interface pattern</div>
+              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Transaction history — immutable, timestamped records</div>
+              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Account-to-account transfers with validation</div>
+              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> equals() / hashCode() / toString() overrides</div>
+              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> 30+ JUnit 5 tests across 7 test classes</div>
+            </div>
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
+              <a href="BankAccount.java" download class="btn btn-primary">↓ BankAccount.java</a>
+              <a href="BankAccountTest.java" download class="btn btn-ghost">↓ Tests</a>
+            </div>
+          </div>
+          <div class="code-window">
+            <div class="code-window-bar">
+              <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
+              <span class="code-filename">BankAccount.java</span>
+            </div>
+            <div class="code-body"><pre><span class="py-cm">// Custom exception with context data</span>
+<span class="py-kw">class</span> <span class="py-cls">InsufficientFundsException</span> <span class="py-kw">extends</span> Exception {
+  <span class="py-kw">public</span> <span class="py-fn">InsufficientFundsException</span>(
+      <span class="py-kw">double</span> amount, <span class="py-kw">double</span> balance) {
+    <span class="py-kw">super</span>(String.<span class="py-fn">format</span>(
+      <span class="py-str">"Cannot withdraw %.2f balance %.2f"</span>,
+      amount, balance));
+  }
+}
+
+<span class="py-cm">// Method chaining — fluent interface</span>
+<span class="py-kw">public</span> BankAccount <span class="py-fn">deposit</span>(<span class="py-kw">double</span> amount) {
+  <span class="py-fn">validateNotFrozen</span>();
+  balance += amount;
+  history.<span class="py-fn">add</span>(<span class="py-kw">new</span> <span class="py-cls">Transaction</span>(...));
+  <span class="py-kw">return this</span>;
+}
+
+<span class="py-cm">// Usage: chained calls</span>
+account.<span class="py-fn">deposit</span>(<span class="py-num">1000</span>)
+       .<span class="py-fn">deposit</span>(<span class="py-num">500</span>)
+       .<span class="py-fn">deposit</span>(<span class="py-num">250</span>);
+
+<span class="py-cm">// JUnit 5 test</span>
+<span class="py-fn">@Test</span>
+<span class="py-kw">void</span> <span class="py-fn">testOverdraftThrows</span>() {
+  <span class="py-fn">assertThrows</span>(
+    InsufficientFundsException.<span class="py-kw">class</span>,
+    () -&gt; account.<span class="py-fn">withdraw</span>(<span class="py-num">9999.00</span>));
+}</pre></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         PYTHON UNIT TESTS
+    ══════════════════════════════════════════════════════ -->
+    <section class="it-section">
+      <div class="container">
+        <div class="fade-up" style="margin-bottom:2.5rem">
+          <div class="section-label">Project 05 — Python · pytest · QA</div>
+          <h2 class="section-title" style="font-size:2rem">Unit Tests — data_cleaner.py</h2>
+          <p class="section-subtitle">
+            35+ pytest tests across 6 classes. Covers missing values, duplicates,
+            numeric statistics, outlier detection, and edge cases. Directly relevant
+            to SDET and QA roles at Canada Life, Anduril, and Deciphex.
+          </p>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+            <span class="tag tag-blue">Python</span>
+            <span class="tag tag-green">pytest</span>
+            <span class="tag tag-purple">Unit Testing</span>
+            <span class="tag tag-gold">QA / SDET</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem" class="fade-up">
+          <div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem">
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center">
+                <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:var(--accent3)">35+</div>
+                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em">Test Cases</div>
+              </div>
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center">
+                <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:var(--accent)">6</div>
+                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em">Test Classes</div>
+              </div>
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center">
+                <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:var(--gold)">100%</div>
+                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em">Pass Rate</div>
+              </div>
+              <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center">
+                <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:var(--accent2)">0</div>
+                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em">Failures</div>
+              </div>
+            </div>
+            <a href="test_data_cleaner.py" download class="btn btn-primary">↓ Download test_data_cleaner.py</a>
+          </div>
+          <div class="code-window">
+            <div class="code-window-bar">
+              <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
+              <span class="code-filename">test_data_cleaner.py</span>
+            </div>
+            <div class="code-body"><pre><span class="py-kw">class</span> <span class="py-cls">TestMissingValueDetection</span>:
+
+  <span class="py-kw">def</span> <span class="py-fn">test_no_missing_returns_empty</span>(self):
+    df = pd.<span class="py-fn">DataFrame</span>({
+      <span class="py-str">'a'</span>: [<span class="py-num">1</span>,<span class="py-num">2</span>,<span class="py-num">3</span>],
+      <span class="py-str">'b'</span>: [<span class="py-str">'x'</span>,<span class="py-str">'y'</span>,<span class="py-str">'z'</span>]
+    })
+    <span class="py-fn">assert</span> <span class="py-fn">count_missing</span>(df) == {}
+
+  <span class="py-kw">def</span> <span class="py-fn">test_detects_three_missing</span>(self):
+    df = pd.<span class="py-fn">DataFrame</span>({
+      <span class="py-str">'score'</span>: [<span class="py-num">10</span>,<span class="py-cls">None</span>,<span class="py-cls">None</span>,<span class="py-cls">None</span>,<span class="py-num">50</span>]
+    })
+    result = <span class="py-fn">count_missing</span>(df)
+    <span class="py-fn">assert</span> result[<span class="py-str">'score'</span>] == <span class="py-num">3</span>
+
+<span class="py-cm"># Run: pytest test_data_cleaner.py -v</span>
+<span class="py-cm"># All 35 tests: PASSED</span></pre></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         AGILE / SCRUM
+    ══════════════════════════════════════════════════════ -->
+    <section class="it-section">
+      <div class="container">
+        <div class="fade-up" style="margin-bottom:2.5rem">
+          <div class="section-label">Methodology — Agile · Scrum · User Stories</div>
+          <h2 class="section-title" style="font-size:2rem">Agile & Scrum in Practice</h2>
+          <p class="section-subtitle">
+            Required by Deloitte, Canada Life, ESB, and Amazon. Here's how I apply
+            Agile when planning and building — demonstrated with the Hartwell Bank project.
+          </p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem" class="fade-up">
+          <div>
+            <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem">User Stories</div>
+            <div style="display:flex;flex-direction:column;gap:0.75rem">
+              <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:1rem">
+                <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);margin-bottom:0.4rem">US-001 · High</div>
+                <div style="font-size:0.82rem;color:var(--text);font-weight:600;margin-bottom:0.3rem">Customer Segmentation</div>
+                <div style="font-size:0.78rem;color:var(--text2);line-height:1.6"><em>"As a data analyst, I want to segment customers by tier so that the product team can identify high-value accounts."</em></div>
+                <div style="margin-top:0.5rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent3)">✓ Done — SQL Query A2, A5</div>
+              </div>
+              <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:var(--radius);padding:1rem">
+                <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--red);margin-bottom:0.4rem">US-002 · High</div>
+                <div style="font-size:0.82rem;color:var(--text);font-weight:600;margin-bottom:0.3rem">Fraud Detection</div>
+                <div style="font-size:0.78rem;color:var(--text2);line-height:1.6"><em>"As a risk analyst, I want to flag transactions exceeding 2× the customer's own average so suspicious activity is caught early."</em></div>
+                <div style="margin-top:0.5rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent3)">✓ Done — SQL Query B2, B3</div>
+              </div>
+              <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:var(--radius);padding:1rem">
+                <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--gold);margin-bottom:0.4rem">US-003 · Medium</div>
+                <div style="font-size:0.82rem;color:var(--text);font-weight:600;margin-bottom:0.3rem">Revenue Trends</div>
+                <div style="font-size:0.78rem;color:var(--text2);line-height:1.6"><em>"As a finance manager, I want month-on-month growth data so I can report performance to stakeholders."</em></div>
+                <div style="margin-top:0.5rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent3)">✓ Done — SQL Query C1, C2</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem">Sprint Board</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem">
+              <div>
+                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);text-transform:uppercase;margin-bottom:0.6rem;text-align:center">To Do</div>
+                <div style="display:flex;flex-direction:column;gap:0.5rem">
+                  <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--text2)">README files</div>
+                  <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--text2)">Domain setup</div>
+                </div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;text-align:center">In Progress</div>
+                <div style="display:flex;flex-direction:column;gap:0.5rem">
+                  <div style="background:#f4a26110;border:1px solid #f4a26130;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--gold)">Java OOP</div>
+                  <div style="background:#f4a26110;border:1px solid #f4a26130;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--gold)">Python tests</div>
+                  <div style="background:#f4a26110;border:1px solid #f4a26130;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--gold)">Portfolio restructure</div>
+                </div>
+              </div>
+              <div>
+                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--accent3);text-transform:uppercase;margin-bottom:0.6rem;text-align:center">Done</div>
+                <div style="display:flex;flex-direction:column;gap:0.5rem">
+                  <div style="background:#00ffaa0a;border:1px solid #00ffaa20;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--accent3)">SQL (15 queries)</div>
+                  <div style="background:#00ffaa0a;border:1px solid #00ffaa20;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--accent3)">Excel (9 sheets)</div>
+                  <div style="background:#00ffaa0a;border:1px solid #00ffaa20;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--accent3)">Portfolio live</div>
+                  <div style="background:#00ffaa0a;border:1px solid #00ffaa20;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--accent3)">Mobile ready</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════
+         POWER BI & TABLEAU
+    ══════════════════════════════════════════════════════ -->
+    <section class="it-section">
+      <div class="container">
+        <div class="fade-up" style="margin-bottom:2.5rem">
+          <div class="section-label">Data Visualisation — Power BI · DAX · Tableau · LOD</div>
+          <h2 class="section-title" style="font-size:2rem">Power BI & Tableau Scripts</h2>
+          <p class="section-subtitle">
+            Required by ESB, Deloitte, and Canada Life. Real DAX measures and Tableau
+            calculated fields written for the Hartwell Bank dataset.
+          </p>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+            <span class="tag tag-blue">Power BI</span>
+            <span class="tag tag-purple">DAX</span>
+            <span class="tag tag-green">Tableau</span>
+            <span class="tag tag-gold">LOD Expressions</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem" class="fade-up">
+          <div>
+            <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem">Power BI — DAX Measures</div>
+            <div class="code-window">
+              <div class="code-window-bar">
+                <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
+                <span class="code-filename">Hartwell_Bank.pbix — DAX</span>
+              </div>
+              <div class="code-body"><pre><span class="py-cm">// Total Transaction Volume</span>
+Total Volume =
+  <span class="py-fn">SUMX</span>(
+    <span class="py-fn">FILTER</span>(Transactions,
+      Transactions[Status] = <span class="py-str">"Completed"</span>),
+    Transactions[Amount])
+
+<span class="py-cm">// Month-on-Month Growth %</span>
+MoM Growth =
+  <span class="py-kw">VAR</span> Current =
+    <span class="py-fn">CALCULATE</span>([Total Volume],
+      <span class="py-fn">DATESMTD</span>(Dates[Date]))
+  <span class="py-kw">VAR</span> Previous =
+    <span class="py-fn">CALCULATE</span>([Total Volume],
+      <span class="py-fn">PREVIOUSMONTH</span>(Dates[Date]))
+  <span class="py-kw">RETURN</span>
+    <span class="py-fn">DIVIDE</span>(Current - Previous,
+      Previous, <span class="py-num">0</span>)
+
+<span class="py-cm">// Fraud Flag Rate</span>
+Fraud Rate =
+  <span class="py-fn">DIVIDE</span>(
+    <span class="py-fn">COUNTROWS</span>(<span class="py-fn">FILTER</span>(
+      FraudFlags,
+      FraudFlags[Status]=<span class="py-str">"Confirmed"</span>)),
+    <span class="py-fn">COUNTROWS</span>(Transactions), <span class="py-num">0</span>)</pre></div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent2);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem">Tableau — LOD Expressions</div>
+            <div class="code-window">
+              <div class="code-window-bar">
+                <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
+                <span class="code-filename">Hartwell_Bank.twbx — Tableau</span>
+              </div>
+              <div class="code-body"><pre><span class="py-cm">// Customer Average Spend (Fixed LOD)</span>
+Customer Avg Spend =
+{ <span class="py-fn">FIXED</span> [Customer ID] :
+    <span class="py-fn">AVG</span>([Amount]) }
+
+<span class="py-cm">// Fraud Anomaly Flag</span>
+Is Anomaly =
+<span class="py-kw">IF</span> [Amount] >
+  [Customer Avg Spend] * <span class="py-num">2</span>
+<span class="py-kw">THEN</span> <span class="py-str">"Flagged"</span>
+<span class="py-kw">ELSE</span> <span class="py-str">"Normal"</span>
+<span class="py-kw">END</span>
+
+<span class="py-cm">// Month-over-Month % Change</span>
+MoM Change =
+(<span class="py-fn">ZN</span>(<span class="py-fn">SUM</span>([Amount])) -
+ <span class="py-fn">LOOKUP</span>(<span class="py-fn">ZN</span>(<span class="py-fn">SUM</span>([Amount])), -<span class="py-num">1</span>))
+/ <span class="py-fn">ABS</span>(<span class="py-fn">LOOKUP</span>(
+  <span class="py-fn">ZN</span>(<span class="py-fn">SUM</span>([Amount])), -<span class="py-num">1</span>))
+
+<span class="py-cm">// Savings Category</span>
+Savings Category =
+<span class="py-kw">IF</span> [Rate] >= <span class="py-num">0.20</span> <span class="py-kw">THEN</span> <span class="py-str">"On Track"</span>
+<span class="py-kw">ELSEIF</span> [Rate] >= <span class="py-num">0.10</span>
+  <span class="py-kw">THEN</span> <span class="py-str">"Needs Attention"</span>
+<span class="py-kw">ELSE</span> <span class="py-str">"At Risk"</span> <span class="py-kw">END</span></pre></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- end page div -->
+
   <footer>
     <div class="footer-inner">
       <ul class="footer-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
+        <li><a href="projects.html">Business &amp; Data</a></li>
         <li><a href="it-projects.html">IT Lab</a></li>
         <li><a href="animations.html">Design</a></li>
-        <li><a href="tools.html">Tools</a></li>
+        <li><a href="tools.html">Built by Me</a></li>
         <li><a href="skills.html">Skills &amp; Training</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="contact.html">Contact</a></li>
@@ -825,113 +1076,7 @@
 
   <script src="script.js"></script>
   <script>
-  // ══════════════════════════════════════════════════════════
-  // PASSWORD STRENGTH ANALYSER
-  // ══════════════════════════════════════════════════════════
-  const common = ['password','123456','qwerty','abc123','letmein','monkey','dragon','master','sunshine','princess','welcome','shadow','superman','michael','football'];
 
-  function analysePassword(pw) {
-    const len = pw.length;
-    if (len === 0) { resetPw(); return; }
-
-    // Criteria
-    const hasUpper  = /[A-Z]/.test(pw);
-    const hasLower  = /[a-z]/.test(pw);
-    const hasNum    = /[0-9]/.test(pw);
-    const hasSym    = /[^A-Za-z0-9]/.test(pw);
-    const longEnough = len >= 12;
-    const noCommon  = !common.some(w => pw.toLowerCase().includes(w));
-
-    setCriterion('c-length',   longEnough);
-    setCriterion('c-upper',    hasUpper);
-    setCriterion('c-lower',    hasLower);
-    setCriterion('c-number',   hasNum);
-    setCriterion('c-symbol',   hasSym);
-    setCriterion('c-nocommon', noCommon);
-
-    // Score (0-5)
-    let score = 0;
-    if (longEnough) score++;
-    if (hasUpper && hasLower) score++;
-    if (hasNum) score++;
-    if (hasSym) score++;
-    if (noCommon && len >= 16) score++;
-
-    // Entropy estimate
-    let charSpace = 0;
-    if (hasLower) charSpace += 26;
-    if (hasUpper) charSpace += 26;
-    if (hasNum)   charSpace += 10;
-    if (hasSym)   charSpace += 32;
-    const entropy = charSpace > 0 ? len * Math.log2(charSpace) : 0;
-
-    // Crack time estimate (offline, 10B guesses/sec)
-    const guesses = Math.pow(2, entropy);
-    const seconds = guesses / 1e10;
-    document.getElementById('crack-time').textContent = formatTime(seconds);
-
-    // Strength bars
-    const colors = ['#ff4d6d','#ff4d6d','#f4a261','#f4a261','#00d4ff','#00ffaa'];
-    const labels = ['','Very Weak','Weak','Fair','Strong','Very Strong'];
-    const barColors = ['var(--bg)','#ff4d6d','#f4a261','#f4a261','#00d4ff','#00ffaa'];
-    for (let i = 1; i <= 5; i++) {
-      const bar = document.getElementById(`sb${i}`);
-      bar.style.background = i <= score ? barColors[score] : 'var(--surface)';
-    }
-    const label = document.getElementById('strength-label');
-    label.textContent = score > 0 ? labels[score] : 'Very Weak';
-    label.style.color = barColors[score] || 'var(--text3)';
-
-    // Suggestions
-    const suggestions = [];
-    if (!longEnough) suggestions.push('Use at least 12 characters — longer is always better.');
-    if (!hasUpper || !hasLower) suggestions.push('Mix uppercase and lowercase letters.');
-    if (!hasNum) suggestions.push('Add numbers to increase complexity.');
-    if (!hasSym) suggestions.push('Add special characters like !@#$%^&*');
-    if (!noCommon) suggestions.push('Avoid common words like "password", "123456", or "qwerty".');
-    if (len >= 12 && score >= 4) suggestions.push('Strong password. Consider using a password manager to store it securely.');
-
-    document.getElementById('pw-suggestions').innerHTML = suggestions.length
-      ? suggestions.map(s => `<div style="margin-bottom:0.4rem">→ ${s}</div>`).join('')
-      : '<div style="color:var(--accent3)">✓ Excellent password. Store it in a password manager.</div>';
-  }
-
-  function setCriterion(id, met) {
-    const el = document.getElementById(id);
-    el.classList.toggle('met', met);
-    el.querySelector('.criterion-icon').textContent = met ? '✓' : '✗';
-  }
-
-  function resetPw() {
-    for (let i = 1; i <= 5; i++) document.getElementById(`sb${i}`).style.background = 'var(--surface)';
-    document.getElementById('strength-label').textContent = 'Enter a password to begin analysis';
-    document.getElementById('strength-label').style.color = 'var(--text3)';
-    document.getElementById('crack-time').textContent = '—';
-    document.getElementById('pw-suggestions').textContent = 'Start typing a password above to see your security analysis.';
-    ['c-length','c-upper','c-lower','c-number','c-symbol','c-nocommon'].forEach(id => {
-      document.getElementById(id).classList.remove('met');
-      document.getElementById(id).querySelector('.criterion-icon').textContent = '✓';
-    });
-  }
-
-  function formatTime(seconds) {
-    if (seconds < 1) return 'Instant';
-    if (seconds < 60) return `${Math.round(seconds)} seconds`;
-    if (seconds < 3600) return `${Math.round(seconds/60)} minutes`;
-    if (seconds < 86400) return `${Math.round(seconds/3600)} hours`;
-    if (seconds < 31536000) return `${Math.round(seconds/86400)} days`;
-    if (seconds < 3.15e9) return `${Math.round(seconds/31536000)} years`;
-    if (seconds < 3.15e13) return `${Math.round(seconds/3.15e9)} thousand years`;
-    if (seconds < 3.15e16) return `${Math.round(seconds/3.15e13)} million years`;
-    return 'Longer than the universe';
-  }
-
-  function togglePwVisibility() {
-    const input = document.getElementById('pw-input');
-    const btn   = document.getElementById('pw-toggle');
-    if (input.type === 'password') { input.type = 'text'; btn.textContent = '🙈'; }
-    else { input.type = 'password'; btn.textContent = '👁'; }
-  }
 
   // ══════════════════════════════════════════════════════════
   // HTTPS STEP NAVIGATOR
