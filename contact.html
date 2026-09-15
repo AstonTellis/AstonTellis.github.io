@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IT Lab Projects — Aston Tellis</title>
+  <title>Contact — Aston Tellis</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
     .page-hero {
@@ -12,378 +12,242 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .it-section {
+    /* ── Contact Layout ────────────────────────────────────── */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
       padding: 5rem 0;
-      border-bottom: 1px solid var(--border);
     }
 
-    .it-section:nth-child(even) { background: var(--bg2); }
+    /* ── Contact Methods ────────────────────────────────────── */
+    .contact-methods { display: flex; flex-direction: column; gap: 1.25rem; }
 
-    /* ══════════════════════════════════════════════════════════
-       PASSWORD STRENGTH CHECKER
-    ══════════════════════════════════════════════════════════ */
-    .pw-container {
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
-    .pw-card {
+    .contact-method {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius2);
-      overflow: hidden;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      transition: var(--transition);
+      text-decoration: none;
     }
 
-    .pw-header {
-      background: #0f1420;
-      padding: 1rem 1.5rem;
+    .contact-method:hover {
+      border-color: var(--accent);
+      transform: translateX(6px);
+      box-shadow: -4px 0 0 var(--accent);
+    }
+
+    .contact-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .contact-method-info h4 {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-method-info p {
       font-family: var(--font-mono);
       font-size: 0.72rem;
+      color: var(--text3);
+    }
+
+    .contact-note {
+      margin-top: 2rem;
+      background: #00ffaa0a;
+      border: 1px solid #00ffaa18;
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text2);
+      line-height: 1.75;
+    }
+
+    .contact-note strong { color: var(--accent3); }
+
+    /* ── CV Section ─────────────────────────────────────────── */
+    .cv-section { padding: 5rem 0; background: var(--bg2); border-top: 1px solid var(--border); }
+
+    .cv-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 3rem;
+    }
+
+    /* CV Sidebar */
+    .cv-sidebar {}
+
+    .cv-name {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .cv-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
       color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .cv-contact-list {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .cv-contact-list li {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text2);
+      padding: 0.3rem 0;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
 
-    .pw-body { padding: 2rem; }
-
-    .pw-input-wrap {
-      position: relative;
-      margin-bottom: 1.5rem;
+    .cv-section-mini {
+      margin-bottom: 1.75rem;
     }
 
-    .pw-input {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 0.85rem 3rem 0.85rem 1rem;
+    .cv-mini-label {
       font-family: var(--font-mono);
-      font-size: 1rem;
-      color: var(--text);
-      letter-spacing: 0.1em;
-      outline: none;
-      transition: border-color 0.2s ease;
-    }
-
-    .pw-input:focus { border-color: var(--accent); }
-
-    .pw-toggle {
-      position: absolute;
-      right: 0.75rem; top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      color: var(--text3);
-      transition: color 0.2s;
-    }
-
-    .pw-toggle:hover { color: var(--accent); }
-
-    /* Strength meter */
-    .strength-meter {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 4px;
-      margin-bottom: 0.6rem;
-    }
-
-    .strength-bar {
-      height: 6px;
-      border-radius: 3px;
-      background: var(--bg);
-      transition: background 0.3s ease;
-    }
-
-    .strength-label {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      margin-bottom: 1.5rem;
-      color: var(--text3);
-    }
-
-    /* Criteria checklist */
-    .pw-criteria {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .criterion {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text3);
-      transition: color 0.2s ease;
-    }
-
-    .criterion.met { color: var(--accent3); }
-
-    .criterion-icon {
-      width: 18px; height: 18px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.6rem;
-      flex-shrink: 0;
-      transition: all 0.2s ease;
-    }
-
-    .criterion.met .criterion-icon {
-      background: var(--accent3);
-      border-color: var(--accent3);
-      color: var(--bg);
-    }
-
-    /* Time to crack */
-    .crack-time {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1rem 1.25rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-    }
-
-    .crack-time-label { color: var(--text2); }
-    .crack-time-value { font-weight: 700; color: var(--accent); }
-
-    /* Suggestions */
-    .pw-suggestions {
-      font-size: 0.82rem;
-      color: var(--text2);
-      line-height: 1.7;
-    }
-
-    /* ══════════════════════════════════════════════════════════
-       HTTPS EXPLAINER
-    ══════════════════════════════════════════════════════════ */
-    .https-visual {
-      position: relative;
-      margin: 2rem 0;
-    }
-
-    .https-steps {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .https-step {
-      display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 1.25rem;
-      align-items: stretch;
-      cursor: pointer;
-    }
-
-    .https-step-left {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .https-step-num {
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      background: var(--surface);
-      border: 2px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--text3);
-      transition: all 0.3s ease;
-      flex-shrink: 0;
-      z-index: 1;
-    }
-
-    .https-step.active .https-step-num {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: var(--bg);
-      box-shadow: 0 0 20px #00d4ff40;
-    }
-
-    .https-step-line {
-      flex: 1;
-      width: 2px;
-      background: var(--border);
-      margin: 4px 0;
-      min-height: 20px;
-    }
-
-    .https-step:last-child .https-step-line { display: none; }
-
-    .https-step-content {
-      padding: 0.75rem 0 1.5rem;
-    }
-
-    .https-step-title {
-      font-family: var(--font-display);
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--text);
-      margin-bottom: 0.4rem;
-      transition: color 0.2s;
-    }
-
-    .https-step.active .https-step-title { color: var(--accent); }
-
-    .https-step-desc {
-      font-size: 0.83rem;
-      color: var(--text2);
-      line-height: 1.7;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-    }
-
-    .https-step.active .https-step-desc { max-height: 200px; }
-
-    .https-code {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 0.4rem 0.75rem;
-      margin-top: 0.5rem;
-      color: var(--accent3);
-      display: inline-block;
-    }
-
-    /* ══════════════════════════════════════════════════════════
-       PYTHON PROJECT SHOWCASE
-    ══════════════════════════════════════════════════════════ */
-    .python-layout {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: start;
-    }
-
-    .python-about h3 {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: var(--text);
+      font-size: 0.65rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
       margin-bottom: 0.75rem;
     }
 
-    .python-about p {
-      color: var(--text2);
-      line-height: 1.8;
-      margin-bottom: 1rem;
-      font-size: 0.92rem;
-    }
+    .cv-skill-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
-    .python-features {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      margin: 1.25rem 0;
-    }
-
-    .python-feature {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      font-size: 0.85rem;
-      color: var(--text2);
-      line-height: 1.5;
-    }
-
-    .python-feature::before {
-      content: '→';
-      color: var(--accent);
+    .cv-skill-tag {
       font-family: var(--font-mono);
-      flex-shrink: 0;
-    }
-
-    .code-window {
-      background: #060910;
+      font-size: 0.65rem;
+      color: var(--text2);
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius2);
-      overflow: hidden;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
     }
 
-    .code-window-bar {
-      background: #0f1420;
-      padding: 0.65rem 1rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
+    /* CV Main */
+    .cv-main {}
+
+    .cv-entry {
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
       border-bottom: 1px solid var(--border);
     }
 
-    .code-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .code-dot.r { background: #ff5f56; }
-    .code-dot.y { background: #ffbd2e; }
-    .code-dot.g { background: #27c93f; }
+    .cv-entry:last-child { border-bottom: none; }
 
-    .code-filename {
+    .cv-entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.4rem;
+    }
+
+    .cv-entry-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .cv-entry-date {
       font-family: var(--font-mono);
       font-size: 0.68rem;
-      color: var(--text3);
-      margin-left: auto;
-      margin-right: auto;
+      color: var(--accent);
+      white-space: nowrap;
     }
 
-    .code-body {
-      padding: 1.25rem 1.5rem;
+    .cv-entry-org {
       font-family: var(--font-mono);
       font-size: 0.75rem;
-      line-height: 1.9;
-      color: #a8b4cc;
-      overflow-x: auto;
+      color: var(--text3);
+      margin-bottom: 0.75rem;
     }
 
-    .py-kw  { color: #7b61ff; }
-    .py-fn  { color: #00d4ff; }
-    .py-str { color: #00ffaa; }
-    .py-cm  { color: #4a5a7a; font-style: italic; }
-    .py-num { color: #f4a261; }
-    .py-cls { color: #ff9f43; }
+    .cv-entry-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
 
-    .download-note {
-      background: #00ffaa0a;
-      border: 1px solid #00ffaa20;
-      border-radius: var(--radius);
-      padding: 1rem 1.25rem;
-      font-size: 0.82rem;
+    .cv-entry-points li {
+      font-size: 0.87rem;
       color: var(--text2);
-      line-height: 1.7;
-      margin-top: 1.25rem;
+      line-height: 1.6;
+      padding-left: 1rem;
+      position: relative;
     }
 
-    .download-note strong { color: var(--accent3); }
+    .cv-entry-points li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+    }
+
+    .cv-section-heading {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cv-download-bar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3rem;
+    }
+
+    .cv-download-bar p {
+      font-size: 0.88rem;
+      color: var(--text2);
+    }
 
     @media (max-width: 768px) {
-      .python-layout { grid-template-columns: 1fr; }
-      .pw-criteria { grid-template-columns: 1fr; }
+      .contact-layout { grid-template-columns: 1fr; }
+      .cv-layout { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <div class="cursor"></div>
-  <div class="cursor-ring"></div>
-
+  
+  <!-- Loading screen -->
   <div class="loading-screen" id="loading-screen">
     <div class="loading-inner">
       <div class="loading-logo">AT</div>
@@ -392,680 +256,283 @@
     </div>
   </div>
 
+  <div class="cursor"></div>
+  <div class="cursor-ring"></div>
+
   <nav>
     <a class="nav-logo" href="index.html"><span>A</span>T</a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="projects.html">Business &amp; Data</a></li>
-      <li><a href="it-projects.html" class="active">IT Lab</a></li>
-      <li><a href="animations.html">Design</a></li>
-      <li><a href="tools.html">Built by Me</a></li>
-      <li><a href="skills.html">Skills &amp; Training</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="skills.html">Skills</a></li>
       <li><a href="blog.html">Blog</a></li>
-      <li><a href="contact.html" class="nav-cta">Contact</a></li>
+      <li><a href="contact.html" class="active nav-cta">Contact</a></li>
     </ul>
-    <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-drawer">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="menu-label">Menu</span>
-    </button>
   </nav>
-
-  <!-- Mobile nav overlay -->
-  <div class="nav-overlay" id="nav-overlay"></div>
-
-  <!-- Mobile nav drawer -->
-  <div class="nav-drawer" id="nav-drawer" role="dialog" aria-label="Navigation menu">
-    <ul class="drawer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="projects.html">Business &amp; Data</a></li>
-          <li><a href="it-projects.html" class="active">IT Lab</a></li>
-          <li><a href="animations.html">Design</a></li>
-          <li><a href="tools.html">Built by Me</a></li>
-          <li><a href="skills.html">Skills &amp; Training</a></li>
-          <li><a href="blog.html">Blog</a></li>
-          <li><a href="contact.html" class="drawer-cta">Contact</a></li>
-    </ul>
-    <div class="drawer-divider"></div>
-    <div class="drawer-footer">
-      🔒 No cookies · No tracking · Privacy by design
-    </div>
-  </div>
 
   <div class="page">
     <div class="page-hero">
       <div class="container fade-up">
-        <div class="section-label">CS & IT Projects</div>
-        <h1 class="section-title">IT Lab</h1>
+        <div class="section-label">Get In Touch</div>
+        <h1 class="section-title">Contact</h1>
         <p class="section-subtitle">
-          Where the computer science side lives. A password security analyser,
-          an interactive HTTPS explainer, and a real Python script you can download and run.
-          Built to show range across web, security, and scripting.
+          Open to internships, graduate roles, and conversations about FinTech, product,
+          or data. No spam, no cold outreach — just genuine opportunities.
         </p>
       </div>
     </div>
 
-    <!-- ══════════════════════════════════════════════════════
-         HTTPS EXPLAINER
-    ══════════════════════════════════════════════════════════ -->
-    <section class="it-section">
-      <div class="container">
-        <div class="fade-up" style="margin-bottom:2.5rem">
-          <div class="section-label">Project 02 — Network Security · Interactive Explainer</div>
-          <h2 class="section-title" style="font-size:2rem">How HTTPS Actually Works</h2>
-          <p class="section-subtitle">
-            Most people know HTTPS is "secure" — but what actually happens during that connection?
-            Click each step to walk through the TLS handshake process that protects every
-            secure website you visit.
-          </p>
-          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
-            <span class="tag tag-blue">Networking</span>
-            <span class="tag tag-green">Cryptography</span>
-            <span class="tag tag-purple">TLS/SSL</span>
-            <span class="tag tag-red">Security</span>
-          </div>
-        </div>
+    <!-- ── Contact Section ──────────────────────────────────── -->
+    <div class="container">
+      <div class="contact-layout">
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start" class="fade-up">
-          <div class="https-steps" id="https-steps">
+        <div class="fade-up">
+          <div class="section-label" style="margin-bottom:1.25rem">Reach Me</div>
+          <div class="contact-methods">
 
-            <div class="https-step active" onclick="setStep(0)">
-              <div class="https-step-left">
-                <div class="https-step-num">1</div>
-                <div class="https-step-line"></div>
+            <a href="mailto:astontellis6@email.com" class="contact-method">
+              <div class="contact-icon" style="background:#00d4ff15">📧</div>
+              <div class="contact-method-info">
+                <h4>Email</h4>
+                <p>astontellis6@gmail.com — Preferred contact method</p>
               </div>
-              <div class="https-step-content">
-                <div class="https-step-title">Client Hello</div>
-                <div class="https-step-desc">
-                  Your browser sends a "hello" message to the server. This includes the TLS version it supports,
-                  a list of supported cipher suites (encryption algorithms), and a randomly generated number.
-                  <div class="https-code">→ Browser: "I support TLS 1.3, here are my cipher suites"</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="https-step" onclick="setStep(1)">
-              <div class="https-step-left">
-                <div class="https-step-num">2</div>
-                <div class="https-step-line"></div>
-              </div>
-              <div class="https-step-content">
-                <div class="https-step-title">Server Hello + Certificate</div>
-                <div class="https-step-desc">
-                  The server responds with its chosen cipher suite and sends its SSL/TLS certificate —
-                  a digital document issued by a Certificate Authority (CA) that proves the server's identity.
-                  <div class="https-code">← Server: "Using AES-256, here is my certificate"</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="https-step" onclick="setStep(2)">
-              <div class="https-step-left">
-                <div class="https-step-num">3</div>
-                <div class="https-step-line"></div>
-              </div>
-              <div class="https-step-content">
-                <div class="https-step-title">Certificate Verification</div>
-                <div class="https-step-desc">
-                  Your browser checks the certificate against a list of trusted Certificate Authorities
-                  built into your OS and browser. It verifies the certificate hasn't expired,
-                  matches the domain, and hasn't been revoked.
-                  <div class="https-code">Browser checks: Valid CA? ✓ Not expired? ✓ Domain match? ✓</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="https-step" onclick="setStep(3)">
-              <div class="https-step-left">
-                <div class="https-step-num">4</div>
-                <div class="https-step-line"></div>
-              </div>
-              <div class="https-step-content">
-                <div class="https-step-title">Key Exchange</div>
-                <div class="https-step-desc">
-                  Using asymmetric cryptography (the server's public key), the browser and server
-                  negotiate a shared "session key" without ever transmitting it over the network.
-                  This uses Diffie-Hellman key exchange — mathematically clever.
-                  <div class="https-code">Both sides derive the same session key independently</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="https-step" onclick="setStep(4)">
-              <div class="https-step-left">
-                <div class="https-step-num">5</div>
-                <div class="https-step-line"></div>
-              </div>
-              <div class="https-step-content">
-                <div class="https-step-title">Encrypted Connection Established</div>
-                <div class="https-step-desc">
-                  Both sides confirm the handshake with a "Finished" message encrypted with the session key.
-                  All subsequent communication uses fast symmetric encryption (AES).
-                  The 🔒 padlock appears in your browser.
-                  <div class="https-code">→ All data now encrypted with AES-256 symmetric key</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="https-step" onclick="setStep(5)">
-              <div class="https-step-left">
-                <div class="https-step-num">6</div>
-                <div class="https-step-line"></div>
-              </div>
-              <div class="https-step-content">
-                <div class="https-step-title">What HTTPS Doesn't Protect</div>
-                <div class="https-step-desc">
-                  HTTPS encrypts the content of your communication but NOT the fact that you visited
-                  a site (your ISP still sees the domain), metadata, or what the website does with
-                  your data once received. It's transport security, not end-to-end privacy.
-                  <div class="https-code">⚠ Your ISP still knows: you visited astontellis.github.io</div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Visual diagram -->
-          <div>
-            <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:2rem;text-align:center">
-              <div style="display:flex;justify-content:space-around;align-items:flex-start;gap:1rem;margin-bottom:2rem">
-                <div style="text-align:center">
-                  <div style="font-size:2.5rem;margin-bottom:0.5rem">💻</div>
-                  <div style="font-family:var(--font-mono);font-size:0.68rem;color:var(--text2)">Your Browser</div>
-                </div>
-                <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:1rem">
-                  <div id="https-arrow" style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent);margin-bottom:0.25rem;transition:all 0.3s">Step 1: ClientHello →</div>
-                  <div style="height:2px;width:100%;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
-                  <div id="https-arrow2" style="font-family:var(--font-mono);font-size:0.68rem;color:var(--accent2);margin-top:0.25rem;transition:all 0.3s">← Step 2: ServerHello</div>
-                </div>
-                <div style="text-align:center">
-                  <div style="font-size:2.5rem;margin-bottom:0.5rem">🖥️</div>
-                  <div style="font-family:var(--font-mono);font-size:0.68rem;color:var(--text2)">Web Server</div>
-                </div>
-              </div>
-              <div id="https-status" style="font-family:var(--font-mono);font-size:0.8rem;color:var(--accent3);background:#00ffaa0a;border:1px solid #00ffaa20;border-radius:var(--radius);padding:0.75rem;margin-top:0.5rem">
-                🔒 TLS Handshake in progress — click steps to explore
-              </div>
-            </div>
-
-            <div style="margin-top:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.25rem">
-              <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.75rem">Key Terms</div>
-              <div style="display:flex;flex-direction:column;gap:0.5rem;font-size:0.78rem;color:var(--text2)">
-                <div><strong style="color:var(--text);font-family:var(--font-mono)">TLS</strong> — Transport Layer Security. The protocol behind HTTPS.</div>
-                <div><strong style="color:var(--text);font-family:var(--font-mono)">CA</strong> — Certificate Authority. Trusted organisations that sign certificates.</div>
-                <div><strong style="color:var(--text);font-family:var(--font-mono)">AES-256</strong> — The symmetric encryption standard used after handshake.</div>
-                <div><strong style="color:var(--text);font-family:var(--font-mono)">Diffie-Hellman</strong> — Algorithm for exchanging keys without transmitting them.</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════════════════
-         PYTHON PROJECT
-    ══════════════════════════════════════════════════════════ -->
-    <section class="it-section">
-      <div class="container">
-        <div class="fade-up" style="margin-bottom:2.5rem">
-          <div class="section-label">Project 03 — Python · Data Processing Script</div>
-          <h2 class="section-title" style="font-size:2rem">CSV Data Cleaner & Analyser</h2>
-        </div>
-
-        <div class="python-layout fade-up">
-          <div class="python-about">
-            <h3>What It Does</h3>
-            <p>
-              A command-line Python script that takes any CSV file, cleans the data,
-              identifies issues, and outputs a formatted summary report. Built to solve
-              a real problem: raw data is almost always messy.
-            </p>
-            <p>
-              This directly connects to my Excel and SQL work — the same analytical
-              thinking applied in a scripting context. It demonstrates that I can
-              work programmatically, not just in spreadsheets.
-            </p>
-
-            <div class="python-features">
-              <div class="python-feature">Detects and reports missing values per column</div>
-              <div class="python-feature">Identifies duplicate rows automatically</div>
-              <div class="python-feature">Calculates basic statistics (mean, min, max, std dev)</div>
-              <div class="python-feature">Detects column data types and flags inconsistencies</div>
-              <div class="python-feature">Outputs a clean summary report as a .txt file</div>
-              <div class="python-feature">Works on any CSV — no hardcoded column names</div>
-            </div>
-
-            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1.25rem">
-              <span class="tag tag-blue">Python 3</span>
-              <span class="tag tag-green">pandas</span>
-              <span class="tag tag-purple">Data Cleaning</span>
-              <span class="tag tag-gold">CLI Tool</span>
-            </div>
-
-            <a href="data_cleaner.py" download class="btn btn-primary" style="margin-bottom:0.75rem">
-              ↓ Download data_cleaner.py
             </a>
 
-            <div class="download-note">
-              <strong>Safe to download.</strong> This is a plain Python (.py) text file.
-              You can open it in any text editor to read every line before running it.
-              It requires Python 3 and pandas (<code style="color:var(--accent)">pip install pandas</code>).
-              It only reads the CSV you point it at — it does not connect to the internet
-              or access any other files.
+            <a href="https://github.com/AstonTellis" target="_blank" class="contact-method">
+              <div class="contact-icon" style="background:#ffffff08">🐙</div>
+              <div class="contact-method-info">
+                <h4>GitHub</h4>
+                <p>github.com/AstonTellis — See my actual work</p>
+              </div>
+            </a>
+
+            <div class="contact-method" style="cursor:default">
+              <div class="contact-icon" style="background:#00ffaa10">🔒</div>
+              <div class="contact-method-info">
+                <h4>No LinkedIn</h4>
+                <p>Intentional. Email me directly — it's more honest anyway.</p>
+              </div>
+            </div>
+
+            <div class="contact-method" style="cursor:default">
+              <div class="contact-icon" style="background:#7b61ff15">📍</div>
+              <div class="contact-method-info">
+                <h4>Location</h4>
+                <p>Dublin, Ireland — Open to remote and relocation</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="contact-note">
+            <strong>A note on privacy:</strong> If you need to send anything sensitive,
+            please use PGP encryption or reach out first to establish a secure channel.
+            I take data hygiene seriously — yours and mine.
+          </div>
+        </div>
+
+        <!-- Right: Availability + what I'm looking for -->
+        <div class="fade-up" style="transition-delay:0.2s">
+          <div class="section-label" style="margin-bottom:1.25rem">What I'm Looking For</div>
+
+          <div class="card" style="margin-bottom:1.25rem">
+            <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem">
+              <div style="width:10px;height:10px;border-radius:50%;background:var(--accent3);box-shadow:0 0 10px var(--accent3);animation:pulse 2s infinite"></div>
+              <span style="font-family:var(--font-mono);font-size:0.78rem;color:var(--accent3)">Available for opportunities</span>
+            </div>
+            <h3 style="font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:0.75rem">
+              Roles I'm interested in
+            </h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem">
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Product Management Internship / Graduate</li>
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Business / Data Analyst</li>
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> FinTech Analyst or Associate</li>
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Strategy & Operations at a startup</li>
+              <li style="display:flex;align-items:center;gap:0.6rem;font-size:0.87rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Any role where tech meets business strategy</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3 style="font-family:var(--font-display);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:0.75rem">
+              What I value in a role
+            </h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.4rem">
+              <li style="font-size:0.83rem;color:var(--text3)">✓ Transparent, ethical use of data</li>
+              <li style="font-size:0.83rem;color:var(--text3)">✓ Teams where privacy and user trust are taken seriously</li>
+              <li style="font-size:0.83rem;color:var(--text3)">✓ Organisations that value long-term thinking over short-term data extraction</li>
+            </ul>
+            <p style="font-size:0.8rem;color:var(--text3);margin-top:0.75rem;font-style:italic">
+              I'm adaptable and open to most environments — I just bring these values with me wherever I go.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── CV Section ────────────────────────────────────────── -->
+    <section class="cv-section">
+      <div class="container">
+        <div class="cv-download-bar fade-up">
+          <p>Want the one-page version? Download my CV as a PDF.(I will upload it on request)</p>
+          <a href="#" class="btn btn-primary cv-download-btn">↓ Download CV (PDF)</a>
+        </div>
+
+        <div class="section-label fade-up" style="margin-bottom:0.5rem">Curriculum Vitae</div>
+        <h2 class="section-title fade-up" style="margin-bottom:3rem">CV Summary</h2>
+
+        <div class="cv-layout">
+
+          <!-- CV Sidebar -->
+          <div class="cv-sidebar fade-up">
+            <div class="cv-name">Aston Tellis</div>
+            <div class="cv-title">CS & Business Student</div>
+
+            <ul class="cv-contact-list">
+              <li>📧 [astontellis6@gmail.com]</li>
+              <li>🌐 AstonTellis.github.io</li>
+              <li>🐙 github.com/AstonTellis</li>
+              <li>📍 Dublin, Ireland </li>
+            </ul>
+
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Technical Skills</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">SQL / MySQL</span>
+                <span class="cv-skill-tag">Excel</span>
+                <span class="cv-skill-tag">Python</span>
+                <span class="cv-skill-tag">HTML/CSS</span>
+                <span class="cv-skill-tag">GitHub</span>
+                <span class="cv-skill-tag">Power BI</span>
+              </div>
+            </div>
+
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Business Skills</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">Financial Modelling</span>
+                <span class="cv-skill-tag">Data Analysis</span>
+                <span class="cv-skill-tag">Business Analysis</span>
+                <span class="cv-skill-tag">Product Thinking</span>
+                <span class="cv-skill-tag">Stakeholder Comms</span>
+                <span class="cv-skill-tag">Case Analysis</span>
+              </div>
+            </div>
+
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Languages</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">English — Fluent</span>
+                <span class="cv-skill-tag">[Language 2]</span>
+              </div>
+            </div>
+
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Interests</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">Digital Privacy</span>
+                <span class="cv-skill-tag">FinTech</span>
+                <span class="cv-skill-tag">Open Source</span>
+                <span class="cv-skill-tag">Tech Policy</span>
+              </div>
             </div>
           </div>
 
-          <!-- Code preview -->
-          <div class="code-window">
-            <div class="code-window-bar">
-              <div class="code-dot r"></div>
-              <div class="code-dot y"></div>
-              <div class="code-dot g"></div>
-              <span class="code-filename">data_cleaner.py</span>
+          <!-- CV Main -->
+          <div class="cv-main fade-up" style="transition-delay:0.2s">
+
+            <div style="margin-bottom:2.5rem">
+              <div class="cv-section-heading">Education</div>
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">BSc Computer Science & Business</span>
+                  <span class="cv-entry-date">2021 — Present</span>
+                </div>
+                <div class="cv-entry-org">Dublin City University · Dublin </div>
+                <ul class="cv-entry-points">
+                  <li>Combined degree covering software engineering, data structures, corporate finance, and strategy</li>
+                  <li>Relevant modules: Database Systems, Financial Analysis, Business Intelligence, Information Security</li>
+                  <li>Current classification: Higher Merit — Expected graduation: 2028</li>
+                </ul>
+              </div>
             </div>
-            <div class="code-body"><pre><span class="py-cm"># ─────────────────────────────────────────────────────</span>
-<span class="py-cm"># CSV Data Cleaner & Analyser — by Aston Tellis</span>
-<span class="py-cm"># Portfolio Project · Python 3 · pandas</span>
-<span class="py-cm"># Usage: python data_cleaner.py your_file.csv</span>
-<span class="py-cm"># ─────────────────────────────────────────────────────</span>
 
-<span class="py-kw">import</span> pandas <span class="py-kw">as</span> pd
-<span class="py-kw">import</span> sys, os
-<span class="py-kw">from</span> datetime <span class="py-kw">import</span> datetime
+            <div style="margin-bottom:2.5rem">
+              <div class="cv-section-heading">Projects</div>
 
-<span class="py-kw">def</span> <span class="py-fn">load_csv</span>(path):
-    <span class="py-str">"""Load CSV with encoding fallback."""</span>
-    <span class="py-kw">try</span>:
-        <span class="py-kw">return</span> pd.<span class="py-fn">read_csv</span>(path, encoding=<span class="py-str">'utf-8'</span>)
-    <span class="py-kw">except</span> UnicodeDecodeError:
-        <span class="py-kw">return</span> pd.<span class="py-fn">read_csv</span>(path, encoding=<span class="py-str">'latin-1'</span>)
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Hartwell Bank — SQL Analytics Engine</span>
+                  <span class="cv-entry-date">2024</span>
+                </div>
+                <div class="cv-entry-org">Personal Portfolio Project · MySQL · FinTech</div>
+                <ul class="cv-entry-points">
+                  <li>Designed a 6-table relational banking database from scratch with foreign keys and indexes</li>
+                  <li>Wrote 15+ SQL queries across fraud detection, customer segmentation, and revenue trend analysis</li>
+                  <li>Used advanced techniques: CTEs, LAG window functions, self-JOINs, subqueries, RANK OVER PARTITION</li>
+                  <li>Identified two confirmed fraud cases using statistical anomaly detection logic</li>
+                </ul>
+              </div>
 
-<span class="py-kw">def</span> <span class="py-fn">analyse</span>(df, filename):
-    <span class="py-str">"""Run full analysis and return report."""</span>
-    lines = []
-    lines.<span class="py-fn">append</span>(<span class="py-str">f"CSV ANALYSIS REPORT"</span>)
-    lines.<span class="py-fn">append</span>(<span class="py-str">f"File: {filename}"</span>)
-    lines.<span class="py-fn">append</span>(<span class="py-str">f"Generated: {datetime.now()}"</span>)
-    lines.<span class="py-fn">append</span>(<span class="py-str">"-" * 50</span>)
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Hartwell Bank — Excel Analytics Workbook</span>
+                  <span class="cv-entry-date">2024</span>
+                </div>
+                <div class="cv-entry-org">Personal Portfolio Project · Microsoft Excel · Financial Modelling</div>
+                <ul class="cv-entry-points">
+                  <li>Built a 9-sheet professional workbook with 505 live formulas and zero errors</li>
+                  <li>Implemented PMT/IPMT/PPMT loan amortisation, SUMPRODUCT weighted risk scoring, INDEX/MATCH lookups</li>
+                  <li>Created assumption-driven revenue model where one cell change updates the entire workbook</li>
+                  <li>Built executive dashboard with 4 charts pulling live data from all sheets</li>
+                </ul>
+              </div>
 
-    <span class="py-cm"># Shape</span>
-    lines.<span class="py-fn">append</span>(<span class="py-str">f"Rows: {df.shape[0]:,}"</span>)
-    lines.<span class="py-fn">append</span>(<span class="py-str">f"Columns: {df.shape[1]}"</span>)
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Portfolio Website</span>
+                  <span class="cv-entry-date">2024</span>
+                </div>
+                <div class="cv-entry-org">Personal Project · HTML · CSS · JavaScript</div>
+                <ul class="cv-entry-points">
+                  <li>Designed and built a multi-page portfolio site from scratch — no templates, no frameworks</li>
+                  <li>Implemented custom cursor, particle animation, typing effects, terminal simulator, live clock</li>
+                  <li>Built with privacy-by-design: no cookies, no analytics, no third-party tracking scripts</li>
+                </ul>
+              </div>
+            </div>
 
-    <span class="py-cm"># Duplicates</span>
-    dupes = df.<span class="py-fn">duplicated</span>().<span class="py-fn">sum</span>()
-    lines.<span class="py-fn">append</span>(<span class="py-str">f"Duplicate rows: {dupes}"</span>)
+            <div>
+              <div class="cv-section-heading">Extracurricular & Other</div>
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">[Studies, activities, societies, part-time driver]</span>
+                  <span class="cv-entry-date">Ongoing</span>
+                </div>
+                <div class="cv-entry-org">Not applicable</div>
+                <ul class="cv-entry-points">
+                  <li>Full time student</li>
+                  <li>Open for good places and societies, volunteering, sports, part-time work, competitions</li>
+                  <li>Always open to learna and improve</li>
+                </ul>
+              </div>
+            </div>
 
-    <span class="py-cm"># Missing values per column</span>
-    lines.<span class="py-fn">append</span>(<span class="py-str">"\nMISSING VALUES"</span>)
-    <span class="py-kw">for</span> col <span class="py-kw">in</span> df.columns:
-        missing = df[col].<span class="py-fn">isna</span>().<span class="py-fn">sum</span>()
-        pct = missing / <span class="py-fn">len</span>(df) * <span class="py-num">100</span>
-        <span class="py-kw">if</span> missing > <span class="py-num">0</span>:
-            lines.<span class="py-fn">append</span>(
-              <span class="py-str">f"  {col}: {missing} ({pct:.1f}%)"</span>)
-
-    <span class="py-cm"># Numeric column stats</span>
-    numeric = df.<span class="py-fn">select_dtypes</span>(include=<span class="py-str">'number'</span>)
-    <span class="py-kw">if not</span> numeric.<span class="py-fn">empty</span>:
-        lines.<span class="py-fn">append</span>(<span class="py-str">"\nNUMERIC COLUMN STATS"</span>)
-        lines.<span class="py-fn">append</span>(numeric.<span class="py-fn">describe</span>().<span class="py-fn">to_string</span>())
-
-    <span class="py-kw">return</span> <span class="py-str">"\n"</span>.<span class="py-fn">join</span>(lines)
-
-<span class="py-kw">def</span> <span class="py-fn">main</span>():
-    <span class="py-kw">if</span> <span class="py-fn">len</span>(sys.argv) < <span class="py-num">2</span>:
-        <span class="py-fn">print</span>(<span class="py-str">"Usage: python data_cleaner.py file.csv"</span>)
-        sys.<span class="py-fn">exit</span>(<span class="py-num">1</span>)
-
-    path = sys.argv[<span class="py-num">1</span>]
-    df   = <span class="py-fn">load_csv</span>(path)
-    report = <span class="py-fn">analyse</span>(df, path)
-    <span class="py-fn">print</span>(report)
-
-    out = path.<span class="py-fn">replace</span>(<span class="py-str">'.csv'</span>, <span class="py-str">'_report.txt'</span>)
-    <span class="py-kw">with</span> <span class="py-fn">open</span>(out, <span class="py-str">'w'</span>) <span class="py-kw">as</span> f:
-        f.<span class="py-fn">write</span>(report)
-    <span class="py-fn">print</span>(<span class="py-str">f"\n✓ Report saved to {out}"</span>)
-
-<span class="py-kw">if</span> __name__ == <span class="py-str">"__main__"</span>:
-    <span class="py-fn">main</span>()</pre></div>
           </div>
         </div>
       </div>
     </section>
 
   </div>
-
-
-    <!-- ══════════════════════════════════════════════════════
-         JAVA OOP PROJECT
-    ══════════════════════════════════════════════════════ -->
-    <section class="it-section">
-      <div class="container">
-        <div class="fade-up" style="margin-bottom:2.5rem">
-          <div class="section-label">Project 04 — Java · OOP · JUnit 5</div>
-          <h2 class="section-title" style="font-size:2rem">BankAccount — Java OOP System</h2>
-          <p class="section-subtitle">
-            A fully object-oriented Java implementation of a banking system demonstrating
-            encapsulation, constructor overloading, custom exceptions, method chaining,
-            and a full JUnit 5 test suite with 30+ test cases.
-          </p>
-          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
-            <span class="tag tag-blue">Java</span>
-            <span class="tag tag-purple">OOP</span>
-            <span class="tag tag-green">JUnit 5</span>
-            <span class="tag tag-gold">FinTech</span>
-            <span class="tag tag-red">Exception Handling</span>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start" class="fade-up">
-          <div>
-            <h3 style="font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--text);margin-bottom:1rem">What It Demonstrates</h3>
-            <div style="display:flex;flex-direction:column;gap:0.5rem;margin-bottom:1.5rem">
-              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Encapsulation — private fields, public getters</div>
-              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Constructor overloading — zero and opening balance</div>
-              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Custom exceptions — InsufficientFundsException with context</div>
-              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Method chaining — fluent interface pattern</div>
-              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Transaction history — immutable, timestamped records</div>
-              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> Account-to-account transfers with validation</div>
-              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> equals() / hashCode() / toString() overrides</div>
-              <div style="font-size:0.85rem;color:var(--text2)"><span style="color:var(--accent)">→</span> 30+ JUnit 5 tests across 7 test classes</div>
-            </div>
-            <div style="display:flex;gap:0.75rem;flex-wrap:wrap">
-              <a href="BankAccount.java" download class="btn btn-primary">↓ BankAccount.java</a>
-              <a href="BankAccountTest.java" download class="btn btn-ghost">↓ Tests</a>
-            </div>
-          </div>
-          <div class="code-window">
-            <div class="code-window-bar">
-              <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
-              <span class="code-filename">BankAccount.java</span>
-            </div>
-            <div class="code-body"><pre><span class="py-cm">// Custom exception with context data</span>
-<span class="py-kw">class</span> <span class="py-cls">InsufficientFundsException</span> <span class="py-kw">extends</span> Exception {
-  <span class="py-kw">public</span> <span class="py-fn">InsufficientFundsException</span>(
-      <span class="py-kw">double</span> amount, <span class="py-kw">double</span> balance) {
-    <span class="py-kw">super</span>(String.<span class="py-fn">format</span>(
-      <span class="py-str">"Cannot withdraw %.2f balance %.2f"</span>,
-      amount, balance));
-  }
-}
-
-<span class="py-cm">// Method chaining — fluent interface</span>
-<span class="py-kw">public</span> BankAccount <span class="py-fn">deposit</span>(<span class="py-kw">double</span> amount) {
-  <span class="py-fn">validateNotFrozen</span>();
-  balance += amount;
-  history.<span class="py-fn">add</span>(<span class="py-kw">new</span> <span class="py-cls">Transaction</span>(...));
-  <span class="py-kw">return this</span>;
-}
-
-<span class="py-cm">// Usage: chained calls</span>
-account.<span class="py-fn">deposit</span>(<span class="py-num">1000</span>)
-       .<span class="py-fn">deposit</span>(<span class="py-num">500</span>)
-       .<span class="py-fn">deposit</span>(<span class="py-num">250</span>);
-
-<span class="py-cm">// JUnit 5 test</span>
-<span class="py-fn">@Test</span>
-<span class="py-kw">void</span> <span class="py-fn">testOverdraftThrows</span>() {
-  <span class="py-fn">assertThrows</span>(
-    InsufficientFundsException.<span class="py-kw">class</span>,
-    () -&gt; account.<span class="py-fn">withdraw</span>(<span class="py-num">9999.00</span>));
-}</pre></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════════════════
-         PYTHON UNIT TESTS
-    ══════════════════════════════════════════════════════ -->
-    <section class="it-section">
-      <div class="container">
-        <div class="fade-up" style="margin-bottom:2.5rem">
-          <div class="section-label">Project 05 — Python · pytest · QA</div>
-          <h2 class="section-title" style="font-size:2rem">Unit Tests — data_cleaner.py</h2>
-          <p class="section-subtitle">
-            35+ pytest tests across 6 classes. Covers missing values, duplicates,
-            numeric statistics, outlier detection, and edge cases. Directly relevant
-            to SDET and QA roles at Canada Life, Anduril, and Deciphex.
-          </p>
-          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
-            <span class="tag tag-blue">Python</span>
-            <span class="tag tag-green">pytest</span>
-            <span class="tag tag-purple">Unit Testing</span>
-            <span class="tag tag-gold">QA / SDET</span>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem" class="fade-up">
-          <div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1.5rem">
-              <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center">
-                <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:var(--accent3)">35+</div>
-                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em">Test Cases</div>
-              </div>
-              <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center">
-                <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:var(--accent)">6</div>
-                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em">Test Classes</div>
-              </div>
-              <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center">
-                <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:var(--gold)">100%</div>
-                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em">Pass Rate</div>
-              </div>
-              <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;text-align:center">
-                <div style="font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:var(--accent2)">0</div>
-                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em">Failures</div>
-              </div>
-            </div>
-            <a href="test_data_cleaner.py" download class="btn btn-primary">↓ Download test_data_cleaner.py</a>
-          </div>
-          <div class="code-window">
-            <div class="code-window-bar">
-              <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
-              <span class="code-filename">test_data_cleaner.py</span>
-            </div>
-            <div class="code-body"><pre><span class="py-kw">class</span> <span class="py-cls">TestMissingValueDetection</span>:
-
-  <span class="py-kw">def</span> <span class="py-fn">test_no_missing_returns_empty</span>(self):
-    df = pd.<span class="py-fn">DataFrame</span>({
-      <span class="py-str">'a'</span>: [<span class="py-num">1</span>,<span class="py-num">2</span>,<span class="py-num">3</span>],
-      <span class="py-str">'b'</span>: [<span class="py-str">'x'</span>,<span class="py-str">'y'</span>,<span class="py-str">'z'</span>]
-    })
-    <span class="py-fn">assert</span> <span class="py-fn">count_missing</span>(df) == {}
-
-  <span class="py-kw">def</span> <span class="py-fn">test_detects_three_missing</span>(self):
-    df = pd.<span class="py-fn">DataFrame</span>({
-      <span class="py-str">'score'</span>: [<span class="py-num">10</span>,<span class="py-cls">None</span>,<span class="py-cls">None</span>,<span class="py-cls">None</span>,<span class="py-num">50</span>]
-    })
-    result = <span class="py-fn">count_missing</span>(df)
-    <span class="py-fn">assert</span> result[<span class="py-str">'score'</span>] == <span class="py-num">3</span>
-
-<span class="py-cm"># Run: pytest test_data_cleaner.py -v</span>
-<span class="py-cm"># All 35 tests: PASSED</span></pre></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════════════════
-         AGILE / SCRUM
-    ══════════════════════════════════════════════════════ -->
-    <section class="it-section">
-      <div class="container">
-        <div class="fade-up" style="margin-bottom:2.5rem">
-          <div class="section-label">Methodology — Agile · Scrum · User Stories</div>
-          <h2 class="section-title" style="font-size:2rem">Agile & Scrum in Practice</h2>
-          <p class="section-subtitle">
-            Required by Deloitte, Canada Life, ESB, and Amazon. Here's how I apply
-            Agile when planning and building — demonstrated with the Hartwell Bank project.
-          </p>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem" class="fade-up">
-          <div>
-            <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem">User Stories</div>
-            <div style="display:flex;flex-direction:column;gap:0.75rem">
-              <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius);padding:1rem">
-                <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--accent);margin-bottom:0.4rem">US-001 · High</div>
-                <div style="font-size:0.82rem;color:var(--text);font-weight:600;margin-bottom:0.3rem">Customer Segmentation</div>
-                <div style="font-size:0.78rem;color:var(--text2);line-height:1.6"><em>"As a data analyst, I want to segment customers by tier so that the product team can identify high-value accounts."</em></div>
-                <div style="margin-top:0.5rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent3)">✓ Done — SQL Query A2, A5</div>
-              </div>
-              <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:var(--radius);padding:1rem">
-                <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--red);margin-bottom:0.4rem">US-002 · High</div>
-                <div style="font-size:0.82rem;color:var(--text);font-weight:600;margin-bottom:0.3rem">Fraud Detection</div>
-                <div style="font-size:0.78rem;color:var(--text2);line-height:1.6"><em>"As a risk analyst, I want to flag transactions exceeding 2× the customer's own average so suspicious activity is caught early."</em></div>
-                <div style="margin-top:0.5rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent3)">✓ Done — SQL Query B2, B3</div>
-              </div>
-              <div style="background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:var(--radius);padding:1rem">
-                <div style="font-family:var(--font-mono);font-size:0.62rem;color:var(--gold);margin-bottom:0.4rem">US-003 · Medium</div>
-                <div style="font-size:0.82rem;color:var(--text);font-weight:600;margin-bottom:0.3rem">Revenue Trends</div>
-                <div style="font-size:0.78rem;color:var(--text2);line-height:1.6"><em>"As a finance manager, I want month-on-month growth data so I can report performance to stakeholders."</em></div>
-                <div style="margin-top:0.5rem;font-family:var(--font-mono);font-size:0.62rem;color:var(--accent3)">✓ Done — SQL Query C1, C2</div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1.25rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem">Sprint Board</div>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem">
-              <div>
-                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--text3);text-transform:uppercase;margin-bottom:0.6rem;text-align:center">To Do</div>
-                <div style="display:flex;flex-direction:column;gap:0.5rem">
-                  <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--text2)">README files</div>
-                  <div style="background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--text2)">Domain setup</div>
-                </div>
-              </div>
-              <div>
-                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--gold);text-transform:uppercase;margin-bottom:0.6rem;text-align:center">In Progress</div>
-                <div style="display:flex;flex-direction:column;gap:0.5rem">
-                  <div style="background:#f4a26110;border:1px solid #f4a26130;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--gold)">Java OOP</div>
-                  <div style="background:#f4a26110;border:1px solid #f4a26130;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--gold)">Python tests</div>
-                  <div style="background:#f4a26110;border:1px solid #f4a26130;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--gold)">Portfolio restructure</div>
-                </div>
-              </div>
-              <div>
-                <div style="font-family:var(--font-mono);font-size:0.65rem;color:var(--accent3);text-transform:uppercase;margin-bottom:0.6rem;text-align:center">Done</div>
-                <div style="display:flex;flex-direction:column;gap:0.5rem">
-                  <div style="background:#00ffaa0a;border:1px solid #00ffaa20;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--accent3)">SQL (15 queries)</div>
-                  <div style="background:#00ffaa0a;border:1px solid #00ffaa20;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--accent3)">Excel (9 sheets)</div>
-                  <div style="background:#00ffaa0a;border:1px solid #00ffaa20;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--accent3)">Portfolio live</div>
-                  <div style="background:#00ffaa0a;border:1px solid #00ffaa20;border-radius:4px;padding:0.6rem;font-size:0.72rem;color:var(--accent3)">Mobile ready</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════════════════
-         POWER BI & TABLEAU
-    ══════════════════════════════════════════════════════ -->
-    <section class="it-section">
-      <div class="container">
-        <div class="fade-up" style="margin-bottom:2.5rem">
-          <div class="section-label">Data Visualisation — Power BI · DAX · Tableau · LOD</div>
-          <h2 class="section-title" style="font-size:2rem">Power BI & Tableau Scripts</h2>
-          <p class="section-subtitle">
-            Required by ESB, Deloitte, and Canada Life. Real DAX measures and Tableau
-            calculated fields written for the Hartwell Bank dataset.
-          </p>
-          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
-            <span class="tag tag-blue">Power BI</span>
-            <span class="tag tag-purple">DAX</span>
-            <span class="tag tag-green">Tableau</span>
-            <span class="tag tag-gold">LOD Expressions</span>
-          </div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem" class="fade-up">
-          <div>
-            <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem">Power BI — DAX Measures</div>
-            <div class="code-window">
-              <div class="code-window-bar">
-                <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
-                <span class="code-filename">Hartwell_Bank.pbix — DAX</span>
-              </div>
-              <div class="code-body"><pre><span class="py-cm">// Total Transaction Volume</span>
-Total Volume =
-  <span class="py-fn">SUMX</span>(
-    <span class="py-fn">FILTER</span>(Transactions,
-      Transactions[Status] = <span class="py-str">"Completed"</span>),
-    Transactions[Amount])
-
-<span class="py-cm">// Month-on-Month Growth %</span>
-MoM Growth =
-  <span class="py-kw">VAR</span> Current =
-    <span class="py-fn">CALCULATE</span>([Total Volume],
-      <span class="py-fn">DATESMTD</span>(Dates[Date]))
-  <span class="py-kw">VAR</span> Previous =
-    <span class="py-fn">CALCULATE</span>([Total Volume],
-      <span class="py-fn">PREVIOUSMONTH</span>(Dates[Date]))
-  <span class="py-kw">RETURN</span>
-    <span class="py-fn">DIVIDE</span>(Current - Previous,
-      Previous, <span class="py-num">0</span>)
-
-<span class="py-cm">// Fraud Flag Rate</span>
-Fraud Rate =
-  <span class="py-fn">DIVIDE</span>(
-    <span class="py-fn">COUNTROWS</span>(<span class="py-fn">FILTER</span>(
-      FraudFlags,
-      FraudFlags[Status]=<span class="py-str">"Confirmed"</span>)),
-    <span class="py-fn">COUNTROWS</span>(Transactions), <span class="py-num">0</span>)</pre></div>
-            </div>
-          </div>
-          <div>
-            <div style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent2);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:0.75rem">Tableau — LOD Expressions</div>
-            <div class="code-window">
-              <div class="code-window-bar">
-                <div class="code-dot r"></div><div class="code-dot y"></div><div class="code-dot g"></div>
-                <span class="code-filename">Hartwell_Bank.twbx — Tableau</span>
-              </div>
-              <div class="code-body"><pre><span class="py-cm">// Customer Average Spend (Fixed LOD)</span>
-Customer Avg Spend =
-{ <span class="py-fn">FIXED</span> [Customer ID] :
-    <span class="py-fn">AVG</span>([Amount]) }
-
-<span class="py-cm">// Fraud Anomaly Flag</span>
-Is Anomaly =
-<span class="py-kw">IF</span> [Amount] >
-  [Customer Avg Spend] * <span class="py-num">2</span>
-<span class="py-kw">THEN</span> <span class="py-str">"Flagged"</span>
-<span class="py-kw">ELSE</span> <span class="py-str">"Normal"</span>
-<span class="py-kw">END</span>
-
-<span class="py-cm">// Month-over-Month % Change</span>
-MoM Change =
-(<span class="py-fn">ZN</span>(<span class="py-fn">SUM</span>([Amount])) -
- <span class="py-fn">LOOKUP</span>(<span class="py-fn">ZN</span>(<span class="py-fn">SUM</span>([Amount])), -<span class="py-num">1</span>))
-/ <span class="py-fn">ABS</span>(<span class="py-fn">LOOKUP</span>(
-  <span class="py-fn">ZN</span>(<span class="py-fn">SUM</span>([Amount])), -<span class="py-num">1</span>))
-
-<span class="py-cm">// Savings Category</span>
-Savings Category =
-<span class="py-kw">IF</span> [Rate] >= <span class="py-num">0.20</span> <span class="py-kw">THEN</span> <span class="py-str">"On Track"</span>
-<span class="py-kw">ELSEIF</span> [Rate] >= <span class="py-num">0.10</span>
-  <span class="py-kw">THEN</span> <span class="py-str">"Needs Attention"</span>
-<span class="py-kw">ELSE</span> <span class="py-str">"At Risk"</span> <span class="py-kw">END</span></pre></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </div><!-- end page div -->
 
   <footer>
     <div class="footer-inner">
       <ul class="footer-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Business &amp; Data</a></li>
-        <li><a href="it-projects.html">IT Lab</a></li>
+        <li><a href="projects.html">Projects</a></li>
         <li><a href="animations.html">Design</a></li>
-        <li><a href="tools.html">Built by Me</a></li>
-        <li><a href="skills.html">Skills &amp; Training</a></li>
+        <li><a href="skills.html">Skills</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -1074,39 +541,13 @@ Savings Category =
     </div>
   </footer>
 
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+  </style>
+
   <script src="script.js"></script>
-  <script>
-
-
-  // ══════════════════════════════════════════════════════════
-  // HTTPS STEP NAVIGATOR
-  // ══════════════════════════════════════════════════════════
-  const arrowTexts = [
-    ['Step 1: ClientHello →', '← Step 2: ServerHello'],
-    ['Step 2: Certificate →', '← Step 2: Cert + Hello'],
-    ['Step 3: Verifying...', '← Certificate Check'],
-    ['Step 4: Key Exchange →', '← Diffie-Hellman'],
-    ['Step 5: Finished →', '← Step 5: Finished'],
-    ['⚠ Encrypted but...', 'ISP sees domain ⚠'],
-  ];
-
-  const statuses = [
-    '🔄 Initiating TLS handshake...',
-    '🔐 Receiving server certificate...',
-    '🔍 Verifying certificate authority...',
-    '🔑 Exchanging encryption keys...',
-    '🔒 Secure connection established!',
-    '⚠ Understanding HTTPS limits...',
-  ];
-
-  function setStep(n) {
-    document.querySelectorAll('.https-step').forEach((s, i) => {
-      s.classList.toggle('active', i === n);
-    });
-    document.getElementById('https-arrow').textContent  = arrowTexts[n][0];
-    document.getElementById('https-arrow2').textContent = arrowTexts[n][1];
-    document.getElementById('https-status').textContent = statuses[n];
-  }
-  </script>
 </body>
 </html>
