@@ -736,13 +736,67 @@
       </div>
     </section>
 
-    <!-- ══════════════════════════════════════════════════════
-         FINTECH BUDGET CALCULATOR
-    ══════════════════════════════════════════════════════ -->
     <section class="tool-section">
       <div class="container">
         <div class="fade-up" style="margin-bottom:2.5rem">
-          <div class="section-label">Tool 02</div>
+          <div class="section-label">Tool 02 — Web App · HTML/CSS/JavaScript</div>
+          <h2 class="section-title" style="font-size:2rem">Password Strength Analyser</h2>
+          <p class="section-subtitle">
+            A real-time password analyser that checks entropy, character variety, common patterns,
+            and estimates crack time. Entirely client-side — your password never leaves your browser.
+          </p>
+          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
+            <span class="tag tag-blue">JavaScript</span>
+            <span class="tag tag-green">Cybersecurity</span>
+            <span class="tag tag-purple">HTML/CSS</span>
+            <span class="tag tag-red">Privacy-First</span>
+          </div>
+        </div>
+        <div class="pw-container fade-up">
+          <div class="pw-card">
+            <div class="pw-header">
+              🔐 Password Strength Analyser · Client-side only · Zero data sent anywhere
+            </div>
+            <div class="pw-body">
+              <div class="pw-input-wrap">
+                <input type="password" class="pw-input" id="pw-input"
+                  placeholder="Type a password to analyse..."
+                  oninput="analysePassword(this.value)" autocomplete="off">
+                <button class="pw-toggle" id="pw-toggle" onclick="togglePwVisibility()">👁</button>
+              </div>
+              <div class="strength-meter" id="strength-meter">
+                <div class="strength-bar" id="sb1"></div>
+                <div class="strength-bar" id="sb2"></div>
+                <div class="strength-bar" id="sb3"></div>
+                <div class="strength-bar" id="sb4"></div>
+                <div class="strength-bar" id="sb5"></div>
+              </div>
+              <div class="strength-label" id="strength-label">Enter a password to begin analysis</div>
+              <div class="pw-criteria">
+                <div class="criterion" id="c-length"><div class="criterion-icon">✓</div> 12+ characters</div>
+                <div class="criterion" id="c-upper"><div class="criterion-icon">✓</div> Uppercase letters</div>
+                <div class="criterion" id="c-lower"><div class="criterion-icon">✓</div> Lowercase letters</div>
+                <div class="criterion" id="c-number"><div class="criterion-icon">✓</div> Numbers</div>
+                <div class="criterion" id="c-symbol"><div class="criterion-icon">✓</div> Special symbols</div>
+                <div class="criterion" id="c-nocommon"><div class="criterion-icon">✓</div> No common words</div>
+              </div>
+              <div class="crack-time">
+                <span class="crack-time-label">Estimated time to crack (offline attack)</span>
+                <span class="crack-time-value" id="crack-time">—</span>
+              </div>
+              <div class="pw-suggestions" id="pw-suggestions">
+                Start typing a password above to see your security analysis.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tool-section">
+      <div class="container">
+        <div class="fade-up" style="margin-bottom:2.5rem">
+          <div class="section-label">Tool 03</div>
           <h2 class="section-title" style="font-size:2rem">Personal Finance Dashboard</h2>
           <p class="section-subtitle">
             A live budget calculator and savings analyser. Enter your income and expenses —
@@ -834,67 +888,6 @@
                 <div class="savings-indicator" id="savings-indicator">
                   ✓ On track with your savings target
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section></div>
-
-
-    <!-- ══════════════════════════════════════════════════════
-         PASSWORD STRENGTH ANALYSER
-    ══════════════════════════════════════════════════════ -->
-    <section class="tool-section">
-      <div class="container">
-        <div class="fade-up" style="margin-bottom:2.5rem">
-          <div class="section-label">Tool 03 — Web App · HTML/CSS/JavaScript</div>
-          <h2 class="section-title" style="font-size:2rem">Password Strength Analyser</h2>
-          <p class="section-subtitle">
-            A real-time password analyser that checks entropy, character variety, common patterns,
-            and estimates crack time. Entirely client-side — your password never leaves your browser.
-          </p>
-          <div style="margin-top:1rem;display:flex;gap:0.5rem;flex-wrap:wrap">
-            <span class="tag tag-blue">JavaScript</span>
-            <span class="tag tag-green">Cybersecurity</span>
-            <span class="tag tag-purple">HTML/CSS</span>
-            <span class="tag tag-red">Privacy-First</span>
-          </div>
-        </div>
-        <div class="pw-container fade-up">
-          <div class="pw-card">
-            <div class="pw-header">
-              🔐 Password Strength Analyser · Client-side only · Zero data sent anywhere
-            </div>
-            <div class="pw-body">
-              <div class="pw-input-wrap">
-                <input type="password" class="pw-input" id="pw-input"
-                  placeholder="Type a password to analyse..."
-                  oninput="analysePassword(this.value)" autocomplete="off">
-                <button class="pw-toggle" id="pw-toggle" onclick="togglePwVisibility()">👁</button>
-              </div>
-              <div class="strength-meter" id="strength-meter">
-                <div class="strength-bar" id="sb1"></div>
-                <div class="strength-bar" id="sb2"></div>
-                <div class="strength-bar" id="sb3"></div>
-                <div class="strength-bar" id="sb4"></div>
-                <div class="strength-bar" id="sb5"></div>
-              </div>
-              <div class="strength-label" id="strength-label">Enter a password to begin analysis</div>
-              <div class="pw-criteria">
-                <div class="criterion" id="c-length"><div class="criterion-icon">✓</div> 12+ characters</div>
-                <div class="criterion" id="c-upper"><div class="criterion-icon">✓</div> Uppercase letters</div>
-                <div class="criterion" id="c-lower"><div class="criterion-icon">✓</div> Lowercase letters</div>
-                <div class="criterion" id="c-number"><div class="criterion-icon">✓</div> Numbers</div>
-                <div class="criterion" id="c-symbol"><div class="criterion-icon">✓</div> Special symbols</div>
-                <div class="criterion" id="c-nocommon"><div class="criterion-icon">✓</div> No common words</div>
-              </div>
-              <div class="crack-time">
-                <span class="crack-time-label">Estimated time to crack (offline attack)</span>
-                <span class="crack-time-value" id="crack-time">—</span>
-              </div>
-              <div class="pw-suggestions" id="pw-suggestions">
-                Start typing a password above to see your security analysis.
               </div>
             </div>
           </div>
