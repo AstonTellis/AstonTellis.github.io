@@ -238,6 +238,110 @@
       color: var(--text2);
     }
 
+
+    /* ── Contact Form Styling ───────────────────────────────── */
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 0;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: var(--text2);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      display: block;
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 0.8rem 1.1rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
+      line-height: 1.5;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--text3);
+      font-size: 0.8rem;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px #00d4ff18;
+      background: var(--bg2);
+    }
+
+    .form-textarea {
+      min-height: 130px;
+      resize: vertical;
+      font-family: var(--font-mono);
+    }
+
+    .form-submit {
+      display: block;
+      width: 100%;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: var(--radius);
+      padding: 0.9rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      margin-top: 0.25rem;
+      text-align: center;
+    }
+
+    .form-submit:hover:not(:disabled) {
+      background: #33ddff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px #00d4ff30;
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .form-note {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text3);
+      text-align: center;
+      line-height: 1.6;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 640px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
+
     @media (max-width: 768px) {
       .contact-layout { grid-template-columns: 1fr; }
       .cv-layout { grid-template-columns: 1fr; }
@@ -263,12 +367,69 @@
     <a class="nav-logo" href="index.html"><span>A</span>T</a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="skills.html">Skills</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Business &amp; Data</a></li>
+      <li><a href="it-projects.html">IT Lab</a></li>
+      <li><a href="animations.html">Design</a></li>
+      <li><a href="tools.html">Built by Me</a></li>
+      <li><a href="skills.html">Skills &amp; Training</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="contact.html" class="active nav-cta">Contact</a></li>
     </ul>
+    <button class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-drawer">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="menu-label">Menu</span>
+    </button>
   </nav>
+
+  <!-- Mobile nav overlay -->
+  <div class="nav-overlay" id="nav-overlay"></div>
+
+  <!-- Mobile nav drawer -->
+  <div class="nav-drawer" id="nav-drawer" role="dialog" aria-label="Navigation menu">
+    <ul class="drawer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="projects.html">Business &amp; Data</a></li>
+          <li><a href="it-projects.html">IT Lab</a></li>
+          <li><a href="animations.html">Design</a></li>
+          <li><a href="tools.html">Built by Me</a></li>
+          <li><a href="skills.html">Skills &amp; Training</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html" class="drawer-cta active">Contact</a></li>
+    </ul>
+    <div class="drawer-divider"></div>
+    <div class="drawer-footer">
+      🔒 No cookies · No tracking · Privacy by design
+    </div>
+  </div>
+
+
+  <!-- Mobile nav drawer -->
+  <div class="nav-drawer" id="nav-drawer" role="dialog" aria-label="Navigation menu">
+    <ul class="drawer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="projects.html">Business &amp; Data</a></li>
+          <li><a href="it-projects.html">IT Lab</a></li>
+          <li><a href="animations.html">Design</a></li>
+          <li><a href="tools.html">Built by Me</a></li>
+          <li><a href="skills.html">Skills &amp; Training</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html" class="drawer-cta active">Contact</a></li>
+    </ul>
+    <div class="drawer-divider"></div>
+    <div class="drawer-footer">
+      🔒 No cookies · No tracking · Privacy by design
+    </div>
+  </div>
+
+    <div class="drawer-footer">
+      🔒 No cookies · No tracking · Privacy by design
+    </div>
+  </div>
 
   <div class="page">
     <div class="page-hero">
@@ -293,7 +454,7 @@
             <a href="mailto:astontellis6@email.com" class="contact-method">
               <div class="contact-icon" style="background:#00d4ff15">📧</div>
               <div class="contact-method-info">
-                <h4>Email</h4>
+                <h4>Email <button class="copy-btn" onclick="event.preventDefault();copyText('astontellis6@gmail.com', this)" title="Copy email"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></h4>
                 <p>astontellis6@gmail.com — Preferred contact method</p>
               </div>
             </a>
@@ -301,18 +462,18 @@
             <a href="https://github.com/AstonTellis" target="_blank" class="contact-method">
               <div class="contact-icon" style="background:#ffffff08">🐙</div>
               <div class="contact-method-info">
-                <h4>GitHub</h4>
+                <h4>GitHub <button class="copy-btn" onclick="event.preventDefault();copyText('github.com/AstonTellis', this)" title="Copy GitHub"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></h4>
                 <p>github.com/AstonTellis — See my actual work</p>
               </div>
             </a>
 
-            <div class="contact-method" style="cursor:default">
-              <div class="contact-icon" style="background:#00ffaa10">🔒</div>
+            <a href="https://www.linkedin.com/in/aston-tellis-134259313" target="_blank" class="contact-method">
+              <div class="contact-icon" style="background:#0077b515">💼</div>
               <div class="contact-method-info">
-                <h4>No LinkedIn</h4>
-                <p>Intentional. Email me directly — it's more honest anyway.</p>
+                <h4>LinkedIn <button class="copy-btn" onclick="copyText('linkedin.com/in/aston-tellis-134259313', this)" title="Copy LinkedIn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button></h4>
+                <p>linkedin.com/in/aston-tellis — I'm on there, selectively</p>
               </div>
-            </div>
+            </a>
 
             <div class="contact-method" style="cursor:default">
               <div class="contact-icon" style="background:#7b61ff15">📍</div>
@@ -325,9 +486,9 @@
           </div>
 
           <div class="contact-note">
-            <strong>Please Note:</strong> If you click on the buttons, it will take you direclty to the sites
-            or perform the actions for you, or you can use the contact me form. 
-            Alternativley if you those dont work pleas email to me direcly. Thank you.
+            <strong>Please Note:</strong> If you click on the buttons, it will take you directly
+            to the sites or perform the actions for you, or you can use the contact form below.
+            Alternatively, if those don't work please email me directly. Thank you.
           </div>
         </div>
 
@@ -369,6 +530,73 @@
 
       </div>
     </div>
+
+
+    <!-- ── Contact Form Section ─────────────────────────────── -->
+    <section style="padding:5rem 0;background:var(--bg2);border-top:1px solid var(--border)">
+      <div class="container">
+        <div style="max-width:680px;margin:0 auto">
+          <div class="section-label fade-up" style="margin-bottom:0.75rem">Send a Message</div>
+          <h2 class="section-title fade-up" style="font-size:2rem;margin-bottom:0.75rem">
+            Get in Touch Directly
+          </h2>
+          <p class="section-subtitle fade-up" style="margin-bottom:2.5rem">
+            Fill in the form below and it goes straight to my inbox. I'll get back to you
+            as soon as I can. You can use this to introduce yourself, ask about my work,
+            or request my CV.
+          </p>
+
+          <div class="fade-up" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius2);padding:2.5rem">
+            <form action="https://formspree.io/f/mljeeylo" method="POST" id="contact-form">
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="cf-name">Your Name *</label>
+                  <input type="text" id="cf-name" name="name" class="form-input"
+                    placeholder="Jane Smith" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="cf-email">Your Email *</label>
+                  <input type="email" id="cf-email" name="email" class="form-input"
+                    placeholder="jane@company.com" required autocomplete="email">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="cf-subject">Subject</label>
+                <input type="text" id="cf-subject" name="subject" class="form-input"
+                  placeholder="Internship opportunity / CV Request / General enquiry">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="cf-message">Message *</label>
+                <textarea id="cf-message" name="message" class="form-textarea"
+                  placeholder="Hi Aston, I came across your portfolio and..." required></textarea>
+              </div>
+
+              <!-- hidden fields for formspree -->
+              <input type="text" name="_gotcha" style="display:none">
+
+              <button type="submit" class="form-submit" id="form-submit">
+                Send Message →
+              </button>
+              <p class="form-note" style="margin-top:0.75rem">
+                🔒 Powered by Formspree · Your email is only used to reply to you ·
+                No data stored on this site
+              </p>
+            </form>
+          </div>
+
+          <!-- Success / error message -->
+          <div id="form-success" style="display:none;margin-top:1.5rem;background:#00ffaa0f;border:1px solid #00ffaa25;border-radius:var(--radius);padding:1.25rem;text-align:center;font-family:var(--font-mono);font-size:0.85rem;color:var(--accent3)">
+            ✓ Message sent! I'll get back to you soon.
+          </div>
+          <div id="form-error" style="display:none;margin-top:1.5rem;background:#ff4d6d0f;border:1px solid #ff4d6d25;border-radius:var(--radius);padding:1.25rem;text-align:center;font-family:var(--font-mono);font-size:0.85rem;color:var(--red)">
+            ✗ Something went wrong. Please email me directly at astontellis6@gmail.com
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ── CV Section ────────────────────────────────────────── -->
     <section class="cv-section">
@@ -420,13 +648,36 @@
             </div>
 
             <div class="cv-section-mini">
-              <div class="cv-mini-label">Languages</div>
+              <div class="cv-mini-label">Languages (Fluent)</div>
               <div class="cv-skill-tags">
-                <span class="cv-skill-tag">English — Fluent</span>
-                <span class="cv-skill-tag">[Language 2]</span>
+                <span class="cv-skill-tag">English</span>
+                <span class="cv-skill-tag">Hindi</span>
+                <span class="cv-skill-tag">Bengali</span>
+                <span class="cv-skill-tag">Urdu</span>
+                <span class="cv-skill-tag">Malayalam</span>
+                <span class="cv-skill-tag">Kannada</span>
+              </div>
+            </div>
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Languages (Working)</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">Spanish</span>
+                <span class="cv-skill-tag">Arabic</span>
+                <span class="cv-skill-tag">French</span>
               </div>
             </div>
 
+            <div class="cv-section-mini">
+              <div class="cv-mini-label">Certifications</div>
+              <div class="cv-skill-tags">
+                <span class="cv-skill-tag">IBM Project Management</span>
+                <span class="cv-skill-tag">Azure Cloud Storage</span>
+                <span class="cv-skill-tag">Python Programming</span>
+                <span class="cv-skill-tag">Generative AI</span>
+                <span class="cv-skill-tag">Cybersecurity</span>
+                <span class="cv-skill-tag">Kotlin Development</span>
+              </div>
+            </div>
             <div class="cv-section-mini">
               <div class="cv-mini-label">Interests</div>
               <div class="cv-skill-tags">
@@ -434,6 +685,8 @@
                 <span class="cv-skill-tag">FinTech</span>
                 <span class="cv-skill-tag">Open Source</span>
                 <span class="cv-skill-tag">Tech Policy</span>
+                <span class="cv-skill-tag">Sports & Fitness</span>
+                <span class="cv-skill-tag">Video Games</span>
               </div>
             </div>
           </div>
@@ -506,14 +759,38 @@
               <div class="cv-section-heading">Extracurricular & Other</div>
               <div class="cv-entry">
                 <div class="cv-entry-header">
-                  <span class="cv-entry-title">[Studies, activities, societies, part-time driver]</span>
+                  <span class="cv-entry-title">Voluntary IT Support</span>
+                  <span class="cv-entry-date">2021 — 2022</span>
+                </div>
+                <div class="cv-entry-org">School IT Department · Dublin</div>
+                <ul class="cv-entry-points">
+                  <li>Supported hardware troubleshooting and basic network maintenance</li>
+                  <li>Assisted with device setup and end-user technical support</li>
+                  <li>Gained hands-on experience in a real IT environment</li>
+                </ul>
+              </div>
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Kotlin Mobile Development — Tech Club</span>
+                  <span class="cv-entry-date">2021</span>
+                </div>
+                <div class="cv-entry-org">School Tech / Coding Programme · Dublin</div>
+                <ul class="cv-entry-points">
+                  <li>Completed coding programme covering Kotlin fundamentals for Android development</li>
+                  <li>Studied object-oriented programming principles and mobile app logic</li>
+                </ul>
+              </div>
+              <div class="cv-entry">
+                <div class="cv-entry-header">
+                  <span class="cv-entry-title">Interests & Activities</span>
                   <span class="cv-entry-date">Ongoing</span>
                 </div>
-                <div class="cv-entry-org">Not applicable</div>
+                <div class="cv-entry-org">Personal</div>
                 <ul class="cv-entry-points">
-                  <li>Full time student</li>
-                  <li>Open for good places and societies, volunteering, sports, part-time work, competitions</li>
-                  <li>Always open to learna and improve</li>
+                  <li>Sports, fitness, and video games — active in keeping a healthy balance alongside studies</li>
+                  <li>Passionate about digital privacy, open-source software, and tech policy</li>
+                  <li>Self-directed learning: regularly completing online courses and certifications outside of degree</li>
+                  <li>Full driving licence holder</li>
                 </ul>
               </div>
             </div>
@@ -530,9 +807,11 @@
       <ul class="footer-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="projects.html">Projects</a></li>
+        <li><a href="projects.html">Business &amp; Data</a></li>
+        <li><a href="it-projects.html">IT Lab</a></li>
         <li><a href="animations.html">Design</a></li>
-        <li><a href="skills.html">Skills</a></li>
+        <li><a href="tools.html">Built by Me</a></li>
+        <li><a href="skills.html">Skills &amp; Training</a></li>
         <li><a href="blog.html">Blog</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -549,5 +828,74 @@
   </style>
 
   <script src="script.js"></script>
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+  </style>
+
+  <script>
+  function prefillCVRequest() {
+    setTimeout(() => {
+      const subjectField = document.getElementById('cf-subject');
+      const messageField = document.getElementById('cf-message');
+      if (subjectField) subjectField.value = 'CV Request';
+      if (messageField) messageField.value = "Hi Aston,\n\nI came across your portfolio and I\'m interested in your background. Could you please send me your CV?\n\nThank you.";
+      const form = document.getElementById('contact-form');
+      if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 200);
+  }
+
+  function copyText(text, btn) {
+    navigator.clipboard.writeText(text).then(() => {
+      const original = btn.innerHTML;
+      btn.innerHTML = '✓';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  // Contact form handler
+  const form = document.getElementById('contact-form');
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('form-submit');
+      const successEl = document.getElementById('form-success');
+      const errorEl   = document.getElementById('form-error');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      try {
+        const data = new FormData(form);
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          btn.textContent = '✓ Sent!';
+          btn.style.background = 'var(--accent3)';
+          form.reset();
+          if (successEl) successEl.style.display = 'block';
+          if (errorEl)   errorEl.style.display   = 'none';
+        } else {
+          throw new Error('Server error');
+        }
+      } catch (err) {
+        btn.textContent = 'Try again';
+        btn.style.background = 'var(--red)';
+        btn.disabled = false;
+        if (errorEl)   errorEl.style.display   = 'block';
+        if (successEl) successEl.style.display = 'none';
+      }
+    });
+  }
+  </script>
 </body>
 </html>
